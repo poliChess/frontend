@@ -1,6 +1,7 @@
 import horse from "../horse.png"
 import queen from "../queen.png"
 import google from "../google.png"
+import pieces_bg from "../pieces1_bg.png"
 import { useState } from "react";
 
 function Login() {
@@ -47,13 +48,20 @@ function Login() {
 
             <div className="bg-right-bg flex-row flex-grow hidden md:flex basis-[40%]">
 
-                <div className="bg-right-bg">
-                    <p className="">
-                    "Chess is the gymnasium of the mind"
-                    </p>
-                </div>
+                <div>
 
-                <div className="bg-[url('https://cdn-icons-png.flaticon.com/512/1322/1322264.png')] w-full h-full bg-no-repeat bg-cover opacity-20">
+                    {/* TODO
+                        Div_1 : Make the text look better.
+                        Div_2 : Fix the overflow generated here when resizing the windows.
+                    */}
+
+                    <div className="bg-right-bg text-4xl w-72 ml-20 mt-20">
+                        " Chess is beautiful enough to waste your life for "
+                    </div>
+
+                    <div className="opacity-20">
+                        <img className="h-full" src={pieces_bg} alt="Horse background" style={{position: "fixed", right: "-12em", bottom: "-6em"}}/>
+                    </div>
 
                 </div>
 

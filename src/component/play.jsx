@@ -1,5 +1,6 @@
 import horse from "../horse.png"
 import queen from "../queen.png"
+import pieces_bg from "../pieces2_bg.png"
 
 function Play() {
 
@@ -29,13 +30,20 @@ function Play() {
 
             <div className="bg-right-bg flex-row flex-grow hidden md:flex basis-[40%]">
 
-                <div className="bg-right-bg">
-                    <p className="">
-                    "Every chess master was once a beginner"
-                    </p>
-                </div>
+                <div>
 
-                <div className="bg-[url('https://cdn-icons-png.flaticon.com/512/1322/1322264.png')] w-full h-full bg-no-repeat bg-cover opacity-20">
+                    {/* TODO
+                        Div_1 : Make the text look better.
+                        Div_2 : Fix the overflow generated here when resizing the windows.
+                    */}
+
+                    <div className="bg-right-bg text-4xl w-72 ml-20 mt-20">
+                        " When you see a good move, look for a better one "
+                    </div>
+
+                    <div className="opacity-20">
+                        <img className="h-full" src={pieces_bg} alt="Horse background" style={{position: "fixed", right: "-12em", bottom: "-6em"}}/>
+                    </div>
 
                 </div>
 

@@ -6,7 +6,7 @@ import Play from "./component/play";
 function App() {
   return (
     <div className="bg-white">
-      <Home/>
+      <Register/>
     </div>
   );
 }
