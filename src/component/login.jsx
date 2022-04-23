@@ -1,4 +1,6 @@
 import horse from "../horse.png"
+import queen from "../queen.png"
+import google from "../google.png"
 
 function Login() {
 
@@ -7,7 +9,7 @@ function Login() {
 
             <div className="bg-right-bg">
                 
-                <div>
+                <div className="m-2">
                     <p style={{float: "left"}}><img src={horse} height="20px" width="20px" border="1px"/></p>
                     Poli<strong>Chess</strong>
                 </div>
@@ -16,11 +18,17 @@ function Login() {
                         
             <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen">
 
-                <input className="bg-button-1 text-white h-10 w-60 mb-4 rounded-full leading-tight focus:outline-none focus:shadow-outline placeholder-white text-center" id="username" type="text" placeholder="Username"/>
+                <img className="mb-8" src={queen} height="80px" width="80px" border="1px"/>
 
-                <input className="bg-button-1 text-white h-10 w-60 mb-4 rounded-full leading-tight focus:outline-none focus:shadow-outline placeholder-white text-center" id="password" type="text" placeholder="Password"/>
+                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full focus:outline outline-purple-600 focus:shadow-purple-600 placeholder-white text-center shadow-lg shadow-button-1" id="username" type="text" placeholder="Username"/>
 
-                <button className="bg-button-2 hover:bg-purple-600 text-white h-10 w-28 mb-4 rounded-full shadow-md hover:shadow-purple-600 shadow-button-2">Sign In</button>
+                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full focus:outline outline-purple-600 focus:shadow-purple-600 placeholder-white text-center shadow-lg shadow-button-1" id="password" type="password" placeholder="Password"/>
+
+                <button className="bg-button-2 hover:bg-purple-600 text-white h-10 w-28 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-2">Sign In</button>
+
+                <a className="mt-8" href="www.google.com">
+                    <img src={google} height="80px" width="80px" border="1px"/>
+                </a>
         
             </div>
 
