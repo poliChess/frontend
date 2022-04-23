@@ -1,30 +1,43 @@
 import horse from "../horse.png"
 import queen from "../queen.png"
 import google from "../google.png"
+import { useState } from "react";
 
 function Register() {
 
+    const [userData, setUserData] = useState({username: "", password: ""});
+
     return (
         <div className="flex bg-white">
-
-            <div className="bg-right-bg">
-
-                <div className="m-2">
-                    <p style={{float: "left"}}><img src={horse} height="20px" width="20px" border="1px"/></p>
-                    Poli<strong>Chess</strong>
-                </div>
-
-            </div>
                         
-            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen">
+            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8">
+
+                <div style={{position: "fixed", left: "1em", top: "1em"}}>
+
+                    <div>
+                        <div style={{float: "left"}}><img src={horse} height="20px" width="20px" border="1px"/></div>
+                        Poli<strong>Chess</strong>
+                    </div>
+                
+                </div>
 
                 <img className="mb-8" src={queen} height="80px" width="80px" border="1px"/>
 
-                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full focus:outline outline-purple-600 focus:shadow-purple-600 placeholder-white text-center shadow-lg shadow-button-1" id="username" type="text" placeholder="Username"/>
+                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full 
+                focus:outline outline-purple-600 focus:shadow-purple-600 
+                placeholder-white text-center shadow-lg shadow-button-1" 
+                id="username" type="text" placeholder="Username" 
+                value={userData.username} onChange={(e) => setUserData(prev => ({...prev, username: e.target.value}))}/>
 
-                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full focus:outline outline-purple-600 focus:shadow-purple-600 placeholder-white text-center shadow-lg shadow-button-1" id="password" type="password" placeholder="Password"/>
+                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full 
+                focus:outline outline-purple-600 focus:shadow-purple-600 placeholder-white 
+                text-center shadow-lg shadow-button-1" 
+                id="password" type="password" placeholder="Password" 
+                value={userData.password} onChange={(e) => setUserData(prev => ({...prev, password: e.target.value}))}/>
 
-                <button className="bg-button-2 hover:bg-purple-600 text-white h-10 w-28 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-2">Sign Up</button>
+                <button className="bg-button-2 hover:bg-purple-600 text-white h-10 w-28 mb-6 rounded-full 
+                shadow-lg hover:shadow-purple-600 shadow-button-2" 
+                onClick={() => console.log(userData)}>Sign Up</button>
         
                 <a className="mt-8" href="www.google.com">
                     <img src={google} height="80px" width="80px" border="1px"/>
@@ -32,11 +45,11 @@ function Register() {
 
             </div>
 
-            <div className="bg-right-bg flex-row flex-grow hidden md:flex">
+            <div className="bg-right-bg flex-row flex-grow hidden md:flex basis-[40%]">
 
                 <div className="bg-right-bg">
                     <p className="">
-                    "Every chess master was once a beginner"
+                        "Every chess master was once a beginner"
                     </p>
                 </div>
 
