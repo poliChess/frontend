@@ -1,6 +1,6 @@
 import horse from "../horse.png"
 
-function Home() {
+function Login() {
 
     return (
         <div className="flex bg-white">
@@ -16,12 +16,12 @@ function Home() {
                         
             <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen">
 
-                <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-4 rounded-full shadow-md hover:shadow-purple-600 shadow-button-1">Login</button>
+                <input className="bg-button-1 text-white h-10 w-60 mb-4 rounded-full leading-tight focus:outline-none focus:shadow-outline placeholder-white text-center" id="username" type="text" placeholder="Username"/>
 
-                <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-4 rounded-full shadow-md hover:shadow-purple-600 shadow-button-1">Register</button>
+                <input className="bg-button-1 text-white h-10 w-60 mb-4 rounded-full leading-tight focus:outline-none focus:shadow-outline placeholder-white text-center" id="password" type="text" placeholder="Password"/>
 
-                <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-4 rounded-full shadow-md hover:shadow-purple-600 shadow-button-1">Guest</button>
-                            
+                <button className="bg-button-2 hover:bg-purple-600 text-white h-10 w-28 mb-4 rounded-full shadow-md hover:shadow-purple-600 shadow-button-2">Sign In</button>
+        
             </div>
 
             <div className="bg-right-bg flex-row flex-grow hidden md:flex">
@@ -42,4 +42,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Login;

@@ -4,7 +4,8 @@ module.exports = {
     extend: {
       colors: {
         'right-bg': '#E5E5E5',
-        'button-1': '#3499DB'
+        'button-1': '#3499DB',
+        'button-2': '#164362'
       }
     },
   },
