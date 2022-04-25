@@ -26,72 +26,87 @@ function Game() {
 
         <div className="bg-right-bg flex-row">
 
-            <div className="bg-red-600 flex justify-between">
-
-                    <div className="ml-3">
-                        <div style={{float: "left"}}><img src={horse} height="20px" width="20px" border="1px"/></div>
-                        Poli<strong>Chess</strong>
-                    </div>
-
-                    <Link to="/">
-                        <div className="text-white mr-3">
-                            <strong>Abandon</strong>
-                        </div>
-                    </Link>
-
-            </div>
+            
 
             <div className="bg-green-600 flex justify-between">
 
-                    <div className="flex-grow">
+                {/* <div style={{position: "fixed", left: "3em", top: "3em"}}>
 
-                        <div className="m-1">
-                                <img className="m-auto" src={bishop} height="100px" width="100px" border="1px"/>
-                        </div>
+                    <div className="m-1">
+                        <img className="m-auto" src={bishop} height="100px" width="100px" border="1px"/>
+                    </div>
 
-                        <div className="text-center">
-                                Player_1
+                    <div className="text-center">
+                        Player_1
+                    </div>
+
+                </div> */}
+
+                <div className="flex-grow flex-shrink-0">
+
+                    <div className="mt-2 ml-2 bg-blue-500 h-6">
+                        <div>
+                            <div style={{float: "left"}}><img src={horse} height="20px" width="20px" border="1px"/></div>
+                            Poli<strong>Chess</strong>
                         </div>
+                    </div>
+
+                    <div className="mt-20">
+                            <img className="m-auto" src={bishop} height="100px" width="100px" border="1px"/>
+                    </div>
+
+                    <div className="text-center">
+                        Player_1
+                    </div>
                         
+                </div>
+
+                <div className="bg-orange-600 flex flex-grow ml-44 mr-44 flex-shrink-0">
+
+                    <div className="bg-white flex-grow self-center text-center">
+                        3:59
                     </div>
 
-                    <div className="bg-orange-600 flex flex-grow">
-
-                        <div className="bg-white flex-grow self-center text-center">
-                            3:59
-                        </div>
-
-                        <div className="bg-green-400 flex-grow">
-                                <img className="m-auto" src={clock1} height="140px" width="140px" border="1px"/>
-                        </div>
-
-                        <div className="bg-white flex-grow self-center text-center">
-                            4:15
-                        </div>
+                    <div className="bg-green-400 flex-grow ml-10 mr-10 self-center">
+                            <img className="m-auto" src={clock1} height="140px" width="140px" border="1px"/>
                     </div>
 
-                    <div className="flex-grow">
+                    <div className="bg-white flex-grow self-center text-center">
+                        4:15
+                    </div>
+                </div>
 
-                        <div className="m-1">
-                                <img className="m-auto" src={king} height="100px" width="100px" border="1px"/>
-                        </div>
-
-                        <div className="text-center">
-                                Player_2
-                        </div>
+                <div className="flex-grow flex-shrink-0">
                         
+                    <div className="text-white text-right mt-2 mr-2 bg-red-500">
+                        <Link to="/">
+                            <button className="bg-button-2 hover:bg-purple-600 text-white w-24 h-6 
+                            rounded-full shadow-lg hover:shadow-purple-600 shadow-button-2">
+                                <strong className="text-md">Abandon</strong>
+                            </button>
+                        </Link>
                     </div>
 
-                {/* </div> */}
+                    <div className="mt-20">
+                            <img className="m-auto" src={king} height="100px" width="100px" border="1px"/>
+                    </div>
+
+                    <div className="text-center">
+                            Player_2
+                    </div>
+                        
+                </div>
+
+                
             </div>
 
-            <div className="bg-blue-600 flex">
+            <div className="bg-blue-600 flex mt-5">
 
                 <div className="bg-purple-600 flex-grow flex items-center shrink-0">
                     
                     <div className="bg-red-500 flex-grow m-7">
 
-                    <div className="bg-orange-100 flex items-center">
+                    <div className="bg-orange-100 flex items-center m-1">
 
                         <div className="m-auto">
 
@@ -104,7 +119,7 @@ function Game() {
                         </div>
 
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                         <div className="m-auto">
 
@@ -117,7 +132,7 @@ function Game() {
                         </div>
 
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                         <div className="m-auto">
 
@@ -130,7 +145,7 @@ function Game() {
                         </div>
 
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                         <div className="m-auto">
 
@@ -143,7 +158,7 @@ function Game() {
                         </div>
 
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                         <div className="m-auto">
 
@@ -353,67 +368,67 @@ function Game() {
                     
                     <div className="bg-red-500 flex-grow m-7">
 
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                             <div className="m-auto">
                             
                                 <div className="flex items-center">
+                                    <div className="text-center">
+                                        0 X
+                                    </div>
                                     <img className="" src={white_pawn} height="50px" width="50px" border="1px"/>
-                                    <div className="text-center">
-                                        X 0
-                                    </div>
                                 </div>
                             </div>
                             
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                             <div className="m-auto">
                             
                                 <div className="flex items-center">
+                                    <div className="text-center">
+                                        0 X
+                                    </div>
                                     <img className="" src={white_rook} height="50px" width="50px" border="1px"/>
-                                    <div className="text-center">
-                                        X 0
-                                    </div>
                                 </div>
                             </div>
                             
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                             <div className="m-auto">
                             
                                 <div className="flex items-center">
+                                    <div className="text-center">
+                                        0 X
+                                    </div>
                                     <img className="" src={white_knight} height="50px" width="50px" border="1px"/>
-                                    <div className="text-center">
-                                        X 0
-                                    </div>
                                 </div>
                             </div>
                             
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                             <div className="m-auto">
                             
                                 <div className="flex items-center">
+                                    <div className="text-center">
+                                        0 X
+                                    </div>
                                     <img className="" src={white_bishop} height="50px" width="50px" border="1px"/>
-                                    <div className="text-center">
-                                        X 0
-                                    </div>
                                 </div>
                             </div>
                             
                         </div>
-                        <div className="bg-orange-100 flex items-center">
+                        <div className="bg-orange-100 flex items-center m-1">
 
                             <div className="m-auto">
                             
                                 <div className="flex items-center">
-                                    <img className="" src={white_queen} height="50px" width="50px" border="1px"/>
                                     <div className="text-center">
-                                        X 0
+                                        0 X
                                     </div>
+                                    <img className="" src={white_queen} height="50px" width="50px" border="1px"/>
                                 </div>
                             </div>
                             
@@ -424,9 +439,9 @@ function Game() {
 
             </div>
 
-            <div className="bg-black flex-grow">
+            {/* <div className="bg-black flex-grow">
                 sdasdsa
-            </div>
+            </div> */}
 
         </div>
     );
