@@ -3,12 +3,12 @@ import queen from "../queen.png"
 import pieces_bg from "../pieces2_bg.png"
 import { Link } from "react-router-dom";
 
-function Play() {
+function Local() {
 
     return (
         <div className="flex bg-white">
                         
-            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8 z-10">
+            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8">
 
                 <div style={{position: "fixed", left: "1em", top: "1em"}}>
 
@@ -27,13 +27,9 @@ function Play() {
                     <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Local game</button>
                 </Link>
 
-                <Link to="/game">
-                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Online game</button>
-                </Link>
+                <button disabled className="cursor-not-allowed bg-button-1 hover:bg-red-300 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-red-300 shadow-button-1">Online game</button>
 
-                <Link to="/game">
-                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Versus AI</button>
-                </Link>
+                <button disabled className="cursor-not-allowed bg-button-1 hover:bg-red-300 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-red-300 shadow-button-1">Versus AI</button>
 
             </div>
 
@@ -62,4 +58,4 @@ function Play() {
     );
 }
 
-export default Play;
+export default Local;

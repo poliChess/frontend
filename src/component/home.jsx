@@ -8,7 +8,7 @@ function Home() {
     return (
         <div className="flex bg-white">
                         
-            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8">
+            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8 z-10">
 
                 <div style={{position: "fixed", left: "1em", top: "1em"}}>
 
@@ -31,7 +31,7 @@ function Home() {
                     <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Register</button>
                 </Link>
 
-                <Link to="/play">
+                <Link to="/local">
                     <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Guest</button>
                 </Link>
 

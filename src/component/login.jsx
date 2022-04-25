@@ -12,7 +12,7 @@ function Login() {
     return (
         <div className="flex bg-white">
                         
-            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8">
+            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8 z-10">
 
                 <div style={{position: "fixed", left: "1em", top: "1em"}}>
 

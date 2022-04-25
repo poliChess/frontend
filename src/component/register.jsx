@@ -12,7 +12,7 @@ function Register() {
     return (
         <div className="flex bg-white">
                         
-            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8">
+            <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8 z-10">
 
                 <div style={{position: "fixed", left: "1em", top: "1em"}}>
 
@@ -24,6 +24,8 @@ function Register() {
                     </Link>
                 
                 </div>
+
+                <img className="mb-8" src={queen} height="80px" width="80px" border="1px"/>
 
                 <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full 
                 focus:outline outline-purple-600 focus:shadow-purple-600 
