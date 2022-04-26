@@ -39,7 +39,6 @@ function Local() {
 
                     {/* TODO
                         Div_1 : Make the text look better.
-                        Div_2 : Fix the overflow generated here when resizing the windows.
                     */}
 
                     <div className="bg-right-bg text-4xl w-72 ml-20 mt-20">

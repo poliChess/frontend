@@ -26,7 +26,9 @@ function Game() {
 
         <div className="bg-right-bg flex-row">
 
-            
+            {/* TODO
+                    Change pieces. Black piece has different offset than the white piece.
+            */}
 
             <div className="flex justify-between">
 
@@ -94,73 +96,72 @@ function Game() {
                     
                     <div className="mr-11 bg-white flex-grow m-16 rounded-2xl border-b-black border-t-black border-4 shadow-xl shadow-button-1 hover:shadow-purple-600">
 
-                    <div className="bg-white flex items-center m-1">
-
-                        <div className="m-auto">
-
-                            <div className="flex items-center">
-                                <img className="" src={black_pawn} height="50px" width="50px" border="1px"/>
-                                <div className="text-center">
-                                    X 0
-                                </div>
-                            </div>
-                        </div>
-
-                        </div>
                         <div className="bg-white flex items-center m-1">
 
-                        <div className="m-auto">
+                            <div className="m-auto">
 
-                            <div className="flex items-center">
-                                <img className="" src={black_rook} height="50px" width="50px" border="1px"/>
-                                <div className="text-center">
-                                    X 0
+                                <div className="flex items-center">
+                                    <img className="" src={black_pawn} height="50px" width="50px" border="1px"/>
+                                    <div className="text-center">
+                                        X 0
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        </div>
-                        <div className="bg-white flex items-center m-1">
+                            </div>
+                            <div className="bg-white flex items-center m-1">
 
-                        <div className="m-auto">
+                            <div className="m-auto">
 
-                            <div className="flex items-center">
-                                <img className="" src={black_knight} height="50px" width="50px" border="1px"/>
-                                <div className="text-center">
-                                    X 0
+                                <div className="flex items-center">
+                                    <img className="" src={black_rook} height="50px" width="50px" border="1px"/>
+                                    <div className="text-center">
+                                        X 0
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        </div>
-                        <div className="bg-white flex items-center m-1">
+                            </div>
+                            <div className="bg-white flex items-center m-1">
 
-                        <div className="m-auto">
+                            <div className="m-auto">
 
-                            <div className="flex items-center">
-                                <img className="" src={black_bishop} height="50px" width="50px" border="1px"/>
-                                <div className="text-center">
-                                    X 0
+                                <div className="flex items-center">
+                                    <img className="" src={black_knight} height="50px" width="50px" border="1px"/>
+                                    <div className="text-center">
+                                        X 0
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        </div>
-                        <div className="bg-white flex items-center m-1">
+                            </div>
+                            <div className="bg-white flex items-center m-1">
 
-                        <div className="m-auto">
+                            <div className="m-auto">
 
-                            <div className="flex items-center">
-                                <img className="" src={black_queen} height="50px" width="50px" border="1px"/>
-                                <div className="text-center">
-                                    X 0
+                                <div className="flex items-center">
+                                    <img className="" src={black_bishop} height="50px" width="50px" border="1px"/>
+                                    <div className="text-center">
+                                        X 0
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            </div>
+                            <div className="bg-white flex items-center m-1">
+
+                            <div className="m-auto">
+
+                                <div className="flex items-center">
+                                    <img className="" src={black_queen} height="50px" width="50px" border="1px"/>
+                                    <div className="text-center">
+                                        X 0
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
-
                 </div>
 
                 <div className="flex-grow content-center flex shrink-0">
