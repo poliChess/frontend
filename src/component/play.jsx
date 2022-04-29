@@ -24,15 +24,21 @@ function Play() {
                 <img className="mb-8" src={queen} height="80px" width="80px" border="1px"/>
 
                 <Link to="/game">
-                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Local game</button>
+                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+                        Local game
+                    </button>
                 </Link>
 
                 <Link to="/game">
-                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Online game</button>
+                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+                        Online game
+                    </button>
                 </Link>
 
                 <Link to="/game">
-                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">Versus AI</button>
+                    <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+                        Versus AI
+                    </button>
                 </Link>
 
             </div>

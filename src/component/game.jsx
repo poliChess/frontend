@@ -365,7 +365,7 @@ function Game() {
                                     <div className="text-center">
                                         0 X
                                     </div>
-                                    <img className="" src={black_pawn} height="50px" width="50px" border="1px"/>
+                                    <img className="" src={white_pawn} height="50px" width="50px" border="1px"/>
                                 </div>
                             </div>
                             
@@ -378,7 +378,7 @@ function Game() {
                                     <div className="text-center">
                                         0 X
                                     </div>
-                                    <img className="" src={black_rook} height="50px" width="50px" border="1px"/>
+                                    <img className="" src={white_rook} height="50px" width="50px" border="1px"/>
                                 </div>
                             </div>
                             
@@ -391,7 +391,7 @@ function Game() {
                                     <div className="text-center">
                                         0 X
                                     </div>
-                                    <img className="" src={black_knight} height="50px" width="50px" border="1px"/>
+                                    <img className="" src={white_knight} height="50px" width="50px" border="1px"/>
                                 </div>
                             </div>
                             
@@ -404,7 +404,7 @@ function Game() {
                                     <div className="text-center">
                                         0 X
                                     </div>
-                                    <img className="" src={black_bishop} height="50px" width="50px" border="1px"/>
+                                    <img className="" src={white_bishop} height="50px" width="50px" border="1px"/>
                                 </div>
                             </div>
                             
@@ -417,7 +417,7 @@ function Game() {
                                     <div className="text-center">
                                         0 X
                                     </div>
-                                    <img className="" src={black_queen} height="50px" width="50px" border="1px"/>
+                                    <img className="" src={white_queen} height="50px" width="50px" border="1px"/>
                                 </div>
                             </div>
                             
