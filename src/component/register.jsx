@@ -27,13 +27,13 @@ function Register() {
 
                 <img className="mb-8" src={queen} height="80px" width="80px" border="1px"/>
 
-                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full 
+                <input className="bg-button-1 text-white h-10 w-60 mb-6  
                 focus:outline outline-purple-600 focus:shadow-purple-600 
                 placeholder-white text-center shadow-lg shadow-button-1" 
                 id="username" type="text" placeholder="Username" 
                 value={userData.username} onChange={(e) => setUserData(prev => ({...prev, username: e.target.value}))}/>
 
-                <input className="bg-button-1 text-white h-10 w-60 mb-6 rounded-full 
+                <input className="bg-button-1 text-white h-10 w-60 mb-6  
                 focus:outline outline-purple-600 focus:shadow-purple-600 placeholder-white 
                 text-center shadow-lg shadow-button-1" 
                 id="password" type="password" placeholder="Password" 
