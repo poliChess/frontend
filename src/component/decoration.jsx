@@ -20,11 +20,10 @@ function Decoration(screen) {
   quotes[2] = '" Nobody ever won a chess game by resigning "';
 
   index_quote = Math.floor(Math.random() * quotes.length);
-
+  const loggedIn = false; 
   return (
     <div className="flex bg-white">
       {screen}
-
       <div className="bg-right-bg flex-row flex-grow hidden md:flex basis-[40%]">
         <div>
           {/* TODO
