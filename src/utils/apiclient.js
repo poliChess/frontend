@@ -5,7 +5,7 @@ const client = createClient({
 })
 
 const apiclient = {
-  login: async (username, password) => {
+  login: async ({ username, password }) => {
     const res = await client.mutation(`
       mutation($username: String!, $password: String!) {
         login(username: $username, password: $password) {
@@ -21,10 +21,10 @@ const apiclient = {
       { username, password }
     ).toPromise();
 
-    return res.data;
+    return res.data.login;
   },
 
-  register: async (mail, username, password) => {
+  register: async ({ mail, username, password }) => {
     const res = await client.mutation(
       `mutation($mail: String!, $username: String!, $password: String!) {
         register(mail: $mail, username: $username, password: $password) {
@@ -35,7 +35,7 @@ const apiclient = {
       { mail, username, password}
     ).toPromise();
 
-    return res.data;
+    return res.data.register;
   }
 };
 
