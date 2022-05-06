@@ -1,9 +1,8 @@
-import Home from "./component/home";
-import Login from "./component/login";
-import Register from "./component/register";
-import Play from "./component/play";
-import Local from "./component/local"
-import Game from "./component/game"
+import Home from "./component/screen/home";
+import Login from "./component/screen/login";
+import Register from "./component/screen/register";
+import Play from "./component/screen/play";
+import Game from "./component/screen/game"
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/play" element={<Play/>}/>
-          <Route path="/local" element={<Local/>}/>
           <Route path="/game" element={<Game/>}/>
         </Routes>
       </Router>

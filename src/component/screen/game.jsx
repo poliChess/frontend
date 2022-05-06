@@ -1,22 +1,22 @@
-import horse from "../pictures/logos/horse.png";
-import clock1 from "../pictures/misc/clock1.png";
-import clock2 from "../pictures/misc/clock2.png";
-import king from "../pictures/avatars/avatar_king.png";
-import bishop from "../pictures/avatars/avatar_bishop.png";
+import horse from "../../pictures/logos/horse.png";
+import clock1 from "../../pictures/misc/clock1.png";
+import clock2 from "../../pictures/misc/clock2.png";
+import king from "../../pictures/avatars/avatar_king.png";
+import bishop from "../../pictures/avatars/avatar_bishop.png";
 
-import black_pawn from "../pictures/pieces/black_pawn.png";
-import black_rook from "../pictures/pieces/black_rook.png";
-import black_knight from "../pictures/pieces/black_knight.png";
-import black_bishop from "../pictures/pieces/black_bishop.png";
-import black_queen from "../pictures/pieces/black_queen.png";
-import black_king from "../pictures/pieces/black_king.png";
+import black_pawn from "../../pictures/pieces/black_pawn.png";
+import black_rook from "../../pictures/pieces/black_rook.png";
+import black_knight from "../../pictures/pieces/black_knight.png";
+import black_bishop from "../../pictures/pieces/black_bishop.png";
+import black_queen from "../../pictures/pieces/black_queen.png";
+import black_king from "../../pictures/pieces/black_king.png";
 
-import white_pawn from "../pictures/pieces/white_pawn.png";
-import white_rook from "../pictures/pieces/white_rook.png";
-import white_knight from "../pictures/pieces/white_knight.png";
-import white_bishop from "../pictures/pieces/white_bishop.png";
-import white_queen from "../pictures/pieces/white_queen.png";
-import white_king from "../pictures/pieces/white_king.png";
+import white_pawn from "../../pictures/pieces/white_pawn.png";
+import white_rook from "../../pictures/pieces/white_rook.png";
+import white_knight from "../../pictures/pieces/white_knight.png";
+import white_bishop from "../../pictures/pieces/white_bishop.png";
+import white_queen from "../../pictures/pieces/white_queen.png";
+import white_king from "../../pictures/pieces/white_king.png";
 
 import { Link } from "react-router-dom";
 
