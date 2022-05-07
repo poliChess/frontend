@@ -29,7 +29,7 @@ function Register() {
   }
 
   const screen = (
-    <div className='bg-white flex flex-grow flex-col justify-center items-center h-screen pb-8 pt-8 z-10'>
+    <div className='bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132'>
       <Title /> 
 
       <img

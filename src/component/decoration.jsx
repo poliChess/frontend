@@ -22,20 +22,16 @@ function Decoration(screen) {
     <div className="flex bg-white">
       {screen}
       <div className="bg-decoration-bg flex-row flex-grow hidden md:flex basis-[40%]">
-        <div>
-          <div className="bg-decoration-bg text-4xl w-72 ml-20 mt-20">
-            {quotes[index.quote]}
-          </div>
+        <h1 className="bg-decoration-bg text-4xl w-96 m-20">
+          {quotes[index.quote]}
+        </h1>
 
-          <div className="opacity-20">
-            <img
-              className="h-3/5"
-              src={images[index.image]}
-              alt="Horse background"
-              style={{ position: "fixed", right: "-6em", bottom: "-6em" }}
-            />
-          </div>
-        </div>
+        <img
+          className="h-3/5 opacity-20"
+          src={images[index.image]}
+          alt="Horse background"
+          style={{ position: "fixed", right: "-6em", bottom: "-6em" }}
+        />
       </div>
     </div>
   );
