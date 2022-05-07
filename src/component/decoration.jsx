@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import horse_bg from "../pictures/backgrounds/horse_bg.png";
 import king_bg from "../pictures/backgrounds/king_bg.png";
 import pieces1_bg from "../pictures/backgrounds/pieces1_bg.png";
@@ -11,22 +13,24 @@ const quotes = [
 ];
 
 function Decoration(screen) {
-  const index_image = Math.floor(Math.random() * images.length);
-  const index_quote = Math.floor(Math.random() * quotes.length);
+  const [index, setIndex] = useState({
+    image: Math.floor(Math.random() * images.length),
+    quote: Math.floor(Math.random() * quotes.length)
+  });
 
   return (
     <div className="flex bg-white">
       {screen}
-      <div className="bg-right-bg flex-row flex-grow hidden md:flex basis-[40%]">
+      <div className="bg-decoration-bg flex-row flex-grow hidden md:flex basis-[40%]">
         <div>
-          <div className="bg-right-bg text-4xl w-72 ml-20 mt-20">
-            {quotes[index_quote]}
+          <div className="bg-decoration-bg text-4xl w-72 ml-20 mt-20">
+            {quotes[index.quote]}
           </div>
 
           <div className="opacity-20">
             <img
               className="h-3/5"
-              src={images[index_image]}
+              src={images[index.image]}
               alt="Horse background"
               style={{ position: "fixed", right: "-6em", bottom: "-6em" }}
             />
