@@ -7,29 +7,10 @@ import Title from '../title';
 
 import apiclient from '../../utils/apiclient.js';
 
-function Register() {
-  const [userData, setUserData] = useState({ mail: '', username: '', password: '' });
-  const [message, setMessage] = useState({ text: '', color: 'black' });
-
-  const handleSubmit = async () => {
-    if (!userData.mail || !userData.username || !userData.password) {
-      setMessage({ text: 'Complete all fields!', color: 'red' })
-      return;
-    }
-
-    const res = await apiclient.register(userData);
-    // DELETE: delete this when component is finalized
-    console.log(res);
-
-    if (res.success) {
-      setMessage({ text: 'Register Successful', color: 'black' })
-    } else {
-      setMessage({ text: res.message, color: 'red' })
-    }
-  }
+function Profile() {
 
   const screen = (
-    <div className='bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132'>
+    <div className='bg-red-600 flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132'>
       <Title /> 
 
       <img
@@ -47,8 +28,6 @@ function Register() {
         id='email'
         type='text'
         placeholder='Email'
-        value={userData.mail}
-        onChange={(e) => setUserData((prev) => ({ ...prev, mail: e.target.value }))}
       />
 
       <input
@@ -58,8 +37,6 @@ function Register() {
         id='username'
         type='text'
         placeholder='Username'
-        value={userData.username}
-        onChange={(e) => setUserData((prev) => ({ ...prev, username: e.target.value }))}
       />
 
       <input
@@ -69,14 +46,11 @@ function Register() {
         id='password'
         type='password'
         placeholder='Password'
-        value={userData.password}
-        onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
       />
 
       <button
         className='bg-button-2 hover:bg-purple-600 text-white h-10 w-28 mb-6 rounded-full 
                    hover:shadow-purple-600 shadow-button-2 shadow-md'
-        onClick={handleSubmit}
       >
         Sign Up
       </button>
@@ -85,11 +59,10 @@ function Register() {
         <img src={google} height='60px' width='60px' border='1px' />
       </a>
 
-      <h3 className='m-10 h-12 max-h-12 max-w-50' style={{color:message.color}}> {message.text} </h3>
     </div>
   );
 
-  return Decoration(screen);
+  return screen;
 }
 
-export default Register;
+export default Profile;

@@ -34,6 +34,12 @@ function Play() {
           Versus AI
         </button>
       </Link>
+
+      <Link to="/profile">
+        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+          Profile
+        </button>
+      </Link>
     </div>
   );
 

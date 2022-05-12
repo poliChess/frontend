@@ -1,25 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const screenSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
 
   initialState: {
     loggedIn: false,
+    info: {},
     token: '',
   },
 
   reducers: {
     setToken: (state, args) => {
       state.loggedIn = true;
+      state.info = args.user;
       state.token = args.token;
     },
     clearToken: (state) => {
       state.loggedIn = false;
+      state.info = {};
       state.token = '';
     }
   },
 })
 
-export const { logIn, logOut } = screenSlice.actions
+export const { setToken, clearToken } = userSlice.actions
 
-export default screenSlice.reducer
+export default userSlice.reducer
