@@ -2,6 +2,7 @@ import queen from "../../pictures/logos/queen.png";
 import google from "../../pictures/logos/google.png";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { setLoggedIn } from "../../state/userSlice";
 
 import Decoration from "../decoration";
@@ -14,6 +15,7 @@ function Login() {
   const [userData, setUserData] = useState({ username: "", password: "" });
   const [message, setMessage] = useState({ text: "", color: "black" });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (!userData.username || !userData.password) {
@@ -26,6 +28,7 @@ function Login() {
     if (res.success) {
       setMessage({ text: "Login Successful", color: "black" });
       dispatch(setLoggedIn(res));
+      setTimeout(() => navigate('/'), 500);
     } else {
       setMessage({ text: res.message, color: "red" });
     }

@@ -1,6 +1,7 @@
 import queen from '../../pictures/logos/queen.png';
 import google from '../../pictures/logos/google.png';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Decoration from '../decoration';
 import Title from '../title';
@@ -10,6 +11,7 @@ import apiclient from '../../utils/apiclient.js';
 function Register() {
   const [userData, setUserData] = useState({ mail: '', username: '', password: '' });
   const [message, setMessage] = useState({ text: '', color: 'black' });
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (!userData.mail || !userData.username || !userData.password) {
@@ -18,11 +20,10 @@ function Register() {
     }
 
     const res = await apiclient.register(userData);
-    // DELETE: delete this when component is finalized
-    console.log(res);
 
     if (res.success) {
       setMessage({ text: 'Register Successful', color: 'black' })
+      setTimeout(() => navigate('/login'), 500);
     } else {
       setMessage({ text: res.message, color: 'red' })
     }
