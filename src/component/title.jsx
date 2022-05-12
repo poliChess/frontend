@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 function Title() {
   return (
-    <div style={{ position: 'fixed', left: '1em', top: '1em' }}>
+    <div className="fixed left-4 top-4">
       <Link to='/'>
-        <div>
-          <div style={{ float: 'left' }}>
-            <img src={horse} height='20px' width='20px' border='1px' />
+        <div className='text-lg float-left'>
+          <div className="float-left">
+            <img src={horse} height='24px' width='24px' />
           </div>
           Poli<strong>Chess</strong>
         </div>
