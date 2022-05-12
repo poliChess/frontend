@@ -34,7 +34,7 @@ function Register() {
       <Title /> 
 
       <img
-        className='mb-8'
+        className='m-8 hover:scale-125 transition-all'
         src={queen}
         height='80px'
         width='80px'
@@ -42,9 +42,8 @@ function Register() {
       />
 
       <input
-        className='bg-white text-black h-10 w-60 mb-6 rounded-full outline outline-button-1 outline-2
-                   focus:outline-purple-600 focus:shadow-purple-600 
-                   placeholder-gray-500 text-center'
+        className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
+                   transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
         id='email'
         type='text'
         placeholder='Email'
@@ -53,9 +52,8 @@ function Register() {
       />
 
       <input
-        className='bg-white text-black h-10 w-60 mb-6 rounded-full outline outline-button-1 outline-2
-                   focus:outline-purple-600 focus:shadow-purple-600 
-                   placeholder-gray-500 text-center'
+        className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
+                   transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
         id='username'
         type='text'
         placeholder='Username'
@@ -64,9 +62,8 @@ function Register() {
       />
 
       <input
-        className='bg-white text-black h-10 w-60 mb-6 rounded-full outline outline-button-1 outline-2
-                   focus:outline-purple-600 focus:shadow-purple-600 
-                   placeholder-gray-500 text-center'
+        className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
+                   transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
         id='password'
         type='password'
         placeholder='Password'
@@ -75,8 +72,8 @@ function Register() {
       />
 
       <button
-        className='bg-button-2 hover:bg-purple-600 text-white h-10 w-28 mb-6 rounded-full 
-                   hover:shadow-purple-600 shadow-button-2 shadow-md'
+        className='bg-secondary-color text-white h-10 w-32 mb-6 rounded-full
+                   hover:scale-110 focus:scale-110 transition-all'
         onClick={handleSubmit}
       >
         Sign Up

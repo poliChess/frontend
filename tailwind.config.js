@@ -3,11 +3,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'decoration-bg': '#E5E5E5',
-        'button-1': '#3499DB',
-        'button-2': '#164362'
+        'decoration-bg': '#D6DEE2',
+        'main-color': '#3499DB',
+        'secondary-color': '#164362',
+        'accent-color': '#702D57'
       },
       spacing: {
+        '70': '18rem',
         '132': '36rem'
       },
       screens: {

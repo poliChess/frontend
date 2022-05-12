@@ -13,7 +13,7 @@ function Play() {
       <User />
 
       <img
-        className="mb-8"
+        className="mb-8 hover:scale-125 transition-all"
         src={queen}
         height="80px"
         width="80px"
@@ -21,25 +21,25 @@ function Play() {
       />
 
       <Link to="/game">
-        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
           Local game
         </button>
       </Link>
 
       <Link to="/game">
-        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
           Online game
         </button>
       </Link>
 
       <Link to="/game">
-        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
           Versus AI
         </button>
       </Link>
 
       <Link to="/profile">
-        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
           Profile
         </button>
       </Link>
@@ -51,11 +51,11 @@ function Play() {
 
 function Welcome() {
   const screen = (
-    <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132 relative">
+    <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132">
       <Title /> 
 
       <img
-        className="mb-8"
+        className="mb-8 hover:scale-125 transition-all"
         src={queen}
         height="80px"
         width="80px"
@@ -63,19 +63,19 @@ function Welcome() {
       />
 
       <Link to="/login">
-        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
           Login
         </button>
       </Link>
 
       <Link to="/register">
-        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
           Register
         </button>
       </Link>
 
       <Link to="/local">
-        <button className="bg-button-1 hover:bg-purple-600 text-white h-10 w-60 mb-6 rounded-full shadow-lg hover:shadow-purple-600 shadow-button-1">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
           Guest
         </button>
       </Link>
