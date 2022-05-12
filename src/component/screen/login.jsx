@@ -1,13 +1,14 @@
 import queen from "../../pictures/logos/queen.png";
 import google from "../../pictures/logos/google.png";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import apiclient from "../../utils/apiclient";
 import { useDispatch } from "react-redux";
-import { setToken } from "../../state/userSlice";
+import { setLoggedIn } from "../../state/userSlice";
 
 import Decoration from "../decoration";
 import Title from "../title";
+import User from "../user";
+
+import apiclient from "../../utils/apiclient";
 
 function Login() {
   const [userData, setUserData] = useState({ username: "", password: "" });
@@ -21,12 +22,10 @@ function Login() {
     }
 
     const res = await apiclient.login(userData);
-    // DELETE: delete this when component is finalized
-    console.log(res);
 
     if (res.success) {
       setMessage({ text: "Login Successful", color: "black" });
-      dispatch(setToken(res));
+      dispatch(setLoggedIn(res));
     } else {
       setMessage({ text: res.message, color: "red" });
     }
@@ -35,6 +34,7 @@ function Login() {
   const screen = (
     <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132">
       <Title />
+      <User />
 
       <img
         className="mb-8"

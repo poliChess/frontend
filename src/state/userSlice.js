@@ -5,24 +5,36 @@ export const userSlice = createSlice({
 
   initialState: {
     loggedIn: false,
+    guest: false,
     info: {},
     token: '',
   },
 
   reducers: {
-    setToken: (state, args) => {
-      state.loggedIn = true;
-      state.info = args.user;
-      state.token = args.token;
-    },
-    clearToken: (state) => {
+    setGuest: (state) => {
       state.loggedIn = false;
+      state.guest = true;
+    },
+    setLoggedIn: (state, { payload }) => {
+      console.log(payload);
+      state.loggedIn = true;
+      state.guest = false;
+      state.info = payload.user;
+      state.token = payload.token;
+    },
+    setInfo: (state, { payload }) => {
+      state.loggedIn = true;
+      state.info = payload.user;
+    },
+    clear: (state) => {
+      state.loggedIn = false;
+      state.guest = false;
       state.info = {};
       state.token = '';
     }
   },
 })
 
-export const { setToken, clearToken } = userSlice.actions
+export const { setGuest, setLoggedIn, clear } = userSlice.actions
 
 export default userSlice.reducer

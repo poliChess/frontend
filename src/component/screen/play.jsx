@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 
 import Decoration from "../decoration";
 import Title from '../title';
+import User from '../user';
 
 function Play() {
   const screen = (
     <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132">
       <Title />      
+      <User />
 
       <img
         className="mb-8"

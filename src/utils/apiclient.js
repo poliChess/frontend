@@ -10,8 +10,12 @@ const apiclient = {
       mutation($username: String!, $password: String!) {
         login(username: $username, password: $password) {
           user {
-            username
             mail
+            username
+            playedGames
+            wonGames
+            rating
+            lastLogin
           }
           token
           success
