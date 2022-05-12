@@ -5,13 +5,11 @@ import { useSelector } from 'react-redux';
 function User() {
   const user = useSelector(state => state.user);
 
-  console.log(user);
-
   if (!user.loggedIn || !user.info)
     return null;
 
   return (
-    <div className="fixed right-4 top-4">
+    <div className="absolute top-4 right-4">
       <Link to='/profile'>
         <div className='text-lg float-left'>
           {user.info.username} 

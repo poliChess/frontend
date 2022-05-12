@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Title() {
   return (
-    <div className="fixed left-4 top-4">
+    <div className="absolute left-4 top-4">
       <Link to='/'>
         <div className='text-lg float-left'>
           <div className="float-left">

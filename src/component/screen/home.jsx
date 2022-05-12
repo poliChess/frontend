@@ -8,7 +8,7 @@ import User from '../user';
 
 function Play() {
   const screen = (
-    <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132">
+    <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132 relative">
       <Title />      
       <User />
 
@@ -51,7 +51,7 @@ function Play() {
 
 function Welcome() {
   const screen = (
-    <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132">
+    <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132 relative">
       <Title /> 
 
       <img
