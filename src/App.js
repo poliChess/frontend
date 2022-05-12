@@ -1,7 +1,6 @@
 import Home from "./component/screen/home";
 import Login from "./component/screen/login";
 import Register from "./component/screen/register";
-import Play from "./component/screen/play";
 import Game from "./component/screen/game"
 import Profile from "./component/screen/profile"
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
@@ -14,7 +13,6 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/play" element={<Play/>}/>
           <Route path="/game" element={<Game/>}/>
           <Route path="/profile" element={<Profile/>}/>
         </Routes>

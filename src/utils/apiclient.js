@@ -40,6 +40,23 @@ const apiclient = {
     ).toPromise();
 
     return res.data.register;
+  },
+
+  me: async () => {
+    const res = await client.query(
+      `query Me {
+        me {
+          mail
+          username
+          playedGames
+          wonGames
+          rating
+          lastLogin
+        }
+      }`
+    ).toPromise();
+
+    return res.data.me;
   }
 };
 
