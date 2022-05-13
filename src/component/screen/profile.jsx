@@ -2,7 +2,8 @@ import queen from '../../pictures/logos/queen.png';
 import google from '../../pictures/logos/google.png';
 import avatar_bishop from '../../pictures/avatars/avatar_bishop.png';
 import { useState } from 'react';
-
+import win from '../../pictures/misc/win.png'
+import loss from '../../pictures/misc/loss.png'
 
 import Title from '../title';
 
@@ -18,21 +19,21 @@ import apiclient from '../../utils/apiclient.js';
  */
 function Match(time, enemy, result) {
 
-  const background = result == 'Victory' ? 'bg-green-600' : 'bg-red-600';
-  return (<div className='bg-green-600 grid grid-cols-3 divide-3 justify-center'>
-            <div>{result}
-            {Math.floor(time/60)}:{time%60}</div>
-            <img src={avatar_bishop}
-              alt="User avatar" 
-              className="rounded-full mt-40 ml-auto mr-auto mb-20"
-              height="100px"
-              width="100px"
-              border="1px"/>
-            <div>
-              {enemy}
+  return (
+    <div className={result === 'Victory' ? 'bg-green-600 flex mt-4' : 'bg-red-600 flex mt-4'}>
+            <div className='flex-grow text-center self-center'>
+            {Math.floor(time/60)}:{time%60}
             </div>
-          </div>
-          );
+                
+            <div className=''>
+              <img src={result === 'Victory' ? win : loss} height="80px" width="80px"/>
+            </div>
+
+            <div className=' flex-grow text-center self-center'>
+              {enemy}
+            </div>     
+    </div>
+  );
 }
 
 const wins = 15;
@@ -79,8 +80,13 @@ function Profile() {
                 <div className='flex items-center justify-center text-center h-10'>Lost: {losses}</div>
               </div>
           </div>
-          {Match(189, 'Enemy1', 'Victory')}
-          
+
+          <div className='flex-row  w-96 mt-14'>
+            {Match(189, 'Enemy1', 'Defeat', loss)}
+            {Match(149, 'Enemy2', 'Victory', win)}
+            {Match(169, 'Enemy3', 'Defeat', loss)}
+            {Match(119, 'Enemy4', 'Victory', win)}
+          </div>
         </div>
     </div>
   );
