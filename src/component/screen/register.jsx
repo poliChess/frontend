@@ -79,10 +79,6 @@ function Register() {
         Sign Up
       </button>
 
-      <a className='mt-8' href='www.google.com'>
-        <img src={google} height='60px' width='60px' border='1px' />
-      </a>
-
       <h3 className='m-10 h-12 max-h-12 max-w-50' style={{color:message.color}}> {message.text} </h3>
     </div>
   );
