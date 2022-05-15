@@ -20,6 +20,23 @@ import white_king from "../../pictures/pieces/white_king.png";
 
 import { Link } from "react-router-dom";
 
+
+import { Chess } from 'chess.js'
+
+
+var move = 'e1e2';
+
+function clickHandler() {
+  var move = null;
+  return move
+}
+
+function RenderPosition(color, piece) {
+  return (<td className={color} onClick={clickHandler}>
+            {piece != null ? <img className="" src={piece} /> : <div></div>}
+          </td>);
+}
+
 function Game() {
   return (
     <div className="bg-right-bg flex-row">
@@ -185,162 +202,98 @@ function Game() {
               </tr>
               <tr>
                 <th>8</th>
-                <td className="light">
-                  <img className="" src={black_rook} />
-                </td>
-                <td className="dark">
-                  <img className="" src={black_knight} />
-                </td>
-                <td className="light">
-                  <img className="" src={black_bishop} />
-                </td>
-                <td className="dark">
-                  <img className="" src={black_queen} />
-                </td>
-                <td className="light">
-                  <img className="" src={black_king} />
-                </td>
-                <td className="dark">
-                  <img className="" src={black_bishop} />
-                </td>
-                <td className="light">
-                  <img className="" src={black_knight} />
-                </td>
-                <td className="dark">
-                  <img className="" src={black_rook} />
-                </td>
+                {RenderPosition('light', black_rook)}
+                {RenderPosition('dark', black_knight)}
+                {RenderPosition('light', black_bishop)}
+                {RenderPosition('dark', black_queen)}
+                {RenderPosition('light', black_king)}
+                {RenderPosition('dark', black_bishop)}
+                {RenderPosition('light', black_knight)}
+                {RenderPosition('dark', black_rook)}
                 <th className="text-transparent">8</th>
               </tr>
               <tr>
                 <th>7</th>
-                <td className="dark">
-                  <img className="" src={black_pawn} />
-                </td>
-                <td className="light">
-                  <img className="" src={black_pawn} />
-                </td>
-                <td className="dark">
-                  <img className="" src={black_pawn} />
-                </td>
-                <td className="light">
-                  <img className="" src={black_pawn} />
-                </td>
-                <td className="dark">
-                  <img className="" src={black_pawn} />
-                </td>
-                <td className="light">
-                  <img className="" src={black_pawn} />
-                </td>
-                <td className="dark">
-                  <img className="" src={black_pawn} />
-                </td>
-                <td className="light">
-                  <img className="" src={black_pawn} />
-                </td>
+                {RenderPosition('dark', black_pawn)}
+                {RenderPosition('light', black_pawn)}
+                {RenderPosition('dark', black_pawn)}
+                {RenderPosition('light', black_pawn)}
+                {RenderPosition('dark', black_pawn)}
+                {RenderPosition('light', black_pawn)}
+                {RenderPosition('dark', black_pawn)}
+                {RenderPosition('light', black_pawn)}
                 <th>7</th>
               </tr>
               <tr>
                 <th>6</th>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
                 <th>6</th>
               </tr>
               <tr>
                 <th>5</th>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
                 <th>5</th>
               </tr>
               <tr>
                 <th>4</th>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
                 <th>4</th>
               </tr>
               <tr>
                 <th>3</th>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
-                <td className="dark"></td>
-                <td className="light"></td>
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
+                {RenderPosition('dark', null)}
+                {RenderPosition('light', null)}
                 <th>3</th>
               </tr>
               <tr>
                 <th>2</th>
-                <td className="light">
-                  <img className="" src={white_pawn} />
-                </td>
-                <td className="dark">
-                  <img className="" src={white_pawn} />
-                </td>
-                <td className="light">
-                  <img className="" src={white_pawn} />
-                </td>
-                <td className="dark">
-                  <img className="" src={white_pawn} />
-                </td>
-                <td className="light">
-                  <img className="" src={white_pawn} />
-                </td>
-                <td className="dark">
-                  <img className="" src={white_pawn} />
-                </td>
-                <td className="light">
-                  <img className="" src={white_pawn} />
-                </td>
-                <td className="dark">
-                  <img className="" src={white_pawn} />
-                </td>
+                {RenderPosition('light', white_pawn)}
+                {RenderPosition('dark', white_pawn)}
+                {RenderPosition('light', white_pawn)}
+                {RenderPosition('dark', white_pawn)}
+                {RenderPosition('light', white_pawn)}
+                {RenderPosition('dark', white_pawn)}
+                {RenderPosition('light', white_pawn)}
+                {RenderPosition('dark', white_pawn)}
                 <th>2</th>
               </tr>
               <tr>
                 <th>1</th>
-                <td className="dark">
-                  <img className="" src={white_rook} />
-                </td>
-                <td className="light">
-                  <img className="" src={white_knight} />
-                </td>
-                <td className="dark">
-                  <img className="" src={white_bishop} />
-                </td>
-                <td className="light">
-                  <img className="" src={white_queen} />
-                </td>
-                <td className="dark">
-                  <img className="" src={white_king} />
-                </td>
-                <td className="light">
-                  <img className="" src={white_bishop} />
-                </td>
-                <td className="dark">
-                  <img className="" src={white_knight} />
-                </td>
-                <td className="light">
-                  <img className="" src={white_rook} />
-                </td>
+                {RenderPosition('dark', white_rook)}
+                {RenderPosition('light', white_knight)}
+                {RenderPosition('dark', white_bishop)}
+                {RenderPosition('light', white_queen)}
+                {RenderPosition('dark', white_king)}
+                {RenderPosition('light', white_bishop)}
+                {RenderPosition('dark', white_knight)}
+                {RenderPosition('light', white_rook)}
                 <th>1</th>
               </tr>
               <tr>
