@@ -18,6 +18,8 @@ import {
   } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
+// https://github.com/kevinsqi/react-circular-progressbar <- aici daca 
+// vrei sa vezi cum modifici chestii
 function ProgressCircle(percentage) {
     return ( 
         <CircularProgressbar
