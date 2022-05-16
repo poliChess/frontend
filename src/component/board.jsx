@@ -18,8 +18,9 @@ import white_bishop from "../pictures/pieces/white_bishop.png";
 import white_queen from "../pictures/pieces/white_queen.png";
 import white_king from "../pictures/pieces/white_king.png";
 
-import { Chess } from 'chess.js'
+import React from "react";
 
+import { Chess } from 'chess.js'
 
 const letters2Icon = {
   'pw': white_pawn,
@@ -35,8 +36,10 @@ const letters2Icon = {
   'rb': black_rook,
   'bb': black_bishop,
 }
-export class Board {
+
+class Chessboard extends React.Component {
   constructor() {
+    super();
     this.chess = new Chess();
     this.positions = this.chess.board();
   }
@@ -185,3 +188,5 @@ export class Board {
           );
   }
 }
+
+export default Chessboard;

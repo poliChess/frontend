@@ -14,18 +14,15 @@ import black_king from "../../pictures/pieces/black_king.png";
 import white_pawn from "../../pictures/pieces/white_pawn.png";
 import white_rook from "../../pictures/pieces/white_rook.png";
 import white_knight from "../../pictures/pieces/white_knight.png";
-import white_bishop from "../../pictures/pieces/white_bishop.png";
+import white_bishop from "../../pictures/pieces/white_bishop.png";  
 import white_queen from "../../pictures/pieces/white_queen.png";
 import white_king from "../../pictures/pieces/white_king.png";
 
 import { Link } from "react-router-dom";
-import { Board } from '../../state/board.js'
 
-import { Chess } from 'chess.js'
+import Chessboard from "../board";
 
-const board = new Board();
-
-function Game() {
+function Game(user, opponent) {
   return (
     <div className="bg-right-bg flex-row">
       <div className="flex justify-between">
@@ -49,7 +46,7 @@ function Game() {
             />
           </div>
 
-          <div className="text-center font-mono ml-4">Player_1</div>
+          <div className="text-center font-mono ml-4">{user.username}</div>
         </div>
 
         <div className="flex flex-grow ml-44 mr-44 flex-shrink-0">
@@ -94,7 +91,7 @@ function Game() {
             />
           </div>
 
-          <div className="text-center font-mono mr-4">Player_2</div>
+          <div className="text-center font-mono mr-4">{opponent.username}</div>
         </div>
       </div>
 
@@ -175,7 +172,7 @@ function Game() {
         </div>
 
         <div className="flex-grow content-center flex shrink-0">
-          {board.render()}
+          <Chessboard/>
         </div>
 
         <div className="flex-grow flex items-center shrink-0">

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { setLoggedIn } from "../../state/userSlice";
 import { useEffect } from "react";
-import Stopwatch from "../Stopwatch";
+import Stopwatch from "../stopwatch";
 
 import Decoration from "../decoration";
 import Title from "../title";

@@ -62,17 +62,17 @@ const losses = 5;
 function Profile2() {
 
   const screen = (
-    <div className="bg-white flex-row flex-grow justify-center items-center h-screen p-8 z-10 w-132 relative">
-        <Title />
+    <div className="bg-orange-600 p-8 m-6">
+        {/* <Title/> */}
         
-        <div className='bg-red-600 mt-6 flex'> 
+        <div className='bg-red-600 m-6 flex'> 
         
-            <div>
+            <div className='self-center'>
                 <img
                 className="m-auto"
                 src={avatar}
-                height="100px"
-                width="100px"
+                height="200px"
+                width="200px"
                 border="1px"
                 />
             </div>
@@ -88,23 +88,17 @@ function Profile2() {
                 </div>
             </div>
 
-            <div>
-                <img
-                className="m-auto"
-                src={avatar}
-                height="100px"
-                width="100px"
-                border="1px"
-                />
+            <div className='w-56 self-center'>
+                {ProgressCircle(70)}
             </div>
               
         </div> 
 
           
-        <div className="bg-pink-600 flex flex-grow flex-col basis-[40%] items-center text-white">
+        <div className="bg-pink-600 flex flex-grow flex-col items-center text-white m-24">
 
-            <div>
-                <div className='bg-transparent rounded-full flex'>
+            <div className='flex-grow flex-shrink-0'>
+                <div className='bg-transparent rounded-full flex flex-grow'>
                     <div className='bg-blue-500 flex-grow text-center rounded-tl-full'>
                         Played: 15
                     </div>
@@ -114,7 +108,7 @@ function Profile2() {
                     </div>     
                 </div>
 
-                <div className='bg-white h-96 w-96 flex-row overflow-y-scroll'>
+                <div className='bg-white h-96 flex-row overflow-y-scroll flex-shrink-0'>
             
                     {Match(189, 'Decebal', 'Defeat', loss)}
                     {Match(149, 'Ghiu', 'Victory', win)}
@@ -128,7 +122,7 @@ function Profile2() {
           
             </div>
         </div>
-        {ProgressCircle(70)}
+        
     </div>
   );
 
