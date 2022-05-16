@@ -40,7 +40,7 @@ const letters2Icon = {
 const dark = 'dark';
 const light = 'light';
 
-export class Board extends React.Component{ 
+export class Chessboard extends React.Component{ 
 
   constructor(props) {
     super(props);
@@ -197,3 +197,5 @@ export class Board extends React.Component{
           );
   }
 }
+
+export default Chessboard;

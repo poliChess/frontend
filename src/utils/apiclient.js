@@ -1,7 +1,18 @@
 import { createClient } from "@urql/core";
+import { useSelector } from "react-redux";
+import store from "../state/store";
 
 const client = createClient({
-  url: 'http://localhost:3000'
+  url: 'http://localhost:3000',
+  fetchOptions: () => {
+    const userToken = store.getState().user.token;
+    console.log('TOKEN: ' + userToken);
+    return userToken ? {
+      headers: {
+        Authorization: userToken,
+      },
+    } : {};
+  },
 })
 
 const apiclient = {
@@ -57,7 +68,39 @@ const apiclient = {
     ).toPromise();
 
     return res.data.me;
-  }
+  },
+
+  enterQueue: async (computer) => {
+    const res = await client.mutation(
+      `mutation Mutation($computer: Boolean) {
+        enterQueue(computer: $computer) {
+          success
+          message
+        }
+      }`,
+      { computer }
+    ).toPromise();
+
+    return res.data.enterQueue;
+  },
+
+  leaveQueue: async () => {
+    const res = await client.mutation(
+      `mutation LeaveQueue {
+        leaveQueue {
+          success
+          message
+        }
+      }`
+    ).toPromise();
+
+    return res.data.leaveQueue;
+  },
 };
 
-export default apiclient;
+function createWebSocket() {
+  const userToken = store.getState().user.token;
+  return new WebSocket(`ws://localhost:3001?token=${userToken}`);
+}
+
+export { apiclient as default, createWebSocket };
