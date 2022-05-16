@@ -19,23 +19,11 @@ import white_queen from "../../pictures/pieces/white_queen.png";
 import white_king from "../../pictures/pieces/white_king.png";
 
 import { Link } from "react-router-dom";
-
+import { Board } from '../../state/board.js'
 
 import { Chess } from 'chess.js'
 
-
-var move = 'e1e2';
-
-function clickHandler() {
-  var move = null;
-  return move
-}
-
-function RenderPosition(color, piece) {
-  return (<td className={color} onClick={clickHandler}>
-            {piece != null ? <img className="" src={piece} /> : <div></div>}
-          </td>);
-}
+const board = new Board();
 
 function Game() {
   return (
@@ -187,128 +175,7 @@ function Game() {
         </div>
 
         <div className="flex-grow content-center flex shrink-0">
-          <table className="chess-board m-auto shadow-2xl shadow-black hover:shadow-purple-600">
-            <tbody>
-              <tr>
-                <th></th>
-                <th>a</th>
-                <th>b</th>
-                <th>c</th>
-                <th>d</th>
-                <th>e</th>
-                <th>f</th>
-                <th>g</th>
-                <th>h</th>
-              </tr>
-              <tr>
-                <th>8</th>
-                {RenderPosition('light', black_rook)}
-                {RenderPosition('dark', black_knight)}
-                {RenderPosition('light', black_bishop)}
-                {RenderPosition('dark', black_queen)}
-                {RenderPosition('light', black_king)}
-                {RenderPosition('dark', black_bishop)}
-                {RenderPosition('light', black_knight)}
-                {RenderPosition('dark', black_rook)}
-                <th className="text-transparent">8</th>
-              </tr>
-              <tr>
-                <th>7</th>
-                {RenderPosition('dark', black_pawn)}
-                {RenderPosition('light', black_pawn)}
-                {RenderPosition('dark', black_pawn)}
-                {RenderPosition('light', black_pawn)}
-                {RenderPosition('dark', black_pawn)}
-                {RenderPosition('light', black_pawn)}
-                {RenderPosition('dark', black_pawn)}
-                {RenderPosition('light', black_pawn)}
-                <th>7</th>
-              </tr>
-              <tr>
-                <th>6</th>
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                <th>6</th>
-              </tr>
-              <tr>
-                <th>5</th>
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                <th>5</th>
-              </tr>
-              <tr>
-                <th>4</th>
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                <th>4</th>
-              </tr>
-              <tr>
-                <th>3</th>
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                {RenderPosition('dark', null)}
-                {RenderPosition('light', null)}
-                <th>3</th>
-              </tr>
-              <tr>
-                <th>2</th>
-                {RenderPosition('light', white_pawn)}
-                {RenderPosition('dark', white_pawn)}
-                {RenderPosition('light', white_pawn)}
-                {RenderPosition('dark', white_pawn)}
-                {RenderPosition('light', white_pawn)}
-                {RenderPosition('dark', white_pawn)}
-                {RenderPosition('light', white_pawn)}
-                {RenderPosition('dark', white_pawn)}
-                <th>2</th>
-              </tr>
-              <tr>
-                <th>1</th>
-                {RenderPosition('dark', white_rook)}
-                {RenderPosition('light', white_knight)}
-                {RenderPosition('dark', white_bishop)}
-                {RenderPosition('light', white_queen)}
-                {RenderPosition('dark', white_king)}
-                {RenderPosition('light', white_bishop)}
-                {RenderPosition('dark', white_knight)}
-                {RenderPosition('light', white_rook)}
-                <th>1</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th>a</th>
-                <th>b</th>
-                <th>c</th>
-                <th>d</th>
-                <th>e</th>
-                <th>f</th>
-                <th>g</th>
-                <th>h</th>
-              </tr>
-            </tbody>
-          </table>
+          {board.render()}
         </div>
 
         <div className="flex-grow flex items-center shrink-0">
