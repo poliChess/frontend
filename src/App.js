@@ -5,6 +5,7 @@ import Game from "./component/screen/game"
 import Profile from "./component/screen/profile"
 import Profile2 from "./component/screen/profile2"
 import Profile3 from "./component/screen/profile3"
+import Loading from "./component/screen/loading";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/profile2" element={<Profile2/>}/>
           <Route path="/profile3" element={<Profile3/>}/>
+          <Route path="/loading" element={<Loading/>}/>
         </Routes>
       </Router>
     </div>

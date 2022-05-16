@@ -17,5 +17,8 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    // require('tailwind-animation-delay'),
+    // require('tailwindcss-animate')
+  ],
 }
