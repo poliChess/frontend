@@ -18,6 +18,8 @@ import white_bishop from "../../pictures/pieces/white_bishop.png";
 import white_queen from "../../pictures/pieces/white_queen.png";
 import white_king from "../../pictures/pieces/white_king.png";
 
+import Timer from "../timer";
+
 import { Link } from "react-router-dom";
 
 import Chessboard from "../board";
@@ -51,7 +53,8 @@ function Game(user, opponent) {
 
         <div className="flex flex-grow ml-44 mr-44 flex-shrink-0">
           <div className="font-['Helvetica'] underline underline-offset-4 flex-grow self-center text-center text-2xl text-button-1">
-            <strong>03:59</strong>
+            {/* Add number of minutes */}
+            {Timer(5)}
           </div>
 
           <div className="flex-grow ml-10 mr-10 self-center">
@@ -65,7 +68,8 @@ function Game(user, opponent) {
           </div>
 
           <div className="font-['Helvetica'] underline underline-offset-4 flex-grow self-center text-center text-2xl text-red-600">
-            <strong>04:15</strong>
+            {/* Add number of minutes */}
+            {Timer(5)}
           </div>
         </div>
 
