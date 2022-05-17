@@ -18,7 +18,7 @@ import white_bishop from "../pictures/pieces/white_bishop.png";
 import white_queen from "../pictures/pieces/white_queen.png";
 import white_king from "../pictures/pieces/white_king.png";
 import React from "react";
-import { Board } from "./board";
+import { Board } from "../component/board";
 
 
 const letters2Icon = {
