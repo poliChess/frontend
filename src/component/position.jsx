@@ -13,6 +13,7 @@ import white_queen from "../pictures/pieces/white_queen.png";
 import white_king from "../pictures/pieces/white_king.png";
 import React from "react";
 import { Board } from "./board";
+import { highlightedPosition } from "../utils/chessUtils"
 
 
 const letters2Icon = {
@@ -35,27 +36,24 @@ export class Position extends React.Component{
     super(props);
     this.color = this.props.color;
     this.position = this.props.position;
-    console.log(`Loaded position: ${this.position}`);
     this.boardRef = this.props.boardRef;
   }
   
   render() {
     //highlight position
-    this.highlight = this.boardRef.state.highlighted.find(arr => arr[0] === this.position[0] 
-      && arr[1] === this.position[1]) !== undefined ? true : false;
+    this.highlight = highlightedPosition(this.boardRef, this.position);
 
-    var position = this.boardRef.positions[this.position[0]][this.position[1]];
+    var position = this.boardRef.state.positions[this.position[0]][this.position[1]];
     if (position) {
       var pieceIcon = letters2Icon[position.type + position.color];
 
-      console.log(this.highlight);
       return (<td className={ this.highlight === false ? this.color : 'bg-yellow-300'}
                   onClick={() => this.boardRef.occupiedPositionHandler(position)}>
                 {<img className="" src={pieceIcon}/>}
               </td>);
     }
     return (<td className={this.highlight === false ? this.color : 'bg-yellow-300'}
-                onClick={() => this.boardRef.emptyPositionHandler()}>
+                onClick={() => this.boardRef.emptyPositionHandler(this.position)}>
               </td>);
   }
 }

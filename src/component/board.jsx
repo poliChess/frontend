@@ -1,7 +1,7 @@
-import { Chess } from 'chess.js'
+import { Chess } from 'chess.js';
 import React, { useState } from "react";
-import {Position} from "./position.jsx"
-
+import {Position} from "./position.jsx";
+import {sanToIndex, highlightedPosition, indexToSAN } from '../utils/chessUtils.js';
 const dark = 'dark';
 const light = 'light';
 
@@ -10,49 +10,50 @@ export class Chessboard extends React.Component{
   constructor(props) {
     super(props);
     this.chess = new Chess();
-    this.positions = this.chess.board();
     this.state = {
+      positions: this.chess.board(),
       selectedPiece: {position: null},
-      highlighted: []
-    };
+      highlighted: []};
   }
 
 
+  movePiece(destination) {
+    const move = this.chess.move({from: indexToSAN(sanToIndex(this.state.selectedPiece.position.square)),
+      to: indexToSAN(destination)});
+  }
 
-  emptyPositionHandler() {
-    console.log('empty');
-    console.log(this.state);
+  emptyPositionHandler(position) {
     if (this.state.selectedPiece.position) {
-      this.setState({selectedPiece: {position: null},
-                      highlighted: []              
-      });
+      if (highlightedPosition(this, position)) {
+        this.movePiece(position);
+      }
+      this.setState({positions: this.chess.board(),
+                    selectedPiece: {position: null},
+                    highlighted: []});
     }
   }
   
   occupiedPositionHandler(position) {
     if (this.state.selectedPiece.position === null) {
       var highlighted = [];
-      const x = 8 - parseInt(position.square[1]);
-      const y = position.square[0].charCodeAt() - 'a'.charCodeAt();
-      highlighted.push([x,y]);
+      const indexes = sanToIndex(position.square);
+      highlighted.push(indexes);
       //console.log(`Position ${this.positions[x][y].square} highlight: ${this.positions[x][y].highlight}`);
 
       var validMoves = this.chess.moves({square: position.square});
-
+      console.log(validMoves);
       //highlight all moves
       validMoves.forEach(position => {
-        const x = 8 - parseInt(position[1]);
-        const y = position[0].charCodeAt() - 'a'.charCodeAt();
-        highlighted.push([x,y]);
+        highlighted.push(sanToIndex(position));
       })
 
-      this.setState({selectedPiece: {position: this.positions[x][y]},
+      this.setState({selectedPiece: {position: this.state.positions[indexes[0]][indexes[1]]},
                     highlighted: highlighted});
-      console.log(this.state);
     }
   }
 
   render() {
+    console.log(this.state);
     return (<table className="chess-board m-auto shadow-2xl shadow-black hover:shadow-purple-600">
               <tbody>
                 <tr>
