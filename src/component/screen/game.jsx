@@ -19,12 +19,27 @@ import white_queen from "../../pictures/pieces/white_queen.png";
 import white_king from "../../pictures/pieces/white_king.png";
 
 import Timer from "../timer";
-
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 
 import Chessboard from "../board";
 
 function Game(user, opponent) {
+  const [p1Captures, setP1Captures] = useState({
+    pawns: 0,
+    knights: 0,
+    bishops: 0,
+    rooks: 0,
+    queen: 0
+  });
+
+  const [p2Captures, setP2Captures] = useState({
+    pawns: 0,
+    knights: 0,
+    bishops: 0,
+    rooks: 0,
+    queens: 0
+  });
   return (
     <div className="bg-right-bg flex-row">
       <div className="flex justify-between">
@@ -112,7 +127,7 @@ function Game(user, opponent) {
                     width="50px"
                     border="1px"
                   />
-                  <div className="text-center">X 0</div>
+                  <div className="text-center">X {p1Captures.pawns}</div>
                 </div>
               </div>
             </div>
@@ -126,7 +141,7 @@ function Game(user, opponent) {
                     width="50px"
                     border="1px"
                   />
-                  <div className="text-center">X 0</div>
+                  <div className="text-center">X {p1Captures.rooks}</div>
                 </div>
               </div>
             </div>
@@ -140,7 +155,7 @@ function Game(user, opponent) {
                     width="50px"
                     border="1px"
                   />
-                  <div className="text-center">X 0</div>
+                  <div className="text-center">X {p1Captures.knights}</div>
                 </div>
               </div>
             </div>
@@ -154,7 +169,7 @@ function Game(user, opponent) {
                     width="50px"
                     border="1px"
                   />
-                  <div className="text-center">X 0</div>
+                  <div className="text-center">X {p1Captures.bishops}</div>
                 </div>
               </div>
             </div>
@@ -168,7 +183,7 @@ function Game(user, opponent) {
                     width="50px"
                     border="1px"
                   />
-                  <div className="text-center">X 0</div>
+                  <div className="text-center">X {p1Captures.queen}</div>
                 </div>
               </div>
             </div>
@@ -176,7 +191,7 @@ function Game(user, opponent) {
         </div>
 
         <div className="flex-grow content-center flex shrink-0">
-          <Chessboard/>
+          <Chessboard game={{p1: [p1Captures, setP1Captures], p2: [p2Captures, setP2Captures]}}/>
         </div>
 
         <div className="flex-grow flex items-center shrink-0">
@@ -184,7 +199,7 @@ function Game(user, opponent) {
             <div className="bg-white flex items-center m-1">
               <div className="m-auto">
                 <div className="flex items-center">
-                  <div className="text-center">0 X</div>
+                  <div className="text-center">{p2Captures.pawns} X</div>
                   <img
                     className=""
                     src={white_pawn}
@@ -198,7 +213,7 @@ function Game(user, opponent) {
             <div className="bg-white flex items-center m-1">
               <div className="m-auto">
                 <div className="flex items-center">
-                  <div className="text-center">0 X</div>
+                  <div className="text-center">{p2Captures.rooks} X</div>
                   <img
                     className=""
                     src={white_rook}
@@ -212,7 +227,7 @@ function Game(user, opponent) {
             <div className="bg-white flex items-center m-1">
               <div className="m-auto">
                 <div className="flex items-center">
-                  <div className="text-center">0 X</div>
+                  <div className="text-center">{p2Captures.knights} X</div>
                   <img
                     className=""
                     src={white_knight}
@@ -226,7 +241,7 @@ function Game(user, opponent) {
             <div className="bg-white flex items-center m-1">
               <div className="m-auto">
                 <div className="flex items-center">
-                  <div className="text-center">0 X</div>
+                  <div className="text-center">{p2Captures.bishops} X</div>
                   <img
                     className=""
                     src={white_bishop}
@@ -240,7 +255,7 @@ function Game(user, opponent) {
             <div className="bg-white flex items-center m-1">
               <div className="m-auto">
                 <div className="flex items-center">
-                  <div className="text-center">0 X</div>
+                  <div className="text-center">{p2Captures.queens} X</div>
                   <img
                     className=""
                     src={white_queen}

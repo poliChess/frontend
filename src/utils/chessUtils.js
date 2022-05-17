@@ -1,12 +1,13 @@
-import { Chess } from 'chess.js';
-
 /**
  * 
  * @param {SAN String} position 
  * @returns an array of 2 indexes [x,y]
  */
 export function sanToIndex(position) {
-  if (position.length > 2) {
+  if (position.length === 4) {
+    return [8 - parseInt(position[3]), position[2].charCodeAt() - 'a'.charCodeAt()]
+  }
+  if (position.length === 3) {
     return [8 - parseInt(position[2]), position[1].charCodeAt() - 'a'.charCodeAt()];
   }
   return [8 - parseInt(position[1]), position[0].charCodeAt() - 'a'.charCodeAt()];

@@ -12,7 +12,6 @@ import white_bishop from "../pictures/pieces/white_bishop.png";
 import white_queen from "../pictures/pieces/white_queen.png";
 import white_king from "../pictures/pieces/white_king.png";
 import React from "react";
-import { Board } from "./board";
 import { highlightedPosition } from "../utils/chessUtils"
 
 
@@ -49,7 +48,7 @@ export class Position extends React.Component{
 
       return (<td className={ this.highlight === false ? this.color : 'bg-yellow-300'}
                   onClick={() => this.boardRef.occupiedPositionHandler(position)}>
-                {<img className="" src={pieceIcon}/>}
+                {<img className="" alt="" src={pieceIcon}/>}
               </td>);
     }
     return (<td className={this.highlight === false ? this.color : 'bg-yellow-300'}

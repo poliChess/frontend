@@ -1,14 +1,14 @@
 import { Chess } from 'chess.js';
-import React, { useState } from "react";
+import React from "react";
 import {Position} from "./position.jsx";
 import {sanToIndex, highlightedPosition, indexToSAN } from '../utils/chessUtils.js';
 const dark = 'dark';
 const light = 'light';
 
 export class Chessboard extends React.Component{ 
-
   constructor(props) {
     super(props);
+    this.game = this.props.game;
     this.chess = new Chess();
     this.state = {
       positions: this.chess.board(),
@@ -17,16 +17,20 @@ export class Chessboard extends React.Component{
   }
 
 
-  movePiece(destination) {
-    const move = this.chess.move({from: indexToSAN(sanToIndex(this.state.selectedPiece.position.square)),
-      to: indexToSAN(destination)});
+  capturePiece(move) {
+    const setP1Captures = this.game.p1[1];
+    if (move.captured !== undefined) {
+      if (move.captured === 'p') {
+        
+        setP1Captures({pawns: this.game.p1.p1Captures++});        
+      }
+    }
   }
 
   emptyPositionHandler(position) {
     if (this.state.selectedPiece.position) {
-      if (highlightedPosition(this, position)) {
-        this.movePiece(position);
-      }
+      this.chess.move({from: indexToSAN(sanToIndex(this.state.selectedPiece.position.square)),
+        to: indexToSAN(position)});
       this.setState({positions: this.chess.board(),
                     selectedPiece: {position: null},
                     highlighted: []});
@@ -38,10 +42,10 @@ export class Chessboard extends React.Component{
       var highlighted = [];
       const indexes = sanToIndex(position.square);
       highlighted.push(indexes);
-      //console.log(`Position ${this.positions[x][y].square} highlight: ${this.positions[x][y].highlight}`);
 
       var validMoves = this.chess.moves({square: position.square});
       console.log(validMoves);
+
       //highlight all moves
       validMoves.forEach(position => {
         highlighted.push(sanToIndex(position));
@@ -49,11 +53,20 @@ export class Chessboard extends React.Component{
 
       this.setState({selectedPiece: {position: this.state.positions[indexes[0]][indexes[1]]},
                     highlighted: highlighted});
+    } else {
+      const move = this.chess.move({from: indexToSAN(sanToIndex(this.state.selectedPiece.position.square)),
+        to: indexToSAN(sanToIndex(position.square))});
+      this.capturePiece(move);
+      
+      this.setState({positions: this.chess.board(),
+        selectedPiece: {position: null},
+        highlighted: []});
     }
   }
 
   render() {
     console.log(this.state);
+    console.log(this.game.state);
     return (<table className="chess-board m-auto shadow-2xl shadow-black hover:shadow-purple-600">
               <tbody>
                 <tr>
