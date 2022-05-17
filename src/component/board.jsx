@@ -20,7 +20,7 @@ import white_king from "../pictures/pieces/white_king.png";
 
 import { Chess } from 'chess.js'
 import React, { useState } from "react";
-import { Position } from "./position";
+import { Position } from "..state/position";
 
 const letters2Icon = {
   'pw': white_pawn,
