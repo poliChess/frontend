@@ -4,11 +4,30 @@ import avatar_bishop from '../../pictures/avatars/avatar_bishop.png';
 import { useState } from 'react';
 import win from '../../pictures/misc/win.png'
 import loss from '../../pictures/misc/loss.png'
+import avatar from '../../pictures/avatars/avatar_king.png'
 
 import Title from '../title';
 
 import apiclient from '../../utils/apiclient.js';
+import User from '../user';
 
+import {
+    CircularProgressbar,
+    CircularProgressbarWithChildren,
+    buildStyles
+  } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+
+// https://github.com/kevinsqi/react-circular-progressbar <- aici daca 
+// vrei sa vezi cum modifici chestii
+function ProgressCircle(percentage) {
+    return ( 
+        <CircularProgressbar
+        value={percentage}
+        text={`${percentage}%`}
+        strokeWidth={5}
+      />);
+}
 
 /**
  * 
@@ -18,20 +37,23 @@ import apiclient from '../../utils/apiclient.js';
  * @returns 
  */
 function Match(time, enemy, result) {
-
   return (
-    <div className={result === 'Victory' ? 'bg-green-600 flex mt-4' : 'bg-red-600 flex mt-4'}>
-            <div className='flex-grow text-center self-center'>
-            {Math.floor(time/60)}:{time%60}
-            </div>
-                
-            <div className=''>
-              <img src={result === 'Victory' ? win : loss} height="80px" width="80px"/>
+    <div className={result === 'Victory' ? 'bg-green-600 flex mt-4 rounded-md' : 'bg-red-800 flex mt-4 rounded-md'}>
+            <div className='w-1/3 text-center self-center text-white'>
+                <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+                <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
             </div>
 
-            <div className=' flex-grow text-center self-center'>
+                
+            <div className='w-1/3'>
+              <img className='m-auto' src={result === 'Victory' ? win : loss} height="80px" width="80px"/>
+            </div>
+
+            <div className='w-1/3 text-center self-center text-white'>
               {enemy}
-            </div>     
+            </div>   
+
+            
     </div>
   );
 }
@@ -40,56 +62,81 @@ const wins = 15;
 const losses = 5;
 function Profile() {
 
-  const screen = (
-      <div className="flex bg-white">
-        <div className='bg-white flex flex-grow flex-col h-screen p-8 z-10 w-132'>
-          <Title /> 
-
-          <img src={avatar_bishop}
-            alt="User avatar" 
-            className="rounded-full mt-40 ml-auto mr-auto mb-20"
-            height="100px"
-            width="100px"
-            border="1px"/>
-
-          <div className='bg-white flex-row text-white'>
-              <div className='grid grid-cols-2 divide-2 justify-center mb-10 '>
-                <div className='bg-blue-600 flex items-center justify-center text-center h-10 '>Mail</div>
-                <div className='bg-purple-600 flex items-center justify-center text-center h-10'>tudor.hermenean@gmail.com</div>
+    const screen = (
+        <div className="p-8 m-6 mt-24">
+    
+          <Title/>
+    
+          <div className='flex-row'>
+    
+            <div className='flex'>
+                
+              <div className='self-center'>
+                <img
+                  className="m-auto"
+                  src={avatar}
+                  height="200px"
+                  width="200px"
+                  border="1px"
+                />
               </div>
-              <div className='grid grid-cols-2 divide-2 justify-center mb-10'>
-                <div className='bg-blue-600 flex items-center justify-center text-center h-10'>Username</div>
-                <div className='bg-purple-600 flex items-center justify-center text-center h-10'>tudiXX</div>
+    
+              <div className='flex items-center flex-grow m-2'>
+                <div className='flex-row'>
+                  <div>
+                    <strong>Faraonul</strong>
+                  </div>
+                  <div>
+                    faraon@piramide.com
+                  </div>
+                </div>
               </div>
-              <div className='grid grid-cols-2 divide-2 justify-center mb-10'>
-                <div className='bg-blue-600 flex items-center justify-center text-center h-10'>Matches</div>
-                <div className='bg-purple-600 flex items-center justify-center text-center h-10'>20</div>
+    
+              <div className='self-center w-48'>
+                {ProgressCircle(70)}
               </div>
-              <div className='grid grid-cols-2 divide-2 justify-center'>
-                <div className='bg-blue-600 flex items-center justify-center text-center h-10'>Rating</div>
-                <div className='bg-purple-600 flex items-center justify-center text-center h-10'>xxx</div>
+            </div>
+    
+            <div className='mt-24'>
+              <div className='bg-transparent rounded-full flex flex-grow'>
+                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full'>
+                  Won: 10
+                </div>
+                    
+                <div className='bg-secondary-color text-white w-1/3 text-center'>
+                  Played: 15
+                </div>
+    
+                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tr-full'>
+                  Lost: 5
+                </div>   
+    
               </div>
-          </div>
-          
+    
+              <div className='bg-decoration-bg h-96 flex-row overflow-y-scroll flex-shrink-0 border-4 border-decoration-bg scrollbar-hide'>
+                
+                {Match(100000, 'Decebal', 'Defeat', loss)}
+                {Match(149, 'Ghiu', 'Victory', win)}
+                {Match(169, 'Boicea', 'Defeat', loss)}
+                {Match(140, 'HeHeByeBoy', 'Victory', win)}
+                {Match(130, 'Ardeleanu', 'Victory', win)}
+                {Match(120, 'Iohannis', 'Victory', win)}
+                {Match(100, 'Popcorn', 'Defeat', win)}
+                {Match(100000, 'Decebal', 'Defeat', loss)}
+                {Match(149, 'Ghiu', 'Victory', win)}
+                {Match(169, 'Boicea', 'Defeat', loss)}
+                {Match(140, 'HeHeByeBoy', 'Victory', win)}
+                {Match(130, 'Ardeleanu', 'Victory', win)}
+                {Match(120, 'Iohannis', 'Victory', win)}
+                {Match(100, 'Popcorn', 'Defeat', win)}
+                        
+              </div>
+            </div>
+          </div> 
         </div>
-        <div className="bg-decoration-bg flex flex-grow flex-col basis-[40%] items-center text-white">
-          <div className='bg-gray-400 flex-col items-center justify-center mt-16'>
-              <div className='pt-5 pb-2 px-32'>Match History</div>
-              <div className='grid grid-cols-2 divide-2 justify-center'>
-                <div className='flex items-center justify-center text-center h-10 '>Won: {wins}</div>
-                <div className='flex items-center justify-center text-center h-10'>Lost: {losses}</div>
-              </div>
-          </div>
-
-          <div className='flex-row  w-96 mt-14'>
-            {Match(189, 'Enemy1', 'Defeat', loss)}
-            {Match(149, 'Enemy2', 'Victory', win)}
-            {Match(169, 'Enemy3', 'Defeat', loss)}
-            {Match(119, 'Enemy4', 'Victory', win)}
-          </div>
-        </div>
-    </div>
-  );
+    
+        
+      );
 
   return screen;
 }
