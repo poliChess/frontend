@@ -19,6 +19,7 @@ module.exports = {
   },
   plugins: [
     // require('tailwind-animation-delay'),
-    // require('tailwindcss-animate')
+    // require('tailwindcss-animate'),
+    require('tailwind-scrollbar-hide')
   ],
 }
