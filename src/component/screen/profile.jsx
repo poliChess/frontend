@@ -10,6 +10,8 @@ import Title from '../title';
 
 import apiclient from '../../utils/apiclient.js';
 import User from '../user';
+import { useSelector } from "react-redux";
+
 
 import {
     CircularProgressbar,
@@ -24,9 +26,27 @@ function ProgressCircle(percentage) {
     return ( 
         <CircularProgressbar
         value={percentage}
-        text={`${percentage}%`}
+        text={`Rank ${percentage}`}
         strokeWidth={5}
+        styles={buildStyles({
+          textColor: "black",
+          textSize: 14
+        })}
       />);
+}
+
+function ProgressCircle2(percentage) {
+  return ( 
+      <CircularProgressbar
+      value={percentage}
+      text={`${percentage}%`}
+      strokeWidth={5}
+      styles={buildStyles({
+        textColor: "black",
+        pathColor: "green",
+        trailColor: "red"
+      })}
+    />);
 }
 
 /**
@@ -39,7 +59,7 @@ function ProgressCircle(percentage) {
 function Match(time, enemy, result) {
   return (
     <div className={result === 'Victory' ? 'bg-green-600 flex mt-4 rounded-md' : 'bg-red-800 flex mt-4 rounded-md'}>
-            <div className='w-1/3 text-center self-center text-white'>
+            <div className='w-1/3 text-center self-center text-white font-mono'>
                 <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
                 <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
             </div>
@@ -49,7 +69,7 @@ function Match(time, enemy, result) {
               <img className='m-auto' src={result === 'Victory' ? win : loss} height="80px" width="80px"/>
             </div>
 
-            <div className='w-1/3 text-center self-center text-white'>
+            <div className='w-1/3 text-center self-center text-white font-mono'>
               {enemy}
             </div>   
 
@@ -61,6 +81,10 @@ function Match(time, enemy, result) {
 const wins = 15;
 const losses = 5;
 function Profile() {
+
+    const user = useSelector(state => state.user.info);
+
+    // console.log({user.username})
 
     const screen = (
         <div className="p-8 m-6 mt-24">
@@ -81,34 +105,76 @@ function Profile() {
                 />
               </div>
     
-              <div className='flex items-center flex-grow m-2'>
+              <div className='flex items-center m-2 flex-grow'>
                 <div className='flex-row'>
-                  <div>
-                    <strong>Faraonul</strong>
+                  <div className='font-mono font-bold text-2xl'>
+                    <strong>{user.username}</strong>
                   </div>
-                  <div>
-                    faraon@piramide.com
+                  <div className='font-mono text-md'>
+                    {user.mail}
                   </div>
+                  <div className='md:hidden font-mono mt-6'>
+                    Rank 70
+                  </div>
+                  <div className='md:hidden font-mono'>
+                    W/L - 5/15
+                  </div>
+                  
                 </div>
               </div>
     
-              <div className='self-center w-48'>
+              <div className='self-center w-44 m-2 hidden md:flex font-mono font-bold'>
+                {ProgressCircle2(25)}
+              </div>
+
+              <div className='hidden md:flex items-center m-2 flex-grow'>
+                <div className='flex'>
+                  <div className='flex-row'>
+                    
+                    <div className='bg-green-600 w-6 h-6 text-center mb-1 font-mono font-bold'>
+                      <strong>W</strong>
+                    </div>
+                    <div className='bg-decoration-bg w-6 h-6 text-center mb-1 font-mono font-bold'>
+                      <strong>P</strong>
+                    </div>
+                    <div className='bg-red-600 w-6 h-6 text-center mb-1 font-mono font-bold'>
+                      <strong>L</strong>
+                    </div>
+
+                  </div>
+
+                  <div className='flex-row'>
+                  
+                    <div className='text-center ml-2 mb-1 font-mono font-bold text-green-600'>
+                      5
+                    </div>
+                    <div className='text-center ml-2 mb-1 font-mono font-bold'>
+                      20
+                    </div>
+                    <div className='text-center ml-2 mb-1 font-mono font-bold text-red-600'>
+                      15
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className='self-center w-44 hidden md:flex font-mono font-bold'>
                 {ProgressCircle(70)}
               </div>
             </div>
     
             <div className='mt-24'>
               <div className='bg-transparent rounded-full flex flex-grow'>
-                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full'>
-                  Won: 10
+                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full text-xl'>
+                  Time
                 </div>
                     
-                <div className='bg-secondary-color text-white w-1/3 text-center'>
-                  Played: 15
+                <div className='bg-secondary-color text-white w-1/3 text-center text-2xl font-mono font-bold'>
+                  History
                 </div>
     
-                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tr-full'>
-                  Lost: 5
+                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tr-full text-xl'>
+                  Enemy
                 </div>   
     
               </div>

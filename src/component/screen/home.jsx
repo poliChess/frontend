@@ -61,7 +61,8 @@ function Play() {
       </button>
 
       <Link to="/profile">
-        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
+              onClick={navigate('/profle')}>
           Profile
         </button>
       </Link>
