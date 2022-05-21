@@ -11,6 +11,7 @@ import Title from '../title';
 import apiclient from '../../utils/apiclient.js';
 import User from '../user';
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 
 import {
@@ -78,16 +79,44 @@ function Match(time, enemy, result) {
   );
 }
 
+
 const wins = 15;
 const losses = 5;
 function Profile() {
 
     const user = useSelector(state => state.user.info);
 
+    const navigate = useNavigate();
+    const handleEdit = async (type) => {
+      // navigate('/edit', { state: { id: 1, name: "sebi"}});
+
+      // type = "username";
+      // if(type === "username")
+        navigate('/edit', { state: { id: 1, name: "username"}});
+
+      // if(type === "mail")
+      //   navigate('/edit', { state: { id: 1, name: "mail"}});
+
+      // if(type === "password")
+      //   navigate('/edit', { state: { id: 1, name: "password"}});
+    }
+
+    const handleEditUsername = async () => {
+        navigate('/edit', { state: { id: 1, name: "username"}});
+    }
+
+    const handleEditPassword = async () => {
+        navigate('/edit', { state: { id: 2, name: "password"}});
+    }
+
+    const handleEditMail = async () => {
+        navigate('/edit', { state: { id: 3, name: "mail"}});
+    }
+
     // console.log({user.username})
 
     const screen = (
-        <div className="p-8 m-6 mt-24">
+        <div className="p-8 m-6 mt-20">
     
           <Title/>
     
@@ -122,8 +151,37 @@ function Profile() {
                   
                 </div>
               </div>
+
+              <div className='hidden md:flex flex-grow self-center justify-end m-2'>
+                <div className='flex'>
+
+                  <div className='flex-row'>
+                    
+                    <div className='text-center mr-2 mb-16 font-mono font-bold text-green-600'>
+                      5
+                    </div>
+
+                    <div className='text-center mr-2 mt-16 font-mono font-bold text-red-600'>
+                      15
+                    </div>
+                  </div>
+
+                  <div className='flex-row'>
+                    
+                    <div className='bg-green-600 w-6 h-6 text-center mb-16 font-mono font-bold'>
+                      <strong>W</strong>
+                    </div>
+
+                    <div className='bg-red-600 w-6 h-6 text-center mt-16 font-mono font-bold'>
+                      <strong>L</strong>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
     
-              <div className='self-center w-44 m-2 hidden md:flex font-mono font-bold'>
+              <div className='w-44 m-2 hidden md:flex font-mono font-bold'>
                 {ProgressCircle2(25)}
               </div>
 
@@ -131,29 +189,18 @@ function Profile() {
                 <div className='flex'>
                   <div className='flex-row'>
                     
-                    <div className='bg-green-600 w-6 h-6 text-center mb-1 font-mono font-bold'>
-                      <strong>W</strong>
-                    </div>
-                    <div className='bg-decoration-bg w-6 h-6 text-center mb-1 font-mono font-bold'>
+                    <div className='bg-decoration-bg w-6 h-6 text-center font-mono font-bold'>
                       <strong>P</strong>
-                    </div>
-                    <div className='bg-red-600 w-6 h-6 text-center mb-1 font-mono font-bold'>
-                      <strong>L</strong>
                     </div>
 
                   </div>
 
                   <div className='flex-row'>
                   
-                    <div className='text-center ml-2 mb-1 font-mono font-bold text-green-600'>
-                      5
-                    </div>
-                    <div className='text-center ml-2 mb-1 font-mono font-bold'>
+                    <div className='text-center ml-2 font-mono font-bold'>
                       20
                     </div>
-                    <div className='text-center ml-2 mb-1 font-mono font-bold text-red-600'>
-                      15
-                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -163,7 +210,7 @@ function Profile() {
               </div>
             </div>
     
-            <div className='mt-24'>
+            <div className='mt-16'>
               <div className='bg-transparent rounded-full flex flex-grow'>
                 <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full text-xl'>
                   Time
@@ -197,6 +244,46 @@ function Profile() {
                 {Match(100, 'Popcorn', 'Defeat', win)}
                         
               </div>
+            </div>
+
+            <div className='text-center mt-5 border-b-4'>
+              Edit
+            </div>
+
+            <div className='flex mt-1'>
+
+              <div className='w-1/3 flex justify-center'>
+
+                <button
+                  className="bg-main-color text-white h-10 w-36 rounded-full 
+                    hover:scale-110 focus:scale-110 transition-all"
+                    onClick={handleEditUsername}
+                  >
+                  Username
+                </button>
+                  
+              </div>
+                
+              <div className='w-1/3 flex justify-center'>
+                <button
+                  className="bg-main-color text-white h-10 w-36 rounded-full 
+                    hover:scale-110 focus:scale-110 transition-all"
+                    onClick={handleEditPassword}
+                  >
+                  Password
+                </button>
+              </div>
+
+              <div className='w-1/3 flex justify-center'>
+                <button
+                  className="bg-main-color text-white h-10 w-36 rounded-full 
+                    hover:scale-110 focus:scale-110 transition-all"
+                    onClick={handleEditMail}
+                  >
+                  Mail
+                </button>
+              </div>
+
             </div>
           </div> 
         </div>

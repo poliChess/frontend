@@ -31,6 +31,11 @@ function Play() {
     }
   }
 
+  const handleLogout = async() => {
+
+    navigate('/');
+  }
+
   const screen = (
     <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132 relative">
       <Title />      
@@ -62,10 +67,21 @@ function Play() {
 
       <Link to="/profile">
         <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
-              onClick={navigate('/profle')}>
+              onClick={navigate('/profile')}>
           Profile
         </button>
       </Link>
+
+      <Link to="/edit">
+        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
+              onClick={navigate('/edit')}>
+          Edit
+        </button>
+      </Link>
+
+      <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
+        Log out
+      </button>
 
       {/*  testing   */}
       <button onClick={() => apiclient.leaveQueue()}> exit </button>
