@@ -47,7 +47,7 @@ const apiclient = {
           message
         }
       }`,
-      { mail, username, password}
+      { mail, username, password }
     ).toPromise();
 
     return res.data.register;
@@ -94,7 +94,29 @@ const apiclient = {
       }`
     ).toPromise();
 
-    return res.data.leaveQueue;
+    return res.data.updateUser;
+  },
+
+  updateUser: async ({ mail, username, password }) => {
+    const res = await client.mutation(
+      `mutation UpdateUser($mail: String, $username: String, $password: String) {
+        updateUser(mail: $mail, username: $username, password: $password) {
+          user {
+            mail
+            username
+            playedGames
+            wonGames
+            rating
+            lastLogin
+          }
+          success
+          message
+        }
+      }`,
+      { mail, username, password }
+    ).toPromise();
+
+    return res.data.updateUser;
   },
 };
 

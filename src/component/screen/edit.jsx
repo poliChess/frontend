@@ -3,6 +3,9 @@ import google from '../../pictures/logos/google.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setLoggedIn } from '../../state/userSlice';
 
 import Decoration from '../decoration';
 import Title from '../title';
@@ -11,24 +14,40 @@ import apiclient from '../../utils/apiclient.js';
 
 function EditUsername() {
 
-    const [userData, setUserData] = useState({ newUsername: '', password: '' });
+    const user = useSelector(state => state.user.info);
+
+    const [credentials, setCredentials] = useState( { username: user.username, password: ''});
+    const [userData, setUserData] = useState({ username: ''});
     const [message, setMessage] = useState({ text: '', color: 'black' });
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     const handleChange = async () => {
-        if (!userData.newUsername || !userData.password) {
+        if (!userData.username || !credentials.password) {
         setMessage({ text: 'Complete all fields!', color: 'red' })
         return;
         }
 
-        const res = await apiclient.change(userData);
+        const res1 = await apiclient.login(credentials);
 
-        if (res.success) {
-        setMessage({ text: 'Changes applied!', color: 'black' })
-        setTimeout(() => navigate('/'), 500);
+        if(res1.success) {
+            console.log('AM INTRAT 1')
+            const res2 = await apiclient.updateUser(userData);
+            console.log('AM INTRAT 2')
+
+            if(res2.success) {
+                setMessage({ text: 'Changes applied!', color: 'black' })
+                dispatch(setLoggedIn(res2));
+                setTimeout(() => navigate('/profile'), 500);
+            } else {
+                setMessage({ text: res2.message, color: 'red' })
+            }
+
         } else {
-        setMessage({ text: res.message, color: 'red' })
+            setMessage({ text: res1.message, color: 'red' })
         }
+
     }
 
     const screen = (
@@ -49,8 +68,8 @@ function EditUsername() {
             id='password'
             type='password'
             placeholder='Password'
-            value={userData.password}
-            onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
+            value={credentials.password}
+            onChange={(e) => setCredentials((prev) => ({ ...prev, password: e.target.value }))}
           />
     
           <input
@@ -59,8 +78,8 @@ function EditUsername() {
             id='username'
             type='text'
             placeholder='New Username'
-            value={userData.newUsername}
-            onChange={(e) => setUserData((prev) => ({ ...prev, newUsername: e.target.value }))}
+            value={userData.username}
+            onChange={(e) => setUserData((prev) => ({ ...prev, username: e.target.value }))}
           />
     
           <button
@@ -80,24 +99,41 @@ function EditUsername() {
 
 function EditMail() {
 
-    const [userData, setUserData] = useState({ newMail: '', password: '' });
+    const user = useSelector(state => state.user.info);
+
+    const [credentials, setCredentials] = useState( { username: user.username, password: ''});
+
+    const [userData, setUserData] = useState({ mail: '' });
     const [message, setMessage] = useState({ text: '', color: 'black' });
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     const handleChange = async () => {
-        if (!userData.newMail || !userData.password) {
+        if (!userData.mail || !credentials.password) {
         setMessage({ text: 'Complete all fields!', color: 'red' })
         return;
         }
 
-        const res = await apiclient.change(userData);
+        const res1 = await apiclient.login(credentials);
 
-        if (res.success) {
-        setMessage({ text: 'Changes applied!', color: 'black' })
-        setTimeout(() => navigate('/'), 500);
+        if(res1.success) {
+            console.log('AM INTRAT 1')
+            const res2 = await apiclient.updateUser(userData);
+            console.log('AM INTRAT 2')
+
+            if(res2.success) {
+                setMessage({ text: 'Changes applied!', color: 'black' })
+                dispatch(setLoggedIn(res2))
+                setTimeout(() => navigate('/profile'), 500)
+            } else {
+                setMessage({ text: res2.message, color: 'red' })
+            }
+
         } else {
-        setMessage({ text: res.message, color: 'red' })
+            setMessage({ text: res1.message, color: 'red' })
         }
+
     }
 
     const screen = (
@@ -118,8 +154,8 @@ function EditMail() {
             id='password'
             type='password'
             placeholder='Password'
-            value={userData.password}
-            onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
+            value={credentials.password}
+            onChange={(e) => setCredentials((prev) => ({ ...prev, password: e.target.value }))}
           />
     
           <input
@@ -128,8 +164,8 @@ function EditMail() {
             id='newMail'
             type='text'
             placeholder='New Mail'
-            value={userData.newMail}
-            onChange={(e) => setUserData((prev) => ({ ...prev, newMail: e.target.value }))}
+            value={userData.mail}
+            onChange={(e) => setUserData((prev) => ({ ...prev, mail: e.target.value }))}
           />
     
           <button
@@ -149,24 +185,41 @@ function EditMail() {
 
 function EditPassword() {
 
-    const [userData, setUserData] = useState({ newPassword: '', password: '' });
+    const user = useSelector(state => state.user.info);
+
+    const [credentials, setCredentials] = useState( { username: user.username, password: ''});
+
+    const [userData, setUserData] = useState({ password: '' });
     const [message, setMessage] = useState({ text: '', color: 'black' });
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     const handleChange = async () => {
-        if (!userData.newPassword || !userData.password) {
+        if (!userData.password || !credentials.password) {
         setMessage({ text: 'Complete all fields!', color: 'red' })
         return;
         }
 
-        const res = await apiclient.change(userData);
+        const res1 = await apiclient.login(credentials);
 
-        if (res.success) {
-        setMessage({ text: 'Changes applied!', color: 'black' })
-        setTimeout(() => navigate('/'), 500);
+        if(res1.success) {
+            console.log('AM INTRAT 1')
+            const res2 = await apiclient.updateUser(userData);
+            console.log('AM INTRAT 2')
+
+            if(res2.success) {
+                setMessage({ text: 'Changes applied!', color: 'black' });
+                dispatch(setLoggedIn(res2));
+                setTimeout(() => navigate('/login'), 500);
+            } else {
+                setMessage({ text: res2.message, color: 'red' });
+            }
+
         } else {
-        setMessage({ text: res.message, color: 'red' })
+            setMessage({ text: res1.message, color: 'red' });
         }
+
     }
 
     const screen = (
@@ -187,8 +240,8 @@ function EditPassword() {
             id='password'
             type='password'
             placeholder='Password'
-            value={userData.password}
-            onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
+            value={credentials.password}
+            onChange={(e) => setCredentials((prev) => ({ ...prev, password: e.target.value }))}
           />
     
           <input
@@ -197,8 +250,8 @@ function EditPassword() {
             id='newPassword'
             type='password'
             placeholder='New Password'
-            value={userData.newPassword}
-            onChange={(e) => setUserData((prev) => ({ ...prev, newPassword: e.target.value }))}
+            value={userData.password}
+            onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
           />
     
           <button
@@ -228,100 +281,5 @@ function Edit() {
         return EditPassword();
   }
 
-// function Edit() {
-
-//   const location = useLocation();
-
-//   const [userData, setUserData] = useState({ newMail: '', newUsername: '', newPassword: '', password: '' });
-//   const [message, setMessage] = useState({ text: '', color: 'black' });
-//   const navigate = useNavigate();
-
-//   const handleSubmit = async () => {
-//     if (!userData.username) {
-//       setMessage({ text: 'Complete all fields!', color: 'red' })
-//       return;
-//     }
-
-//     const res = await apiclient.change(userData);
-
-//     if (res.success) {
-//       setMessage({ text: 'Changes applied!', color: 'black' })
-//       setTimeout(() => navigate('/'), 500);
-//     } else {
-//       setMessage({ text: res.message, color: 'red' })
-//     }
-//   }
-
-//   const screen = (
-//     <div className='bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132 relative'>
-//       <Title /> 
-
-//       <img
-//         className='m-8 hover:scale-125 transition-all'
-//         src={queen}
-//         height='80px'
-//         width='80px'
-//         border='1px'
-//       />
-
-//       <div>
-//           {location.state.name}
-//       </div>
-
-//       if({location.state.name} === 'sebi')
-//       <input
-//         className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
-//                    transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
-//         id='username'
-//         type='text'
-//         placeholder='Password'
-//         value={userData.password}
-//         onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
-//       />
-
-//       <input
-//         className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
-//                    transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
-//         id='username'
-//         type='text'
-//         placeholder='New Username'
-//         value={userData.newUsername}
-//         onChange={(e) => setUserData((prev) => ({ ...prev, newUsername: e.target.value }))}
-//       />
-
-//       <input
-//         className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
-//                    transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
-//         id='username'
-//         type='text'
-//         placeholder='New Password'
-//         value={userData.newPassword}
-//         onChange={(e) => setUserData((prev) => ({ ...prev, newPassword: e.target.value }))}
-//       />
-
-//       <input
-//         className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
-//                    transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
-//         id='username'
-//         type='text'
-//         placeholder='New Mail'
-//         value={userData.newMail}
-//         onChange={(e) => setUserData((prev) => ({ ...prev, newMail: e.target.value }))}
-//       />
-
-//       <button
-//         className='bg-secondary-color text-white h-10 w-32 mb-6 rounded-full
-//                    hover:scale-110 focus:scale-110 transition-all'
-//         onClick={handleSubmit}
-//       >
-//         Apply
-//       </button>
-
-//       <h3 className='m-10 h-12 max-h-12 max-w-50' style={{color:message.color}}> {message.text} </h3>
-//     </div>
-//   );
-
-//   return Decoration(screen);
-// }
 
 export default Edit;
