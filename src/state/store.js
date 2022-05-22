@@ -7,4 +7,6 @@ export default configureStore({
     user: userSlice,
     game: gameSlice
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 })
