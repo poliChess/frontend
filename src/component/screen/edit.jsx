@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setLoggedIn } from '../../state/userSlice';
+import { clear, setLoggedIn } from '../../state/userSlice';
 
 import Decoration from '../decoration';
 import Title from '../title';
@@ -192,6 +192,7 @@ function EditPassword() {
     const [credentials, setCredentials] = useState( { username: user.username, password: ''});
 
     const [userData, setUserData] = useState({ password: '' });
+
     const [message, setMessage] = useState({ text: '', color: 'black' });
     const navigate = useNavigate();
 
@@ -212,8 +213,8 @@ function EditPassword() {
 
             if(res2.success) {
                 setMessage({ text: 'Changes applied!', color: 'black' });
-                dispatch(setLoggedIn(res2));
-                setTimeout(() => navigate('/login'), 500);
+                dispatch(clear());
+                setTimeout(() => navigate('/'), 500);
             } else {
                 setMessage({ text: res2.message, color: 'red' });
             }
@@ -298,7 +299,7 @@ function DeleteAccount() {
 
           if(res2.success) {
               setMessage({ text: 'Account deleted!', color: 'black' });
-              dispatch(setLoggedIn(res2));
+              dispatch(clear());
               setTimeout(() => navigate('/'), 500);
           } else {
               setMessage({ text: res2.message, color: 'red' });

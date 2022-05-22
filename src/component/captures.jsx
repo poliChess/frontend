@@ -1,95 +1,32 @@
-import horse from "../../pictures/logos/horse.png";
-import clock1 from "../../pictures/misc/clock1.png";
-import clock2 from "../../pictures/misc/clock2.png";
-import king from "../../pictures/avatars/avatar_king.png";
-import bishop from "../../pictures/avatars/avatar_bishop.png";
+import horse from "../pictures/logos/horse.png";
+import clock1 from "../pictures/misc/clock1.png";
+import clock2 from "../pictures/misc/clock2.png";
+import king from "../pictures/avatars/avatar_king.png";
+import bishop from "../pictures/avatars/avatar_bishop.png";
 
-import black_pawn from "../../pictures/pieces/black_pawn.png";
-import black_rook from "../../pictures/pieces/black_rook.png";
-import black_knight from "../../pictures/pieces/black_knight.png";
-import black_bishop from "../../pictures/pieces/black_bishop.png";
-import black_queen from "../../pictures/pieces/black_queen.png";
-import black_king from "../../pictures/pieces/black_king.png";
+import black_pawn from "../pictures/pieces/black_pawn.png";
+import black_rook from "../pictures/pieces/black_rook.png";
+import black_knight from "../pictures/pieces/black_knight.png";
+import black_bishop from "../pictures/pieces/black_bishop.png";
+import black_queen from "../pictures/pieces/black_queen.png";
+import black_king from "../pictures/pieces/black_king.png";
 
-import white_pawn from "../../pictures/pieces/white_pawn.png";
-import white_rook from "../../pictures/pieces/white_rook.png";
-import white_knight from "../../pictures/pieces/white_knight.png";
-import white_bishop from "../../pictures/pieces/white_bishop.png";  
-import white_queen from "../../pictures/pieces/white_queen.png";
-import white_king from "../../pictures/pieces/white_king.png";
+import white_pawn from "../pictures/pieces/white_pawn.png";
+import white_rook from "../pictures/pieces/white_rook.png";
+import white_knight from "../pictures/pieces/white_knight.png";
+import white_bishop from "../pictures/pieces/white_bishop.png";  
+import white_queen from "../pictures/pieces/white_queen.png";
+import white_king from "../pictures/pieces/white_king.png";
 
-import Timer from "../timer";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-import Chessboard from "../board";
-import Title from "../title";
-import Captures from "../captures";
-import Pieces from "../pieces";
-
-// TODO
-
-// extract all piece images in file: pieces.js pieces['b']['r'] -> black_rook
-
-// extract captured pieces component captures.jsx
-//  - ar trebui sa fie aceiasi componenta si in stanga si in dreapta
-//  - primeste o lista de piese pe care le afiseaza.
-//  - o piesa arata { color: 'w', type: 'r', count: 1 }
-
-// experiment resize
-
-// combina div imbricate
-
-// fisierul sa aiba 150 linii
-
-// repara edit password
-
-function NumberList(props) {
-  const numbers = props.numbers;
-  const listItems = numbers.map((number) =>
-    <li>{number}</li>
-  );
-  return (
-    <ul>{listItems}</ul>
-  );
-}
+import Pieces from "./pieces";
 
 
-function Game(user, opponent) {
 
-  const golden = [{id: 1, color: "b", type: "p", count: 1},
-                        {id: 2, color: "b", type: "r", count: 2},
-                        {id: 3, color: "b", type: "k", count: 3},
-                        {id: 4, color: "b", type: "b", count: 4},
-                        {id: 5, color: "b", type: "q", count: 5},
-                        {id: 6, color: "w", type: "p", count: 5},
-                        {id: 7, color: "w", type: "r", count: 4},
-                        {id: 8, color: "w", type: "k", count: 3},
-                        {id: 9, color: "w", type: "b", count: 2},
-                        {id: 10, color: "w", type: "q", count: 1}
-                      ]
 
-  const [p1Captures, setP1Captures] = useState({
-    pawns: 0,
-    knights: 0,
-    bishops: 0,
-    rooks: 0,
-    queen: 0
-  });
-
-  const [p2Captures, setP2Captures] = useState({
-    pawns: 0,
-    knights: 0,
-    bishops: 0,
-    rooks: 0,
-    queens: 0
-  });
-
-  const game = useSelector(state => state.game);
-
-  const timer1 = game.engine ? game.engine.turn() === game.side : false;
-  const timer2 = game.engine ? game.engine.turn() !== game.side : false;
+function Captures({golden, color}) {
 
   // return (
     
@@ -314,115 +251,119 @@ function Game(user, opponent) {
   //   </div>
   // );
 
-  
-  return (
-    
-    <div className="flex">
+//   const obj = props.golden[i]
+//    console.log(props.golden[i])
+//  console.log(props.golden.length)
+//   for(i = 0; i < props.number; i++)
+//     console.log(props.golden[i]);
+ console.log(color)
 
-      {/* COL 1 */}
-      <div className="bg-red-600 hidden md:flex flex-col flex-grow">
-
-        {/* ROW 1.1 */}
-        <div className="bg-orange-600 mt-24">
-          <img
-            className="m-auto"
-            src={bishop}
-            height="100px"
-            width="100px"
-            border="1px"
-          />
-        </div>
-        
-        {/* ROW 1.2 */}
-        <div className="bg-pink-600 text-center">
-          Faraonu 1
-        </div>
-
-        {/* ROW 1.3 */}
-        <div className="bg-purple-600 mt-48">
-          <Captures golden={golden} color={'w'}/>
-        </div>
-      </div>
-
-
-      {/* COL 2 */}
-      <div className="bg-right-bg flex-row flex-grow">
-
-        <Title/>
-
-        {/* ROW 1 */}
-          <div className="flex mt-20">
-
-            {/* COL 1.1 */}
-            <div className="bg-red-600 font-['Helvetica'] underline underline-offset-4 self-center text-right text-2xl text-button-1 w-2/5">
-              <Timer running={timer1} />
-            </div>
-
-            {/* COL 1.2 */}
-            <div className="self-center w-1/5">
-              <img
-                className="m-auto"
-                src={timer1 ? clock1 : timer2 ? clock2 : null}
-                height="140px"
-                width="140px"
-                border="1px"
-              />
-            </div>
-
-            {/* COL 1.3 */}
-            <div className="font-['Helvetica'] underline underline-offset-4 self-center text-left text-2xl text-red-600 w-2/5">
-              <Timer running={timer2} />
-            </div>
-          </div>
-        
-        {/* ROW 2 */}
-        <div className="flex md:hidden mt-10">
-
-          {/* COL 2.1 */}
-          <div className="w-1/2 bg-blue-600 text-center">
-            Faraonu 1
-          </div>
-
-          {/* COL 2.2 */}
-          <div className="w-1/2 bg-green-600 text-center">
-            Faraonu 2
-          </div>
-        </div>
-
-        {/* ROW 3 */}
-        {/* <div className="flex-grow content-center flex shrink-0 mt-10"> */}
-        <div className="mt-10">
-            <Chessboard game={{p1: [p1Captures, setP1Captures], p2: [p2Captures, setP2Captures]}}/>
-        </div>
-      </div>
-
-
-      {/* COL 3 */}
-      <div className="bg-blue-600 hidden md:flex flex-col flex-grow">
-        
-        {/* ROW 1.1 */}
-        <div className="bg-orange-600 mt-24">
-          <img
-            className="m-auto"
-            src={bishop}
-            height="100px"
-            width="100px"
-            border="1px"
-          />
-        </div>
-        
-        {/* ROW 1.2 */}
-        <div className="bg-pink-600 text-center">
-          Faraonu 2
-        </div>
-
-        {/* ROW 1.3 */}
-        <div className="bg-purple-600 mt-48">
-          <Captures golden={golden} color={'b'}/>
-        </div>
-      </div>
+return (
+    <div className="flex-row items-center bg-white flex-grow rounded-2xl border-b-black border-t-black border-4 shadow-xl shadow-button-1 hover:shadow-purple-600 text-center">
+      {golden.map((item) => (item.color === color) 
+        ? (<div key={item.id} className="flex justify-center">
+                <div>
+                    <img
+                        className=""
+                        src={Pieces(item.color, item.type)}
+                        height="50px"
+                        width="50px"
+                        border="1px"
+                    />
+                </div>
+                <div className="self-center">
+                    X {item.count}
+                </div>
+            </div>)
+        : null
+      )}
     </div>
+  );
+//  console.log(golden[0].count)
+
+// const numbers = golden;
+//   const listItems = numbers.map((number) =>
+//     <li>{number}</li>
+//   );
+
+  return (
+        
+        <div className="flex-grow hidden md:flex items-center shrink-0">
+          <div className="mr-11 bg-white flex-grow m-16 rounded-2xl border-b-black border-t-black border-4 shadow-xl shadow-button-1 hover:shadow-purple-600">
+            <div className="bg-white flex items-center m-1">
+              <div className="m-auto">
+                <div className="flex items-center">
+                  <img
+                    className=""
+                    src={black_pawn}
+                    height="50px"
+                    width="50px"
+                    border="1px"
+                  />
+                <div className="text-center">X 1</div>
+              </div>
+            </div>
+          </div>
+            <div className="bg-white flex items-center m-1">
+              <div className="m-auto">
+                <div className="flex items-center">
+                  <img
+                    className=""
+                    src={black_rook}
+                    height="50px"
+                    width="50px"
+                    border="1px"
+                  />
+                  <div className="text-center">X 1</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white flex items-center m-1">
+              <div className="m-auto">
+                <div className="flex items-center">
+                  <img
+                    className=""
+                    src={black_knight}
+                    height="50px"
+                    width="50px"
+                    border="1px"
+                  />
+                  <div className="text-center">X 1</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white flex items-center m-1">
+              <div className="m-auto">
+                <div className="flex items-center">
+                  <img
+                    className=""
+                    src={black_bishop}
+                    height="50px"
+                    width="50px"
+                    border="1px"
+                  />
+                  <div className="text-center">X 1</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white flex items-center m-1">
+              <div className="m-auto">
+                <div className="flex items-center">
+                  <img
+                    className=""
+                    src={black_queen}
+                    height="50px"
+                    width="50px"
+                    border="1px"
+                  />
+                  <div className="text-center">X 1</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
   );
 }
 
-export default Game;
+export default Captures;

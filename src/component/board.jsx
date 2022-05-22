@@ -101,7 +101,8 @@ export class Chessboard extends React.Component{
               <Position color={dark} position={[0,5]} boardRef={this}/>
               <Position color={light} position={[0,6]} boardRef={this}/>
               <Position color={dark} position={[0,7]} boardRef={this}/>
-            <th className="text-transparent">8</th>
+            {/* text-transparent daca vrei sa nu ai numere pe o margine */}
+            <th>8</th>
           </tr>
           <tr>
             <th>7</th>
