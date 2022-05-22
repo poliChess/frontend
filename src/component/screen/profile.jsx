@@ -113,12 +113,30 @@ function Profile() {
         navigate('/edit', { state: { id: 3, name: "mail"}});
     }
 
+    const handleEditAvatar = async () => {
+      navigate('/edit', { state: { id: 4, name: "avatar"}});
+    }
+
+    const handleDeleteAccount = async () => {
+      navigate('/edit', { state: { id: 5, name: "delete"}});
+    }
+
     // console.log({user.username})
 
     const screen = (
         <div className="p-8 m-6 mt-20">
     
           <Title/>
+
+          <div className="absolute top-4 right-4">
+            <button
+              className="bg-red-600 text-white h-10 w-36 rounded-full 
+                hover:scale-110 focus:scale-110 transition-all"
+                onClick={handleDeleteAccount}
+              >
+              Delete Account
+            </button>
+          </div>
     
           <div className='flex-row'>
     
@@ -252,7 +270,7 @@ function Profile() {
 
             <div className='flex mt-1'>
 
-              <div className='w-1/3 flex justify-center'>
+              <div className='w-1/4 flex justify-center'>
 
                 <button
                   className="bg-main-color text-white h-10 w-36 rounded-full 
@@ -264,7 +282,7 @@ function Profile() {
                   
               </div>
                 
-              <div className='w-1/3 flex justify-center'>
+              <div className='w-1/4 flex justify-center'>
                 <button
                   className="bg-main-color text-white h-10 w-36 rounded-full 
                     hover:scale-110 focus:scale-110 transition-all"
@@ -274,13 +292,23 @@ function Profile() {
                 </button>
               </div>
 
-              <div className='w-1/3 flex justify-center'>
+              <div className='w-1/4 flex justify-center'>
                 <button
                   className="bg-main-color text-white h-10 w-36 rounded-full 
                     hover:scale-110 focus:scale-110 transition-all"
                     onClick={handleEditMail}
                   >
                   Mail
+                </button>
+              </div>
+
+              <div className='w-1/4 flex justify-center'>
+                <button
+                  className="bg-main-color text-white h-10 w-36 rounded-full 
+                    hover:scale-110 focus:scale-110 transition-all"
+                    onClick={handleEditAvatar}
+                  >
+                  Avatar
                 </button>
               </div>
 

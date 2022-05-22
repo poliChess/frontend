@@ -94,7 +94,7 @@ const apiclient = {
       }`
     ).toPromise();
 
-    return res.data.updateUser;
+    return res.data.leaveQueue;
   },
 
   updateUser: async ({ mail, username, password }) => {
@@ -117,6 +117,19 @@ const apiclient = {
     ).toPromise();
 
     return res.data.updateUser;
+  },
+
+  deleteUser: async () => {
+    const res = await client.mutation(
+      `mutation DeleteUser {
+        deleteUser {
+          success
+          message
+        }
+      }`
+    ).toPromise();
+
+    return res.data.deleteUser;
   },
 };
 

@@ -269,6 +269,82 @@ function EditPassword() {
       return Decoration(screen);
 }
 
+function DeleteAccount() {
+
+  const user = useSelector(state => state.user.info);
+
+  const [credentials, setCredentials] = useState( { username: user.username, password: ''});
+
+  const [message, setMessage] = useState({ text: '', color: 'black' });
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const handleChange = async () => {
+      if (!credentials.password) {
+      setMessage({ text: 'Complete all fields!', color: 'red' })
+      return;
+      }
+
+      const res1 = await apiclient.login(credentials);
+
+      if(res1.success) {
+          console.log('AM INTRAT 1')
+          // oare ce se face logout automat??
+          const res2 = await apiclient.deleteUser();
+          console.log('AM INTRAT 2')
+
+          if(res2.success) {
+              setMessage({ text: 'Account deleted!', color: 'black' });
+              dispatch(setLoggedIn(res2));
+              setTimeout(() => navigate('/'), 500);
+          } else {
+              setMessage({ text: res2.message, color: 'red' });
+          }
+
+      } else {
+          setMessage({ text: res1.message, color: 'red' });
+      }
+
+  }
+
+  const screen = (
+      <div className='bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132 relative'>
+        <Title /> 
+  
+        <img
+          className='m-8 hover:scale-125 transition-all'
+          src={queen}
+          height='80px'
+          width='80px'
+          border='1px'
+        />
+  
+        <input
+          className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
+                     transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
+          id='password'
+          type='password'
+          placeholder='Password'
+          value={credentials.password}
+          onChange={(e) => setCredentials((prev) => ({ ...prev, password: e.target.value }))}
+        />
+  
+        <button
+          className='bg-secondary-color text-white h-10 w-32 mb-6 rounded-full
+                     hover:scale-110 focus:scale-110 transition-all'
+          onClick={handleChange}
+        >
+          Delete Account
+        </button>
+  
+        <h3 className='m-10 h-12 max-h-12 max-w-50' style={{color:message.color}}> {message.text} </h3>
+      </div>
+    );
+  
+    return Decoration(screen);
+}
+
 function Edit() {
 
     const location = useLocation();
@@ -279,6 +355,10 @@ function Edit() {
         return EditMail();
     if(location.state.name === "password")
         return EditPassword();
+    // if(location.state.name === "avatar")
+    //     return EditPassword();
+    if(location.state.name === "delete")
+        return DeleteAccount();
   }
 
 
