@@ -1,5 +1,4 @@
 import queen from "../../pictures/logos/queen.png";
-import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
@@ -31,11 +30,6 @@ function Play() {
     }
   }
 
-  const handleLogout = async() => {
-
-    navigate('/');
-  }
-
   const screen = (
     <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132 relative">
       <Title />      
@@ -49,11 +43,10 @@ function Play() {
         border="1px"
       />
 
-      <Link to="/local">
-        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
-          Local game
-        </button>
-      </Link>
+      <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
+              onClick={() => navigate('/local')}>
+        Local game
+      </button>
 
       <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
               onClick={handleVsPlayer}>
@@ -65,19 +58,10 @@ function Play() {
         Versus AI
       </button>
 
-      <Link to="/profile">
-        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
-              onClick={navigate('/profile')}>
-          Profile
-        </button>
-      </Link>
-
-      <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
-        Log out
+      <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-60 my-6 rounded-full"
+              onClick={() => navigate('/profile')}>
+        Profile
       </button>
-
-      {/*  testing   */}
-      <button onClick={() => apiclient.leaveQueue()}> exit </button>
 
     </div>
   );
@@ -86,6 +70,8 @@ function Play() {
 }
 
 function Welcome() {
+  const navigate = useNavigate();
+
   const screen = (
     <div className="bg-white flex flex-grow flex-col justify-center items-center h-screen p-8 z-10 w-132">
       <Title /> 
@@ -98,23 +84,20 @@ function Welcome() {
         border="1px"
       />
 
-      <Link to="/login">
-        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
-          Login
-        </button>
-      </Link>
+      <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
+              onClick={() => navigate('/login')}>
+        Login
+      </button>
 
-      <Link to="/register">
-        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
-          Register
-        </button>
-      </Link>
+      <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
+              onClick={() => navigate('/register')}>
+        Register
+      </button>
 
-      <Link to="/local">
-        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
-          Guest
-        </button>
-      </Link>
+      <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-60 my-6 rounded-full"
+              onClick={() => navigate('/local')}>
+        Local game
+      </button>
     </div>
   );
 
@@ -125,9 +108,9 @@ function Home() {
   const user = useSelector(state => state.user);
 
   if (user.loggedIn || user.guest)
-    return Play();
+    return <Play/>;
 
-  return Welcome();
+  return <Welcome/>;
 }
 
 export default Home;
