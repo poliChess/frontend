@@ -15,11 +15,12 @@ export const gameSlice = createSlice({
   reducers: {
     startLocalGame(state) {
       state.engine = new Chess();
-      state.type = "local";
+      state.type = 'local';
+      state.side = 'w';
     },
     startOnlineGame(state, side) {
       state.engine = new Chess();
-      state.type = "online";
+      state.type = 'online';
       state.side = side;
     },
     pickUp(state, square) {

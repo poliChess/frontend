@@ -20,8 +20,8 @@ function App() {
           <Route path="/game" element={<OnlineGame/>}/>
           <Route path="/local" element={<LocalGame/>}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/loading" element={<Loading/>}/>
           <Route path="/edit" element={<Edit/>}/>
-          <Route path="/loading" element={<Edit/>}/>
         </Routes>
       </Router>
     </div>

@@ -48,6 +48,8 @@ function EditUsername() {
             setMessage({ text: res1.message, color: 'red' })
         }
 
+        console.log('sal')
+
     }
 
     const screen = (
@@ -355,8 +357,8 @@ function Edit() {
         return EditMail();
     if(location.state.name === "password")
         return EditPassword();
-    // if(location.state.name === "avatar")
-    //     return EditPassword();
+    if(location.state.name === "avatar")
+        return EditPassword();
     if(location.state.name === "delete")
         return DeleteAccount();
   }

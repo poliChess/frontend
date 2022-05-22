@@ -19,7 +19,8 @@ import white_queen from "../../pictures/pieces/white_queen.png";
 import white_king from "../../pictures/pieces/white_king.png";
 
 import Timer from "../timer";
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Chessboard from "../board";
@@ -40,6 +41,12 @@ function Game(user, opponent) {
     rooks: 0,
     queens: 0
   });
+
+  const game = useSelector(state => state.game);
+
+  const timer1 = game.engine ? game.engine.turn() === game.side : false;
+  const timer2 = game.engine ? game.engine.turn() !== game.side : false;
+
   return (
     <div className="bg-right-bg flex-row">
       <div className="flex justify-between">
@@ -68,14 +75,13 @@ function Game(user, opponent) {
 
         <div className="flex flex-grow ml-44 mr-44 flex-shrink-0">
           <div className="font-['Helvetica'] underline underline-offset-4 flex-grow self-center text-center text-2xl text-button-1">
-            {/* Add number of minutes */}
-            {Timer(5)}
+            <Timer running={timer1} />
           </div>
 
           <div className="flex-grow ml-10 mr-10 self-center">
             <img
               className="m-auto"
-              src={clock1}
+              src={timer1 ? clock1 : timer2 ? clock2 : null}
               height="140px"
               width="140px"
               border="1px"
@@ -83,21 +89,18 @@ function Game(user, opponent) {
           </div>
 
           <div className="font-['Helvetica'] underline underline-offset-4 flex-grow self-center text-center text-2xl text-red-600">
-            {/* Add number of minutes */}
-            {Timer(5)}
+            <Timer running={timer2} />
           </div>
         </div>
 
         <div className="flex-grow flex-shrink-0">
           <div className="text-white text-right mt-4 mr-4">
-            <Link to="/">
               <button
                 className="bg-button-2 hover:bg-purple-600 text-white w-24 h-6 
                             rounded-full shadow-lg hover:shadow-purple-600 shadow-button-2"
               >
                 <strong className="text-md">Abandon</strong>
               </button>
-            </Link>
           </div>
 
           <div className="mt-20 mr-4">

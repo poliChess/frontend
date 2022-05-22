@@ -72,13 +72,6 @@ function Play() {
         </button>
       </Link>
 
-      <Link to="/edit">
-        <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full"
-              onClick={navigate('/edit')}>
-          Edit
-        </button>
-      </Link>
-
       <button className="bg-main-color hover:bg-secondary-color hover:scale-105 transition-all text-white text-lg h-11 w-70 mb-6 rounded-full">
         Log out
       </button>

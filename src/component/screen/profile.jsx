@@ -87,30 +87,17 @@ function Profile() {
     const user = useSelector(state => state.user.info);
 
     const navigate = useNavigate();
-    const handleEdit = async (type) => {
-      // navigate('/edit', { state: { id: 1, name: "sebi"}});
-
-      // type = "username";
-      // if(type === "username")
-        navigate('/edit', { state: { id: 1, name: "username"}});
-
-      // if(type === "mail")
-      //   navigate('/edit', { state: { id: 1, name: "mail"}});
-
-      // if(type === "password")
-      //   navigate('/edit', { state: { id: 1, name: "password"}});
-    }
 
     const handleEditUsername = async () => {
-        navigate('/edit', { state: { id: 1, name: "username"}});
+      navigate('/edit', { state: { id: 1, name: "username"}});
     }
 
     const handleEditPassword = async () => {
-        navigate('/edit', { state: { id: 2, name: "password"}});
+      navigate('/edit', { state: { id: 2, name: "password"}});
     }
 
     const handleEditMail = async () => {
-        navigate('/edit', { state: { id: 3, name: "mail"}});
+      navigate('/edit', { state: { id: 3, name: "mail"}});
     }
 
     const handleEditAvatar = async () => {

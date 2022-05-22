@@ -3,8 +3,10 @@ import Game from './game';
 import { Link } from "react-router-dom";
 import Stopwatch from "../stopwatch";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
 import { apiclient, createWebSocket } from "../../utils/apiclient";
+import { startOnlineGame, makeMove } from "../../state/gameSlice";
 
 function Loading() {
   const screen = (
@@ -39,6 +41,9 @@ function OnlineGame() {
   const user = useSelector(state => state.user.info);
   const [opponent, setOpponent] = useState({ username: '' });
 
+  const game = useSelector(state => state.game);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const ws = createWebSocket();
 
@@ -53,8 +58,7 @@ function OnlineGame() {
 
         setStarted(true);
 
-        // init game slice
-        console.log(msg[1] === 'first');
+        dispatch(startOnlineGame(msg[1] === 'first' ? 'w' : 'b'));
 
         if (msg[3] === 'computer') {
           setOpponent({ username: 'computer' });
@@ -65,8 +69,12 @@ function OnlineGame() {
 
       } else if (msg[0] === 'move') {
 
-        // send move to game slice
         console.log('MOVE: ' + msg[1]);
+        if (game.engine && game.engine.turn() != game.side) {
+          console.log(msg.substr(0, 2)); // a2a4 -> to: a2 from: a4
+          console.log(msg.substr(2, 2));
+          dispatch(makeMove(msg.substr(0, 2), msg.substr(2, 2)));
+        }
 
       } else {
         console.warn('BAD MESSAGE: ' + msg);
