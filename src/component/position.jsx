@@ -46,13 +46,18 @@ export class Position extends React.Component{
     if (position) {
       var pieceIcon = letters2Icon[position.type + position.color];
 
-      return (<td className={ this.highlight === false ? this.color : 'bg-yellow-300'}
-                  onClick={() => this.boardRef.occupiedPositionHandler(position)}>
-                {<img className="" alt="" src={pieceIcon}/>}
-              </td>);
+      return (
+        <td className={ this.highlight === false ? this.color : 'bg-yellow-300' }
+            onClick={() => this.boardRef.occupiedPositionHandler(position)}>
+          { <img className="" alt="" src={pieceIcon}/> }
+        </td>
+      );
     }
-    return (<td className={this.highlight === false ? this.color : 'bg-yellow-300'}
-                onClick={() => this.boardRef.emptyPositionHandler(this.position)}>
-              </td>);
+
+    return (
+      <td className={this.highlight === false ? this.color : 'bg-yellow-300'}
+          onClick={() => this.boardRef.emptyPositionHandler(this.position)}>
+      </td>
+    );
   }
 }
