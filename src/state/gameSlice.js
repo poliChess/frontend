@@ -16,16 +16,23 @@ export const gameSlice = createSlice({
 
   reducers: {
     startLocalGame(state) {
-      state.engine = new Chess();
       state.type = 'local';
+      state.engine = new Chess();
       state.side = 'w';
+      state.result = '';
+      state.sendMove = () => null;
+      state.pickedUp = '';
+      state.highlighted = [];
     },
 
     startOnlineGame(state, { payload }) {
-      state.engine = new Chess();
       state.type = 'online';
+      state.engine = new Chess();
       state.side = payload.side;
+      state.result = '';
       state.sendMove = payload.sendMove;
+      state.pickedUp = '';
+      state.highlighted = [];
     },
 
     pickUp(state, { payload }) {
