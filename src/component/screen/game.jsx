@@ -1,66 +1,75 @@
-import horse from "../../pictures/logos/horse.png";
 import clock1 from "../../pictures/misc/clock1.png";
 import clock2 from "../../pictures/misc/clock2.png";
-import king from "../../pictures/avatars/avatar_king.png";
 import bishop from "../../pictures/avatars/avatar_bishop.png";
 
 import Timer from "../timer";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
-import Chessboard from "../board";
+import Chessboard from "../board2";
 import Title from "../title";
 import Captures from "../captures";
-import Pieces from "../pieces";
 
-function Game(user, opponent) {
+function Game({ user, opponent }) {
 
-  const golden = [{color: "b", type: "p", count: 1},
-                  {color: "b", type: "r", count: 2},
-                  {color: "b", type: "k", count: 3},
-                  {color: "b", type: "b", count: 4},
-                  {color: "b", type: "q", count: 5},
-                  {color: "w", type: "p", count: 5},
-                  {color: "w", type: "r", count: 4},
-                  {color: "w", type: "k", count: 3},
-                  {color: "w", type: "b", count: 2},
-                  {color: "w", type: "q", count: 1}
-                  ]
-
-  const [p1Captures, setP1Captures] = useState({
-    pawns: 0,
-    knights: 0,
-    bishops: 0,
-    rooks: 0,
-    queen: 0
-  });
-
-  const [p2Captures, setP2Captures] = useState({
-    pawns: 0,
-    knights: 0,
-    bishops: 0,
-    rooks: 0,
-    queens: 0
-  });
+  const golden = [
+    {color: "b", type: "p", count: 1},
+    {color: "b", type: "r", count: 2},
+    {color: "b", type: "k", count: 3},
+    {color: "b", type: "b", count: 4},
+    {color: "b", type: "q", count: 5},
+    {color: "w", type: "p", count: 5},
+    {color: "w", type: "r", count: 4},
+    {color: "w", type: "k", count: 3},
+    {color: "w", type: "b", count: 2},
+    {color: "w", type: "q", count: 1}
+  ]
 
   const game = useSelector(state => state.game);
+  const [result, setResult] = useState({ message: '', color: '' });
 
-  const timer1 = game.engine ? game.engine.turn() === game.side : false;
-  const timer2 = game.engine ? game.engine.turn() !== game.side : false;
-  
+  const runTimers = game.engine !== null && result.message === '';
+  const timer1 = runTimers ? game.engine.turn() === game.side : false;
+  const timer2 = runTimers ? game.engine.turn() !== game.side : false;
+
+  useEffect(() => {
+    if (game.result) {
+      if (game.result === 'draw') {
+        setResult({ message: 'Draw!', color: 'gray' });
+      } else if (game.result === 'stalemate') {
+        setResult({ message: 'Stalemate...', color: 'gray' });
+      } else if (game.result.startsWith('lost')) {
+        const loser = game.result[5];
+        if (loser === game.side)
+          setResult({ message: 'Defeat!', color: 'red' });
+        else
+          setResult({ message: 'Victory!', color: 'green' });
+      }
+    }
+  }, [game.result, game.side]);
+
   return (
-
     <div>
-
       <Title/>
+
+      {
+        result.message 
+        ? <div className="absolute opacity-90 bg-gray-400 border-8 rounded-md
+                          left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+               style={{ borderColor: result.color }}>
+            <div className="w-80 h-40 flex">
+              <h1 className="m-auto block text-5xl text-black">{ result.message } </h1>
+            </div> 
+          </div>
+        : null
+      }
 
       <div className="text-white text-right mt-4 mr-4">
         <button
-          className="bg-button-2 hover:bg-purple-600 text-white w-24 h-6 
-                     rounded-full shadow-lg hover:shadow-purple-600 shadow-button-2"
+          className="bg-secondary-color text-white px-2 py-1 rounded-full
+                     hover:scale-110 hover:bg-red-600 transition-all"
           >
-          <strong className="text-md">Abandon</strong>
+          Abandon
         </button>
       </div>
 
@@ -73,6 +82,7 @@ function Game(user, opponent) {
           <div className="mt-24">
             <img
               className="m-auto"
+              alt={ user.username }
               src={bishop}
               height="100px"
               width="100px"
@@ -82,7 +92,7 @@ function Game(user, opponent) {
           
           {/* ROW 1.2 */}
           <div className="text-center">
-            Faraonu 1
+            { user.username }
           </div>
 
           {/* ROW 1.3 */}
@@ -107,7 +117,8 @@ function Game(user, opponent) {
               <div className="self-center w-1/5">
                 <img
                   className="m-auto"
-                  src={timer1 ? clock1 : timer2 ? clock2 : null}
+                  src={ timer1 ? clock1 : clock2 }
+                  alt='clock'
                   height="140px"
                   width="140px"
                   border="1px"
@@ -125,19 +136,18 @@ function Game(user, opponent) {
 
             {/* COL 2.1 */}
             <div className="w-1/2 text-center">
-              Faraonu 1
+              { user.username }
             </div>
 
             {/* COL 2.2 */}
             <div className="w-1/2 text-center">
-              Faraonu 2
+              { opponent.username }
             </div>
           </div>
 
           {/* ROW 3 */}
-          {/* <div className="flex-grow content-center flex shrink-0 mt-10"> */}
           <div className="mt-10">
-              <Chessboard game={{p1: [p1Captures, setP1Captures], p2: [p2Captures, setP2Captures]}}/>
+              <Chessboard/>
           </div>
         </div>
 
@@ -150,6 +160,7 @@ function Game(user, opponent) {
             <img
               className="m-auto"
               src={bishop}
+              alt={ opponent.username }
               height="100px"
               width="100px"
               border="1px"
@@ -158,7 +169,7 @@ function Game(user, opponent) {
           
           {/* ROW 1.2 */}
           <div className="text-center">
-            Faraonu 2
+            { opponent.username }
           </div>
 
           {/* ROW 1.3 */}
@@ -168,7 +179,6 @@ function Game(user, opponent) {
         </div>
       </div>
     </div>
-    
     
   );
 }

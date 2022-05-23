@@ -34,8 +34,12 @@ function OnlineGame() {
   const game = useSelector(state => state.game);
   const dispatch = useDispatch();
 
+  let sendMove = () => null; 
+
   useEffect(() => {
     const ws = createWebSocket();
+
+    sendMove = (move) => ws.send(`move ${move}`);
 
     ws.onmessage = (event) => {
       console.log('MESSAGE: ' + JSON.stringify(event.data));
@@ -48,7 +52,8 @@ function OnlineGame() {
 
         setStarted(true);
 
-        dispatch(startOnlineGame(msg[1] === 'first' ? 'w' : 'b'));
+        const side = msg[1] === 'first' ? 'w' : 'b';
+        dispatch(startOnlineGame({ side, sendMove }));
 
         if (msg[3] === 'computer') {
           setOpponent({ username: 'computer' });
@@ -59,12 +64,9 @@ function OnlineGame() {
 
       } else if (msg[0] === 'move') {
 
-        console.log('MOVE: ' + msg[1]);
-        if (game.engine && game.engine.turn() != game.side) {
-          console.log(msg.substr(0, 2)); // a2a4 -> to: a2 from: a4
-          console.log(msg.substr(2, 2));
-          dispatch(makeMove(msg.substr(0, 2), msg.substr(2, 2)));
-        }
+        const from = msg[1].substr(0, 2).toLowerCase();
+        const to = msg[1].substr(2, 2).toLowerCase();
+        dispatch(makeMove({ from, to }));
 
       } else {
         console.warn('BAD MESSAGE: ' + msg);
