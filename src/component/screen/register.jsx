@@ -10,12 +10,18 @@ import apiclient from '../../utils/apiclient.js';
 
 function Register() {
   const [userData, setUserData] = useState({ mail: '', username: '', password: '' });
+  const [security, setSecurity] = useState({ password: '' })
   const [message, setMessage] = useState({ text: '', color: 'black' });
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (!userData.mail || !userData.username || !userData.password) {
       setMessage({ text: 'Complete all fields!', color: 'red' })
+      return;
+    }
+
+    if (userData.password !== security.password) {
+      setMessage({ text: 'Password mismatch!', color: 'red'})
       return;
     }
 
@@ -69,6 +75,16 @@ function Register() {
         placeholder='Password'
         value={userData.password}
         onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
+      />
+
+      <input
+        className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
+                   transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
+        id='confirmedPassword'
+        type='password'
+        placeholder='Confirme Password'
+        value={security.password}
+        onChange={(e) => setSecurity((prev) => ({ ...prev, password: e.target.value }))}
       />
 
       <button
