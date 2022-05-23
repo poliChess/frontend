@@ -16,7 +16,6 @@ export const userSlice = createSlice({
       state.guest = true;
     },
     setLoggedIn: (state, { payload }) => {
-      console.log(payload);
       state.loggedIn = true;
       state.guest = false;
       state.info = payload.user;

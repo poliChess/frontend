@@ -18,25 +18,26 @@ export const gameSlice = createSlice({
       state.type = 'local';
       state.side = 'w';
     },
-    startOnlineGame(state, side) {
+    startOnlineGame(state, { payload }) {
       state.engine = new Chess();
       state.type = 'online';
-      state.side = side;
+      state.side = payload.side;
     },
-    pickUp(state, square) {
+    pickUp(state, { payload }) {
+      const square = payload.square;
       state.pickedUp = { square, ...state.engine.get(square)};
-      state.highlighted = state.engine.moves({ square });
+      const moves = state.engine.moves({ square, verbose: true });
+      state.highlighted = moves.map(move => move.to);
     },
-    putDown(state, square) {
+    putDown(state, { payload }) {
       const from = state.pickedUp.square;
-      const to = square;
-      if (state.engine.move({ from, to })) {
-        state.pickedUp = null;
-        state.highlighted = []
-      }
+      const to = payload.square;
+      state.pickedUp = null;
+      state.highlighted = [];
+      state.engine.move({ from, to })
     },
-    makeMove(state, from, to) {
-      state.engine.move({ from, to });
+    makeMove(state, { payload }) {
+      state.engine.move({ from: payload.from, to: payload.to });
     },
   },
 })
