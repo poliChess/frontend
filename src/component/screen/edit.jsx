@@ -37,8 +37,8 @@ function EditUsername() {
 
             if(res2.success) {
                 setMessage({ text: 'Changes applied!', color: 'black' })
-                dispatch(setLoggedIn(res2));
-                setTimeout(() => navigate('/profile'), 500);
+                dispatch(clear());
+                setTimeout(() => navigate('/'), 500);
             } else {
                 setMessage({ text: res2.message, color: 'red' })
             }
@@ -124,8 +124,8 @@ function EditMail() {
 
             if(res2.success) {
                 setMessage({ text: 'Changes applied!', color: 'black' })
-                dispatch(setLoggedIn(res2))
-                setTimeout(() => navigate('/profile'), 500)
+                dispatch(clear())
+                setTimeout(() => navigate('/'), 500)
             } else {
                 setMessage({ text: res2.message, color: 'red' })
             }
