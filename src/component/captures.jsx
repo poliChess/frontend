@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Pieces from "./pieces";
+
+import pieces from "../utils/pieces";
 
 function Captures({golden, color}) {
 
@@ -10,7 +11,7 @@ function Captures({golden, color}) {
                     <div>
                         <img
                             className=""
-                            src={Pieces(item.color, item.type)}
+                            src={pieces[item.color][item.type]}
                             height="50px"
                             width="50px"
                             border="1px"
