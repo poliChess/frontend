@@ -16,7 +16,7 @@ function EditUsername() {
 
     const user = useSelector(state => state.user.info);
 
-    const [credentials, setCredentials] = useState( { username: user.username, password: ''});
+    const [credentials, setCredentials] = useState( { username: user.username, password: ''} );
     const [userData, setUserData] = useState({ username: ''});
     const [message, setMessage] = useState({ text: '', color: 'black' });
     const navigate = useNavigate();
@@ -32,9 +32,8 @@ function EditUsername() {
         const res1 = await apiclient.login(credentials);
 
         if(res1.success) {
-            console.log('AM INTRAT 1')
+
             const res2 = await apiclient.updateUser(userData);
-            console.log('AM INTRAT 2')
 
             if(res2.success) {
                 setMessage({ text: 'Changes applied!', color: 'black' })
@@ -103,7 +102,7 @@ function EditMail() {
 
     const user = useSelector(state => state.user.info);
 
-    const [credentials, setCredentials] = useState( { username: user.username, password: ''});
+    const [credentials, setCredentials] = useState( { username: user.username, password: '' });
 
     const [userData, setUserData] = useState({ mail: '' });
     const [message, setMessage] = useState({ text: '', color: 'black' });
@@ -120,9 +119,8 @@ function EditMail() {
         const res1 = await apiclient.login(credentials);
 
         if(res1.success) {
-            console.log('AM INTRAT 1')
+
             const res2 = await apiclient.updateUser(userData);
-            console.log('AM INTRAT 2')
 
             if(res2.success) {
                 setMessage({ text: 'Changes applied!', color: 'black' })
@@ -189,7 +187,7 @@ function EditPassword() {
 
     const user = useSelector(state => state.user.info);
 
-    const [credentials, setCredentials] = useState( { username: user.username, password: ''});
+    const [credentials, setCredentials] = useState( { username: user.username, password: '' });
 
     const [userData, setUserData] = useState({ password: '' });
 
@@ -200,16 +198,15 @@ function EditPassword() {
 
     const handleChange = async () => {
         if (!userData.password || !credentials.password) {
-        setMessage({ text: 'Complete all fields!', color: 'red' })
-        return;
+          setMessage({ text: 'Complete all fields!', color: 'red' })
+          return;
         }
 
         const res1 = await apiclient.login(credentials);
 
         if(res1.success) {
-            console.log('AM INTRAT 1')
+
             const res2 = await apiclient.updateUser(userData);
-            console.log('AM INTRAT 2')
 
             if(res2.success) {
                 setMessage({ text: 'Changes applied!', color: 'black' });
@@ -292,10 +289,8 @@ function DeleteAccount() {
       const res1 = await apiclient.login(credentials);
 
       if(res1.success) {
-          console.log('AM INTRAT 1')
-          // oare ce se face logout automat??
+
           const res2 = await apiclient.deleteUser();
-          console.log('AM INTRAT 2')
 
           if(res2.success) {
               setMessage({ text: 'Account deleted!', color: 'black' });
@@ -358,8 +353,8 @@ function Edit() {
         return EditMail();
     if(location.state.name === "password")
         return EditPassword();
-    if(location.state.name === "avatar")
-        return EditPassword();
+    // if(location.state.name === "avatar")
+    //     return EditPassword();
     if(location.state.name === "delete")
         return DeleteAccount();
   }
