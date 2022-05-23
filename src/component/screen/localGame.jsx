@@ -1,14 +1,18 @@
 import Game from './game';
 
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { startLocalGame } from '../../state/gameSlice';
 
 function LocalGame() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
     dispatch(startLocalGame());
+  }, []);
 
-    return Game({ username: 'player1' }, { username: 'player2' });
+  return <Game user={{ username: 'player1' }}
+               opponent={{ username: 'player2' }}/>;
 }
 
 export default LocalGame;

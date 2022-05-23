@@ -1,5 +1,4 @@
 import { createClient } from "@urql/core";
-import { useSelector } from "react-redux";
 import store from "../state/store";
 
 const client = createClient({

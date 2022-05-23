@@ -1,6 +1,5 @@
 import Game from './game';
 
-import { Link } from "react-router-dom";
 import Stopwatch from "../stopwatch";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,27 +10,18 @@ import { startOnlineGame, makeMove } from "../../state/gameSlice";
 function Loading() {
   const screen = (
     <div className="flex h-screen justify-center items-center">
-
         <div className="flex-row">
-
             <div className="text-center mb-16 font-mono font-bold text-4xl">
                 <Stopwatch/>
             </div>
-
             <div className="flex">
                 <div className="w-20 h-20 border-t-4 border-b-4 bg-secondary-color rounded-full animate-bounce"></div>
-
                 <div className="w-20 h-20 ml-10 mr-10 border-t-4 border-b-4 bg-main-color rounded-full animate-bounce"></div>
-
                 <div className="w-20 h-20 border-t-4 border-b-4 bg-secondary-color rounded-full animate-bounce"></div>
             </div>
-
-            
-            
         </div>
     </div>
   );
-
   return screen;
 }
 
@@ -83,9 +73,9 @@ function OnlineGame() {
   }, []);
 
   if (!started)
-    return Loading();
+    return <Loading/>
 
-  return Game(user, opponent); 
+  return <Game user={user} opponent={opponent}/>
 }
 
 export default OnlineGame;
