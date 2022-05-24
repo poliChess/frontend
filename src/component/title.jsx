@@ -5,7 +5,7 @@ function Title() {
   return (
     <div className="absolute left-4 top-4">
       <Link to='/'>
-        <div className='text-lg float-left'>
+        <div className='text-lg float-left transition-all hover:scale-110'>
           <div className="float-left">
             <img src={horse} height='24px' width='24px' />
           </div>
