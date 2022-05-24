@@ -1,8 +1,10 @@
 import { createClient } from "@urql/core";
 import store from "../state/store";
 
+const host = 'localhost';
+
 const client = createClient({
-  url: 'http://localhost:3000',
+  url: `http://${host}:3000`,
   fetchOptions: () => {
     const userToken = store.getState().user.token;
     console.log('TOKEN: ' + userToken);
@@ -134,7 +136,7 @@ const apiclient = {
 
 function createWebSocket() {
   const userToken = store.getState().user.token;
-  return new WebSocket(`ws://localhost:3001?token=${userToken}`);
+  return new WebSocket(`ws://${host}:3001?token=${userToken}`);
 }
 
 export { apiclient as default, createWebSocket };
