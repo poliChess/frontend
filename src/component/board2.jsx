@@ -41,11 +41,11 @@ function createSquare(game, turn, piece, rowIdx, colIdx, dispatch) {
   const key = 'thpr' + rowIdx + colIdx;
 
   return (
-    <th key={key} className={`w-16 h-16 p-0 m-0 ${color}`} onClick={handleClick}>
+    <th key={key} className={`w-16 aspect-square p-0 m-0 ${color}`} onClick={handleClick}>
       { 
         piece 
           ? <img src={pieces[piece.color][piece.type]} width="100%" className="m-auto"/> 
-          : null
+          : <div className="aspect-square"/>
       }
     </th>
   );
