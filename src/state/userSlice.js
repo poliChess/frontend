@@ -6,6 +6,7 @@ export const userSlice = createSlice({
   initialState: {
     loggedIn: false,
     guest: false,
+    google: false,
     info: {},
     token: '',
   },
@@ -13,12 +14,20 @@ export const userSlice = createSlice({
   reducers: {
     setGuest: (state) => {
       state.loggedIn = false;
+      state.google = false;
       state.guest = true;
     },
     setLoggedIn: (state, { payload }) => {
       state.loggedIn = true;
       state.guest = false;
+      state.google = false;
       state.info = payload.user;
+      state.token = payload.token;
+    },
+    setGoogleLogIn: (state, { payload }) => {
+      state.loggedIn = true;
+      state.google = true;
+      state.guest = false;
       state.token = payload.token;
     },
     setInfo: (state, { payload }) => {
@@ -28,12 +37,13 @@ export const userSlice = createSlice({
     clear: (state) => {
       state.loggedIn = false;
       state.guest = false;
+      state.google = false;
       state.info = {};
       state.token = '';
     }
   },
 })
 
-export const { setGuest, setLoggedIn, clear } = userSlice.actions
+export const { setGuest, setLoggedIn, setGoogleLogIn, setInfo, clear } = userSlice.actions
 
 export default userSlice.reducer

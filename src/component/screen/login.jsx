@@ -1,15 +1,18 @@
 import queen from "../../pictures/logos/queen.png";
-import google from "../../pictures/logos/google.png";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { setLoggedIn } from "../../state/userSlice";
+import { setLoggedIn, setGoogleLogIn } from "../../state/userSlice";
+
+import { GoogleLogin } from "react-google-login";
 
 import Decoration from "../decoration";
 import Title from "../title";
 import User from "../user";
 
 import apiclient from "../../utils/apiclient";
+
+import { googleClientID } from "../../App";
 
 function Login() {
   const [userData, setUserData] = useState({ username: "", password: "" });
@@ -75,9 +78,16 @@ function Login() {
         Sign In
       </button>
 
-      <a className="mt-8" href="www.google.com">
-        <img src={google} height="80px" width="80px" border="1px" />
-      </a>
+      <GoogleLogin 
+        clientId={googleClientID}
+        onSuccess={(res) => { 
+          setMessage({ text: "", color: "black" });
+          dispatch(setGoogleLogIn({ token: res.xc.id_token }));
+          apiclient.googleLogin({ idToken: res.xc.id_token });
+        }}
+        onFailure={() => setMessage({ text: "Google Sign-in Failed", color: "red" })}
+        isSignedIn={true}
+        />
 
       <h3 className='m-10 h-12 max-h-12 max-w-50' style={{color:message.color}}> {message.text} </h3>
 

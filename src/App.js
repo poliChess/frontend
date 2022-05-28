@@ -1,3 +1,7 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useEffect } from "react";
+import { gapi } from "gapi-script";
+
 import Home from "./component/screen/home";
 import Login from "./component/screen/login";
 import Register from "./component/screen/register";
@@ -6,12 +10,21 @@ import OnlineGame from "./component/screen/onlineGame";
 import Profile from "./component/screen/profile";
 import Edit from "./component/screen/edit";
 
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+export const googleClientID = '332864392841-e914g390g6h9a1a3rt9m48ol63u0om0h.apps.googleusercontent.com';
 
 function App() {
+  useEffect(() => {
+    gapi.load('client:auth2', () => {
+      gapi.client.init({
+        client_id: googleClientID,
+        scope: ''
+      })
+    });
+  });
+
   return (
     <div className="bg-white">
-      <Router>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login/>}/>
@@ -21,7 +34,7 @@ function App() {
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/edit" element={<Edit/>}/>
         </Routes>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }

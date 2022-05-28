@@ -40,6 +40,29 @@ const apiclient = {
     return res.data.login;
   },
 
+  googleLogin: async ({ idToken }) => {
+    const res = await client.mutation(`
+       mutation($username: String!, $password: String!, $idToken: String) {
+        login(username: $username, password: $password, idToken: $idToken) {
+          user {
+            mail
+            username
+            playedGames
+            wonGames
+            rating
+            lastLogin
+          }
+          token
+          success
+          message
+        }
+      }`,
+      { username: '', password: '', idToken }
+    ).toPromise();
+
+    return res.data.login;
+  },
+
   register: async ({ mail, username, password }) => {
     const res = await client.mutation(
       `mutation($mail: String!, $username: String!, $password: String!) {
