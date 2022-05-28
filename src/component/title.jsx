@@ -7,7 +7,7 @@ function Title() {
       <Link to='/'>
         <div className='text-lg float-left transition-all hover:scale-110'>
           <div className="float-left">
-            <img src={horse} height='24px' width='24px' />
+            <img src={horse} alt="" height='24px' width='24px' />
           </div>
           Poli<strong>Chess</strong>
         </div>
