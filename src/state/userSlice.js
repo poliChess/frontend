@@ -26,8 +26,9 @@ export const userSlice = createSlice({
     },
     setGoogleLogIn: (state, { payload }) => {
       state.loggedIn = true;
-      state.google = true;
       state.guest = false;
+      state.google = true;
+      state.info = payload.user;
       state.token = payload.token;
     },
     setInfo: (state, { payload }) => {

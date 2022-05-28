@@ -1,13 +1,24 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { useGoogleLogout } from 'react-google-login';
+
 import { clear } from '../state/userSlice';
+import { googleClientID } from '../App';
 
 function User() {
   const user = useSelector(state => state.user);
 
   const dispatch = useDispatch();
-  const handleLogout = () => dispatch(clear());
+  let handleLogout = () => dispatch(clear());
+
+  const { signOut } = useGoogleLogout({ clientId: googleClientID });
+  if (user.google) {
+    handleLogout = () => {
+      signOut();
+      dispatch(clear());
+    }
+  }
 
   if (!user.loggedIn || !user.info)
     return null;

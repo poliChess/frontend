@@ -80,10 +80,16 @@ function Login() {
 
       <GoogleLogin 
         clientId={googleClientID}
-        onSuccess={(res) => { 
+        onSuccess={async (googleRes) => { 
           setMessage({ text: "", color: "black" });
-          dispatch(setGoogleLogIn({ token: res.xc.id_token }));
-          apiclient.googleLogin({ idToken: res.xc.id_token });
+          const res = await apiclient.googleLogin({ idToken: googleRes.xc.id_token });
+
+          if (res.success) {
+            dispatch(setGoogleLogIn(res));
+            navigate('/');
+          } else {
+            setMessage({ text: "Google Sign-in Failed", color: "red" })
+          }
         }}
         onFailure={() => setMessage({ text: "Google Sign-in Failed", color: "red" })}
         isSignedIn={true}
