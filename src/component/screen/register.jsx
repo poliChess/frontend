@@ -1,5 +1,4 @@
 import queen from '../../pictures/logos/queen.png';
-import google from '../../pictures/logos/google.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -42,6 +41,7 @@ function Register() {
       <img
         className='m-8 hover:scale-125 transition-all'
         src={queen}
+        alt=""
         height='80px'
         width='80px'
         border='1px'

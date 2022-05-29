@@ -67,19 +67,15 @@ function Game({ user, opponent }) {
         : null
       }
 
-      {
-        game.type !== 'local'
-        ? <div className="text-white text-right mt-4 mr-4">
-            <button
-              className="bg-secondary-color text-white px-2 py-1 rounded-full
-                         hover:scale-110 hover:bg-red-600 transition-all"
-              onClick={() => navigate('/')}
-              >
-              Abandon
-            </button>
-          </div>
-        : null
-      }
+      <div className="text-white text-right mt-4 mr-4">
+        <button
+          className="bg-secondary-color text-white px-4 py-1 rounded-full
+                     hover:scale-110 hover:bg-red-600 transition-all"
+          onClick={() => navigate('/')}
+          >
+          { game.type !== 'local' ? 'Abandon' : 'Exit' }
+        </button>
+      </div>
 
       <div className="flex">
 

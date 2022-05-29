@@ -3,13 +3,22 @@ import Game from './game';
 import Stopwatch from "../stopwatch";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 import apiclient, { createWebSocket } from "../../utils/apiclient";
 import { startOnlineGame, makeMove } from "../../state/gameSlice";
 
 function Loading() {
+  const navigate = useNavigate();
+
   const screen = (
     <div className="flex h-screen justify-center items-center">
+      <button
+        className="fixed right-4 top-4 text-white px-4 py-1 rounded-full
+                   hover:scale-110 bg-red-600 transition-all"
+        onClick={() => navigate('/')}>
+        Leave Queue
+      </button>
       <div className="flex-row">
         <div className="text-center mb-16 font-mono font-bold text-4xl">
           <Stopwatch/>
@@ -42,9 +51,6 @@ function OnlineGame() {
       const msg = event.data.split(' ');
 
       if (msg[0] === 'start') {
-        if (started)
-          console.warn('ALREADY STARTED BAD MESSAGE: ' + msg);
-
         setStarted(true);
 
         const side = msg[1] === 'first' ? 'w' : 'b';
@@ -74,7 +80,7 @@ function OnlineGame() {
     };
 
     return () => ws.close();
-  });
+  }, [dispatch]);
 
   if (!started)
     return <Loading/>
