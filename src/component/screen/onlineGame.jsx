@@ -10,16 +10,16 @@ import { startOnlineGame, makeMove } from "../../state/gameSlice";
 function Loading() {
   const screen = (
     <div className="flex h-screen justify-center items-center">
-        <div className="flex-row">
-            <div className="text-center mb-16 font-mono font-bold text-4xl">
-                <Stopwatch/>
-            </div>
-            <div className="flex">
-                <div className="w-20 h-20 border-t-4 border-b-4 bg-secondary-color rounded-full animate-bounce"></div>
-                <div className="w-20 h-20 ml-10 mr-10 border-t-4 border-b-4 bg-main-color rounded-full animate-bounce"></div>
-                <div className="w-20 h-20 border-t-4 border-b-4 bg-secondary-color rounded-full animate-bounce"></div>
-            </div>
+      <div className="flex-row">
+        <div className="text-center mb-16 font-mono font-bold text-4xl">
+          <Stopwatch/>
         </div>
+        <div className="flex">
+          <div className="w-20 h-20 border-t-4 border-b-4 bg-secondary-color rounded-full animate-bounce"></div>
+          <div className="w-20 h-20 ml-10 mr-10 border-t-4 border-b-4 bg-main-color rounded-full animate-bounce"></div>
+          <div className="w-20 h-20 border-t-4 border-b-4 bg-secondary-color rounded-full animate-bounce"></div>
+        </div>
+      </div>
     </div>
   );
   return screen;
@@ -55,8 +55,7 @@ function OnlineGame() {
         if (msg[3] === 'computer') {
           setOpponent({ username: 'computer' });
         } else {
-          const opponentPromise = apiclient.findUser({ username });
-          opponentPromise
+          apiclient.findUser({ username })
             .then(opp => setOpponent(opp))
             .catch(err => {
               console.warn(err);
@@ -65,7 +64,6 @@ function OnlineGame() {
         }
 
       } else if (msg[0] === 'move') {
-
         const from = msg[1].substr(0, 2).toLowerCase();
         const to = msg[1].substr(2, 2).toLowerCase();
         dispatch(makeMove({ from, to }));
@@ -74,6 +72,8 @@ function OnlineGame() {
         console.warn('BAD MESSAGE: ' + msg);
       }
     };
+
+    return () => ws.close();
   });
 
   if (!started)

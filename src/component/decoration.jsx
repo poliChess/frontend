@@ -13,7 +13,7 @@ const quotes = [
 ];
 
 function Decoration(screen) {
-  const [index, setIndex] = useState({
+  const [index] = useState({
     image: Math.floor(Math.random() * images.length),
     quote: Math.floor(Math.random() * quotes.length)
   });

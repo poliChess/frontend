@@ -5,6 +5,7 @@ import bishop from "../../pictures/avatars/avatar_bishop.png";
 import Timer from "../timer";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Chessboard from "../board";
 import Title from "../title";
@@ -24,6 +25,8 @@ function Game({ user, opponent }) {
     {color: "w", type: "b", count: 2},
     {color: "w", type: "q", count: 1}
   ]
+
+  const navigate = useNavigate();
 
   const game = useSelector(state => state.game);
   const [result, setResult] = useState({ message: '', color: '' });
@@ -70,6 +73,7 @@ function Game({ user, opponent }) {
             <button
               className="bg-secondary-color text-white px-2 py-1 rounded-full
                          hover:scale-110 hover:bg-red-600 transition-all"
+              onClick={() => navigate('/')}
               >
               Abandon
             </button>
