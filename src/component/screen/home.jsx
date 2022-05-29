@@ -38,6 +38,7 @@ function Play() {
       <img
         className="mb-8 hover:scale-125 transition-all"
         src={queen}
+        alt=""
         height="80px"
         width="80px"
         border="1px"
@@ -79,6 +80,7 @@ function Welcome() {
       <img
         className="mb-8 hover:scale-125 transition-all"
         src={queen}
+        alt=""
         height="80px"
         width="80px"
         border="1px"

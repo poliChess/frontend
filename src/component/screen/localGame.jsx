@@ -9,7 +9,7 @@ function LocalGame() {
 
   useEffect(() => {
     dispatch(startLocalGame());
-  }, []);
+  }, [dispatch]);
 
   return <Game user={{ username: 'white' }}
                opponent={{ username: 'black' }}/>;

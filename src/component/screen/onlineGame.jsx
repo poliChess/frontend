@@ -4,7 +4,7 @@ import Stopwatch from "../stopwatch";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { apiclient, createWebSocket } from "../../utils/apiclient";
+import apiclient, { createWebSocket } from "../../utils/apiclient";
 import { startOnlineGame, makeMove } from "../../state/gameSlice";
 
 function Loading() {
@@ -31,19 +31,14 @@ function OnlineGame() {
   const user = useSelector(state => state.user.info);
   const [opponent, setOpponent] = useState({ username: '' });
 
-  const game = useSelector(state => state.game);
   const dispatch = useDispatch();
-
-  let sendMove = () => null; 
 
   useEffect(() => {
     const ws = createWebSocket();
 
-    sendMove = (move) => ws.send(`move ${move}`);
+    const sendMove = (move) => ws.send(`move ${move}`);
 
     ws.onmessage = (event) => {
-      console.log('MESSAGE: ' + JSON.stringify(event.data));
-
       const msg = event.data.split(' ');
 
       if (msg[0] === 'start') {
@@ -55,11 +50,18 @@ function OnlineGame() {
         const side = msg[1] === 'first' ? 'w' : 'b';
         dispatch(startOnlineGame({ side, sendMove }));
 
+        const username = event.data.substring(10 + msg[1].length);
+
         if (msg[3] === 'computer') {
           setOpponent({ username: 'computer' });
         } else {
-          // query api gateway for opponent
-          setOpponent({ username: msg[3] });
+          const opponentPromise = apiclient.findUser({ username });
+          opponentPromise
+            .then(opp => setOpponent(opp))
+            .catch(err => {
+              console.warn(err);
+              setOpponent({ username })
+            });
         }
 
       } else if (msg[0] === 'move') {
@@ -72,7 +74,7 @@ function OnlineGame() {
         console.warn('BAD MESSAGE: ' + msg);
       }
     };
-  }, []);
+  });
 
   if (!started)
     return <Loading/>

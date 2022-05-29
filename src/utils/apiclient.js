@@ -7,7 +7,6 @@ const client = createClient({
   url: `http://${host}:3000`,
   fetchOptions: () => {
     const userToken = store.getState().user.token;
-    console.log('TOKEN: ' + userToken);
     return userToken ? {
       headers: {
         Authorization: userToken,
@@ -155,6 +154,68 @@ const apiclient = {
 
     return res.data.deleteUser;
   },
+
+  findUser: async ({ username }) => {
+    const res = await client.query(
+      `query Query($username: String!) {
+        user(username: $username) {
+          mail
+          username
+          playedGames
+          rating
+          wonGames
+        }
+      }`,
+      { username }
+    ).toPromise();
+
+    return res.data.user;
+  },
+
+  userProfile: async ({ username }) => {
+    const res = await client.query(
+      `query Query($username: String!) {
+        user(username: $username) {
+          mail
+          username
+          playedGames
+          rating
+          wonGames
+          lastLogin
+          history {
+            type
+            player1 {
+              username
+            }
+            player2 {
+              username
+            }
+            winner
+            state
+            moves
+            startedAt
+            finishedAt
+          }
+          currentGame {
+            type
+            player1 {
+              username
+            }
+            player2 {
+              username
+            }
+            toMove
+            state
+            moves
+            startedAt
+          }
+        }
+      }`,
+      { username }
+    ).toPromise();
+
+    return res.data.user;
+  }
 };
 
 function createWebSocket() {

@@ -6,7 +6,7 @@ import Timer from "../timer";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import Chessboard from "../board2";
+import Chessboard from "../board";
 import Title from "../title";
 import Captures from "../captures";
 
