@@ -66,7 +66,7 @@ export const gameSlice = createSlice({
 
     makeMove(state, { payload }) {
       state.highlighted = [];
-      if (state.engine.move(payload, { sloppy: true })) {
+      if (state.engine.move({ ...payload, promotion: 'q'}, { sloppy: true })) {
         if (state.engine.game_over()) {
           if (state.engine.in_checkmate()) {
             const loser = state.engine.turn();
