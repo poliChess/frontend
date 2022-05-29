@@ -58,27 +58,24 @@ function Chessboard() {
   const board = game.engine ? game.engine.board() : emptyBoard();
   const turn = game.engine ? game.engine.turn() : 'w';
 
+  const order = game.side === 'w' ? x => x : x => x.reverse();
+
   return (
     <table className='m-auto rounded-md bg-secondary-color text-white text-sm'>
       <tbody>
         <tr key='trp1'>
           <th key='thp1'/>
-          { files.map(file => <th key={'thpf' + file} className="h-6">{file}</th>) }
+          { order(files.map(file => <th key={'thpf' + file} className="h-6">{file}</th>)) }
           <th key='thp2'/>
         </tr>
-        {
-          board.map((row, rowIdx) => 
+        { order(board.map((row, rowIdx) => 
             <tr key={'trpr' + rowIdx}> 
               <th key={'thpr' + rowIdx} className="w-6"> { 8 - rowIdx} </th> 
-              { 
-                row.map((piece, colIdx) =>
-                  createSquare(game, turn, piece, rowIdx, colIdx, dispatch)
-                )
-              }
+              { order(row.map((piece, colIdx) =>
+                  createSquare(game, turn, piece, rowIdx, colIdx, dispatch))) }
               <th key={'thpre' + rowIdx} className="w-6"></th> 
             </tr>
-          )
-        }
+        )) }
         <tr key='trp2' className="h-6"><th key='thp3'/></tr>
       </tbody>
     </table>
