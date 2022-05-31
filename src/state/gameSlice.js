@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Chess } from 'chess.js';
+import { thock1, thock2, thack } from '../utils/sounds';
 
 export const gameSlice = createSlice({
   name: 'game',
@@ -36,6 +37,7 @@ export const gameSlice = createSlice({
     },
 
     pickUp(state, { payload }) {
+      thock2.play();
       const square = payload.square;
       state.pickedUp = { square, ...state.engine.get(square)};
       const moves = state.engine.moves({ square, verbose: true });
@@ -48,6 +50,7 @@ export const gameSlice = createSlice({
       state.pickedUp = null;
       state.highlighted = [];
       if (state.engine.move({ from, to, promotion: 'q' })) {
+        thock1.play();
         state.sendMove(from + to);
         if (state.engine.game_over()) {
           if (state.engine.in_checkmate()) {
@@ -61,12 +64,15 @@ export const gameSlice = createSlice({
           if (state.engine.in_stalemate())
             state.result = 'stalemate';
         }
+      } else {
+        thack.play();
       }
     },
 
     makeMove(state, { payload }) {
       state.highlighted = [];
       if (state.engine.move({ ...payload, promotion: 'q'}, { sloppy: true })) {
+        thock1.play();
         if (state.engine.game_over()) {
           if (state.engine.in_checkmate()) {
             const loser = state.engine.turn();
