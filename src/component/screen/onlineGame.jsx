@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import apiclient, { createWebSocket } from "../../utils/apiclient";
 import { startOnlineGame, makeMove, setGameResult } from "../../state/gameSlice";
+import { setInfo } from '../../state/userSlice';
 
 function Loading() {
   const navigate = useNavigate();
@@ -87,7 +88,14 @@ function OnlineGame() {
       }
     };
 
-    return () => ws.close();
+    return async () => {
+      ws.close();
+      setTimeout(() =>
+        apiclient.me().then(
+          (res) => dispatch(setInfo({ user: res }))
+        ), 400
+      );
+    }
   }, [dispatch]);
 
   if (!started)
