@@ -88,6 +88,6 @@ export const gameSlice = createSlice({
   },
 })
 
-export const { startLocalGame, startOnlineGame, makeMove, pickUp, putDown } = gameSlice.actions
+export const { startLocalGame, startOnlineGame, makeMove, pickUp, putDown, setGameResult } = gameSlice.actions
 
 export default gameSlice.reducer

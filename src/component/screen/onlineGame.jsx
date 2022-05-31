@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
 import apiclient, { createWebSocket } from "../../utils/apiclient";
-import { startOnlineGame, makeMove } from "../../state/gameSlice";
+import { startOnlineGame, makeMove, setGameResult } from "../../state/gameSlice";
 
 function Loading() {
   const navigate = useNavigate();
@@ -73,6 +73,14 @@ function OnlineGame() {
         const from = msg[1].substr(0, 2).toLowerCase();
         const to = msg[1].substr(2, 2).toLowerCase();
         dispatch(makeMove({ from, to }));
+
+      } else if (msg[0] === 'result') {
+        if (msg[1] === 'draw' || msg[1] === 'stalemate') {
+          dispatch(setGameResult({ result: msg[1] }));
+        } else {
+          const loser = msg[2] === 'white' ? 'b' : 'w';
+          dispatch(setGameResult({ result: 'lost ' + loser }));
+        }
 
       } else {
         console.warn('BAD MESSAGE: ' + msg);
