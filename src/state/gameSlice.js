@@ -90,10 +90,14 @@ export const gameSlice = createSlice({
 
     setGameResult(state, { payload }) {
       state.result = payload.result;
+    },
+
+    clearGameResult(state) {
+      state.result = '';
     }
   },
 })
 
-export const { startLocalGame, startOnlineGame, makeMove, pickUp, putDown, setGameResult } = gameSlice.actions
+export const { startLocalGame, startOnlineGame, makeMove, pickUp, putDown, setGameResult, clearGameResult } = gameSlice.actions
 
 export default gameSlice.reducer

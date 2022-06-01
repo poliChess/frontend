@@ -1,5 +1,6 @@
 import clock1 from "../../pictures/misc/clock1.png";
 import clock2 from "../../pictures/misc/clock2.png";
+import icon from "../../pictures/misc/win.png";
 
 import Timer from "../timer";
 import React, { useEffect, useState } from "react";
@@ -56,15 +57,18 @@ function Game({ user, opponent }) {
       <Title/>
 
       {
-        result.message 
-        ? <div className="absolute opacity-90 bg-gray-400 border-8 rounded-md
-                          left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-               style={{ borderColor: result.color }}>
-            <div className="w-80 h-40 flex">
-              <h1 className="m-auto block text-5xl text-black">{ result.message } </h1>
-            </div> 
-          </div>
-        : null
+        <div className="absolute bg-secondary-color border-2 rounded-xl shadow-xl shadow-black
+                        left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity"
+             style={{ borderColor: result.color, zIndex: result.message ? 10 : -10, opacity: result.message ? 0.96 : 0 }}>
+          <div className="w-80 h-44 flex flex-col justify-around">
+            <div className="text-center text-5xl text-white">{ result.message } </div>
+            <button className="mx-auto block bg-white text-black px-4 py-0.5 rounded-full
+                               hover:scale-105 transition-all hover:bg-decoration-bg"
+                    onClick={() => navigate('/')}>
+              Back
+            </button>
+          </div> 
+        </div>
       }
 
       <div className="text-white text-right mt-4 mr-4">
