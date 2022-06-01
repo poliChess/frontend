@@ -12,7 +12,9 @@ import apiclient from '../../utils/apiclient.js';
 import User from '../user';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
+import Matches from '../matches';
 
 import {
     CircularProgressbar,
@@ -57,31 +59,8 @@ function ProgressCircle2(percentage) {
  * @param {String} result Victory / Defeat
  * @returns 
  */
-function Match(time, enemy, result) {
-  return (
-    <div className={result === 'Victory' ? 'bg-green-600 flex mt-4 rounded-md' : 'bg-red-800 flex mt-4 rounded-md'}>
-            <div className='w-1/3 text-center self-center text-white font-mono'>
-                <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-                <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
-            </div>
-
-                
-            <div className='w-1/3'>
-              <img className='m-auto' src={result === 'Victory' ? win : loss} height="80px" width="80px"/>
-            </div>
-
-            <div className='w-1/3 text-center self-center text-white font-mono'>
-              {enemy}
-            </div>   
-
-            
-    </div>
-  );
-}
 
 
-const wins = 15;
-const losses = 5;
 function Profile() {
 
     const user = useSelector(state => state.user.info);
@@ -108,7 +87,18 @@ function Profile() {
       navigate('/edit', { state: { id: 5, name: "delete"}});
     }
 
-    // console.log({user.username})
+    const [history, setHistory] = useState([]);
+
+    useEffect(() => {
+      
+      apiclient.userProfile({username: user.username})
+        .then(res => setHistory(res.history))
+        .catch(err => console.warn(err));
+      
+    }, []);
+
+    console.log('History: ', history);
+    
 
     const screen = (
         <div className="p-8 m-6 mt-20">
@@ -231,24 +221,8 @@ function Profile() {
     
               </div>
     
-              <div className='bg-decoration-bg h-96 flex-row overflow-y-scroll flex-shrink-0 border-4 border-decoration-bg scrollbar-hide'>
-                
-                {Match(100000, 'Decebal', 'Defeat', loss)}
-                {Match(149, 'Ghiu', 'Victory', win)}
-                {Match(169, 'Boicea', 'Defeat', loss)}
-                {Match(140, 'HeHeByeBoy', 'Victory', win)}
-                {Match(130, 'Ardeleanu', 'Victory', win)}
-                {Match(120, 'Iohannis', 'Victory', win)}
-                {Match(100, 'Popcorn', 'Defeat', win)}
-                {Match(100000, 'Decebal', 'Defeat', loss)}
-                {Match(149, 'Ghiu', 'Victory', win)}
-                {Match(169, 'Boicea', 'Defeat', loss)}
-                {Match(140, 'HeHeByeBoy', 'Victory', win)}
-                {Match(130, 'Ardeleanu', 'Victory', win)}
-                {Match(120, 'Iohannis', 'Victory', win)}
-                {Match(100, 'Popcorn', 'Defeat', win)}
-                        
-              </div>
+              <Matches golden={history} user={user}/>
+
             </div>
 
             <div className='text-center mt-5 border-b-4'>
