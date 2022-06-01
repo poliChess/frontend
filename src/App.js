@@ -10,7 +10,7 @@ import OnlineGame from "./component/screen/onlineGame";
 import Profile from "./component/screen/profile";
 import Edit from "./component/screen/edit";
 
-export const googleClientID = '332864392841-e914g390g6h9a1a3rt9m48ol63u0om0h.apps.googleusercontent.com';
+export const googleClientID = '202173917816-q127ko40g6h9d2rvcsmjmdsj8kupmpro.apps.googleusercontent.com';
 
 function App() {
   useEffect(() => {
