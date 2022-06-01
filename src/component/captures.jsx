@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 
 import pieces from "../utils/pieces";
 
-function Captures({golden, color}) {
+const all = ['p', 'n', 'b', 'r', 'q', 'k']
 
-    return (
-        <div className="flex-row items-center bg-white flex-grow rounded-2xl border-b-black border-t-black border-4 shadow-xl shadow-button-1 hover:shadow-purple-600 text-center">
-        {golden.map((item) => (item.color === color) 
-            ? (<div key={(item.color, item.type)} className="flex justify-center">
-                    <div>
-                        <img
-                            className=""
-                            src={pieces[item.color][item.type]}
-                            height="50px"
-                            width="50px"
-                            border="1px"
-                        />
-                    </div>
-                    <div className="self-center">
-                        X {item.count}
-                    </div>
-                </div>)
-            : null
-        )}
+function Captures({ captures, color }) {
+  const opp = color === 'w' ? 'b' : 'w';
+
+  return (
+    <div className="m-auto h-70 w-40 items-center justify-around flex flex-col
+                    bg-decoration-bg rounded-xl shadow-2xl
+                    border-white border-b-secondary-color border-t-secondary-color border-4">
+    { 
+      all.map((item) => (captures[opp][item] > 0) 
+      ? <div key={(item, item)} className="flex justify-center content-center">
+          <img src={pieces[opp][item]} height="50px" width="50px" />
+          <div className="self-center font-['Helvetica'] flex items-center justify-between w-8">
+            <span>X</span>
+            <strong className="text-xl">{captures[opp][item]}</strong>
+          </div>
         </div>
-    );
+      : null
+      )
+    }
+    </div>
+  );
 }
 
 export default Captures;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Timer = (props) => {
   const { running, onFinish } = props;
-  const [time, setTime] = useState(5 * 60 * 10);
+  const [time, setTime] = useState(5 * 60 * 1000);
   const [finished, setFinished] = useState(false);
   
   useEffect(() => {

@@ -12,21 +12,12 @@ import Title from "../title";
 import Captures from "../captures";
 import { getAvatar } from "../../utils/apiclient";
 
+const allPieces = {
+  'w': { 'p': 8, 'r': 2, 'n': 2, 'b': 2, 'q': 1, 'k': 1 }, 
+  'b': { 'p': 8, 'r': 2, 'n': 2, 'b': 2, 'q': 1, 'k': 1 }
+};
+
 function Game({ user, opponent }) {
-
-  const golden = [
-    {color: "b", type: "p", count: 1},
-    {color: "b", type: "r", count: 2},
-    {color: "b", type: "k", count: 3},
-    {color: "b", type: "b", count: 4},
-    {color: "b", type: "q", count: 5},
-    {color: "w", type: "p", count: 5},
-    {color: "w", type: "r", count: 4},
-    {color: "w", type: "k", count: 3},
-    {color: "w", type: "b", count: 2},
-    {color: "w", type: "q", count: 1}
-  ]
-
   const navigate = useNavigate();
 
   const game = useSelector(state => state.game);
@@ -51,6 +42,13 @@ function Game({ user, opponent }) {
       }
     }
   }, [game.result, game.side]);
+
+  let captures = structuredClone(allPieces);
+  if (game.engine) {
+    for (const line of game.engine.board())
+      for (const piece of line)
+        if (piece) captures[piece.color][piece.type] -= 1;
+  }
 
   return (
     <div>
@@ -105,7 +103,7 @@ function Game({ user, opponent }) {
 
           {/* ROW 1.3 */}
           <div className="mt-48">
-            <Captures golden={golden} color={'w'}/>
+            <Captures captures={captures} color={'w'}/>
           </div>
         </div>
 
@@ -182,7 +180,7 @@ function Game({ user, opponent }) {
 
           {/* ROW 1.3 */}
           <div className="mt-48">
-            <Captures golden={golden} color={'b'}/>
+            <Captures captures={captures} color={'b'}/>
           </div>
         </div>
       </div>
