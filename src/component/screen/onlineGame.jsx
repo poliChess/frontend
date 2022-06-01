@@ -99,7 +99,9 @@ function OnlineGame() {
         ), 400
       );
     }
-  }, [dispatch]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!started)
     return <Loading/>
