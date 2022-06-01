@@ -1,6 +1,3 @@
-import Game from './game';
-
-import Stopwatch from "../stopwatch";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import apiclient, { createWebSocket } from "../../utils/apiclient";
 import { startOnlineGame, makeMove, setGameResult } from "../../state/gameSlice";
 import { setInfo } from '../../state/userSlice';
+
+import Game from './game';
+import Stopwatch from "../stopwatch";
 
 function Loading() {
   const navigate = useNavigate();

@@ -23,6 +23,7 @@ const apiclient = {
           user {
             mail
             username
+            avatar
             playedGames
             wonGames
             rating
@@ -46,6 +47,7 @@ const apiclient = {
           user {
             mail
             username
+            avatar
             playedGames
             wonGames
             rating
@@ -82,6 +84,7 @@ const apiclient = {
         me {
           mail
           username
+          avatar
           playedGames
           wonGames
           rating
@@ -120,13 +123,14 @@ const apiclient = {
     return res.data.leaveQueue;
   },
 
-  updateUser: async ({ mail, username, password }) => {
+  updateUser: async ({ mail, username, password, avatar }) => {
     const res = await client.mutation(
-      `mutation UpdateUser($mail: String, $username: String, $password: String) {
-        updateUser(mail: $mail, username: $username, password: $password) {
+      `mutation UpdateUser($mail: String, $username: String, $password: String, $avatar: String) {
+        updateUser(mail: $mail, username: $username, password: $password, avatar: $avatar) {
           user {
             mail
             username
+            avatar
             playedGames
             wonGames
             rating
@@ -136,7 +140,7 @@ const apiclient = {
           message
         }
       }`,
-      { mail, username, password }
+      { mail, username, password, avatar }
     ).toPromise();
 
     return res.data.updateUser;
@@ -161,6 +165,7 @@ const apiclient = {
         user(username: $username) {
           mail
           username
+          avatar
           playedGames
           rating
           wonGames
@@ -178,6 +183,7 @@ const apiclient = {
         user(username: $username) {
           mail
           username
+          avatar
           playedGames
           rating
           wonGames
