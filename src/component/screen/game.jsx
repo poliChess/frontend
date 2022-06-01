@@ -161,7 +161,7 @@ function Game({ user, opponent }) {
             </div>
           
           {/* ROW 2 */}
-          <div className="flex md:hidden mt-8">
+          <div className="flex md:hidden my-8">
 
             {/* COL 2.1 */}
             <div className="w-1/2 text-center">
@@ -175,7 +175,7 @@ function Game({ user, opponent }) {
           </div>
 
           {/* ROW 3 */}
-          <div className="mt:mt-8 lg:mt-14" onMouseMove={handleMouseMove}>
+          <div className="lg:mt-12" onMouseMove={handleMouseMove}>
               <Chessboard/>
           </div>
         </div>
