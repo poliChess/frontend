@@ -1,6 +1,5 @@
 import clock1 from "../../pictures/misc/clock1.png";
 import clock2 from "../../pictures/misc/clock2.png";
-import icon from "../../pictures/misc/win.png";
 
 import Timer from "../timer";
 import React, { useEffect, useState } from "react";
@@ -11,11 +10,26 @@ import Chessboard from "../board";
 import Title from "../title";
 import Captures from "../captures";
 import { getAvatar } from "../../utils/apiclient";
+import pieces from "../../utils/pieces";
 
 const allPieces = {
   'w': { 'p': 8, 'r': 2, 'n': 2, 'b': 2, 'q': 1, 'k': 1 }, 
   'b': { 'p': 8, 'r': 2, 'n': 2, 'b': 2, 'q': 1, 'k': 1 }
 };
+
+const useMove = () => {
+  const [state, setState] = useState({x: 0, y: 0})
+
+  const handleMouseMove = e => {
+    e.persist()
+    setState(state => ({...state, x: e.clientX, y: e.clientY}))
+  }
+  return {
+    x: state.x,
+    y: state.y,
+    handleMouseMove,
+  }
+}
 
 function Game({ user, opponent }) {
   const navigate = useNavigate();
@@ -50,24 +64,33 @@ function Game({ user, opponent }) {
         if (piece) captures[piece.color][piece.type] -= 1;
   }
 
+  const {x, y, handleMouseMove} = useMove();
+
   return (
     <div>
       <Title/>
 
       {
-        <div className="absolute bg-secondary-color border-2 rounded-xl shadow-xl shadow-black
-                        left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity"
-             style={{ borderColor: result.color, zIndex: result.message ? 10 : -10, opacity: result.message ? 0.96 : 0 }}>
-          <div className="w-80 h-44 flex flex-col justify-around">
-            <div className="text-center text-5xl text-white">{ result.message } </div>
-            <button className="mx-auto block bg-white text-black px-4 py-0.5 rounded-full
-                               hover:scale-105 transition-all hover:bg-decoration-bg"
-                    onClick={() => navigate('/')}>
-              Back
-            </button>
-          </div> 
-        </div>
+        game.pickedUp
+          ? <div className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none h-16 w-16"
+                 style={{ top: y, left: x }}>
+            <img src={pieces[game.pickedUp.color][game.pickedUp.type]} alt="" height="100%" width="100%"/>
+          </div>
+          : null
       }
+
+      <div className="absolute bg-secondary-color border-2 rounded-xl shadow-xl shadow-black
+                      left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity"
+           style={{ borderColor: result.color, zIndex: result.message ? 10 : -10, opacity: result.message ? 0.96 : 0 }}>
+        <div className="w-80 h-44 flex flex-col justify-around">
+          <div className="text-center text-5xl text-white">{ result.message } </div>
+          <button className="mx-auto block bg-white text-black px-4 py-0.5 rounded-full
+                             hover:scale-105 transition-all hover:bg-decoration-bg"
+                  onClick={() => navigate('/')}>
+            Back
+          </button>
+        </div> 
+      </div>
 
       <div className="text-white text-right mt-4 mr-4">
         <button
@@ -112,7 +135,7 @@ function Game({ user, opponent }) {
         <div className="bg-right-bg flex-row flex-grow">
 
           {/* ROW 1 */}
-            <div className="flex mt-20">
+            <div className="flex lg:mt-20 md:mt-10">
 
               {/* COL 1.1 */}
               <div className="font-['Helvetica'] underline underline-offset-2 self-center text-right text-2xl text-button-1 w-2/5">
@@ -120,13 +143,13 @@ function Game({ user, opponent }) {
               </div>
 
               {/* COL 1.2 */}
-              <div className="self-center w-1/5">
+              <div className="self-center w-60">
                 <img
                   className="m-auto"
                   src={ timer1 ? clock1 : clock2 }
                   alt='clock'
-                  height="140px"
-                  width="140px"
+                  height="120px"
+                  width="120px"
                   border="1px"
                 />
               </div>
@@ -138,7 +161,7 @@ function Game({ user, opponent }) {
             </div>
           
           {/* ROW 2 */}
-          <div className="flex md:hidden mt-10">
+          <div className="flex md:hidden mt-8">
 
             {/* COL 2.1 */}
             <div className="w-1/2 text-center">
@@ -152,7 +175,7 @@ function Game({ user, opponent }) {
           </div>
 
           {/* ROW 3 */}
-          <div className="mt-10">
+          <div className="mt:mt-8 lg:mt-14" onMouseMove={handleMouseMove}>
               <Chessboard/>
           </div>
         </div>

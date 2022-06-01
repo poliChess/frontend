@@ -21,6 +21,9 @@ function createSquare(game, turn, piece, rowIdx, colIdx, dispatch) {
     canPick = goodPiece && myTurn;
   }
 
+  if (holding && holding.square === square)
+    piece = null;
+
   const highlight = game.highlighted.find(x => x === square) === square;
   const color = highlight || (holding && holding.square === square)
                   ? (rowIdx + colIdx) % 2 === 0
@@ -61,22 +64,22 @@ function Chessboard() {
   const order = game.side === 'w' ? x => x : x => x.reverse();
 
   return (
-    <table className='m-auto rounded-md bg-secondary-color text-white text-sm'>
+    <table className='m-auto rounded-md bg-secondary-color text-white text-xs'>
       <tbody>
         <tr key='trp1'>
           <th key='thp1'/>
-          { order(files.map(file => <th key={'thpf' + file} className="h-6">{file}</th>)) }
+          { order(files.map(file => <th key={'thpf' + file} className="h-4">{file}</th>)) }
           <th key='thp2'/>
         </tr>
         { order(board.map((row, rowIdx) => 
             <tr key={'trpr' + rowIdx}> 
-              <th key={'thpr' + rowIdx} className="w-6"> { 8 - rowIdx} </th> 
+              <th key={'thpr' + rowIdx} className="w-4"> { 8 - rowIdx} </th> 
               { order(row.map((piece, colIdx) =>
                   createSquare(game, turn, piece, rowIdx, colIdx, dispatch))) }
-              <th key={'thpre' + rowIdx} className="w-6"></th> 
+              <th key={'thpre' + rowIdx} className="w-4"></th> 
             </tr>
         )) }
-        <tr key='trp2' className="h-6"><th key='thp3'/></tr>
+        <tr key='trp2' className="h-4"><th key='thp3'/></tr>
       </tbody>
     </table>
   );
