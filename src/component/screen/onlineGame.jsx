@@ -42,8 +42,11 @@ function OnlineGame() {
   const [opponent, setOpponent] = useState({ username: '' });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user) navigate('/');
+
     const ws = createWebSocket();
 
     const sendMove = (move) => ws.send(`move ${move}`);
