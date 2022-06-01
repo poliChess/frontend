@@ -1,6 +1,5 @@
 import clock1 from "../../pictures/misc/clock1.png";
 import clock2 from "../../pictures/misc/clock2.png";
-import bishop from "../../pictures/avatars/avatar_bishop.png";
 
 import Timer from "../timer";
 import React, { useEffect, useState } from "react";
@@ -10,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Chessboard from "../board";
 import Title from "../title";
 import Captures from "../captures";
+import { getAvatar } from "../../utils/apiclient";
 
 function Game({ user, opponent }) {
 
@@ -86,8 +86,8 @@ function Game({ user, opponent }) {
           <div className="mt-24">
             <img
               className="m-auto"
-              alt={ user.username }
-              src={bishop}
+              src={ getAvatar(user.avatar) }
+              alt=""
               height="100px"
               width="100px"
               border="1px"
@@ -163,8 +163,8 @@ function Game({ user, opponent }) {
           <div className="mt-24">
             <img
               className="m-auto"
-              src={bishop}
-              alt={ opponent.username }
+              src={ getAvatar(opponent.avatar) }
+              alt=""
               height="100px"
               width="100px"
               border="1px"

@@ -11,8 +11,8 @@ function LocalGame() {
     dispatch(startLocalGame());
   }, [dispatch]);
 
-  return <Game user={{ username: 'white' }}
-               opponent={{ username: 'black' }}/>;
+  return <Game user={{ username: 'white', avatar: 'bishop1' }}
+           opponent={{ username: 'black', avatar: 'knight1' }}/>;
 }
 
 export default LocalGame;

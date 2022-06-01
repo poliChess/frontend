@@ -63,7 +63,7 @@ function OnlineGame() {
         const username = event.data.substring(10 + msg[1].length);
 
         if (msg[3] === 'computer') {
-          setOpponent({ username: 'computer' });
+          setOpponent({ username: 'computer', avatar: 'king1' });
         } else {
           apiclient.findUser({ username })
             .then(opp => setOpponent(opp))

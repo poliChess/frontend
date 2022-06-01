@@ -223,4 +223,9 @@ function createWebSocket() {
   return new WebSocket(`ws://${host}:3001?token=${userToken}`);
 }
 
-export { apiclient as default, createWebSocket };
+function getAvatar(avatarName) {
+  if (!avatarName) avatarName = 'pawn1';
+  return `http://${host}:3002/avatar/${avatarName}.png`;
+}
+
+export { apiclient as default, createWebSocket, getAvatar };
