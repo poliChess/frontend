@@ -12,7 +12,12 @@ function User() {
   const dispatch = useDispatch();
   let handleLogout = () => dispatch(clear());
 
-  const { signOut } = useGoogleLogout({ clientId: googleClientID });
+  const { signOut } = useGoogleLogout({ 
+    clientId: googleClientID,
+    onFailure: (err) => console.warn(err),
+    onLogoutSuccess: () => null
+  });
+
   if (user.google) {
     handleLogout = () => {
       signOut();

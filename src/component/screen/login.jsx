@@ -1,16 +1,17 @@
 import queen from "../../pictures/logos/queen.png";
+import google from "../../pictures/logos/google.png";
+
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { setLoggedIn, setGoogleLogIn } from "../../state/userSlice";
-
 import { GoogleLogin } from "react-google-login";
+
+import { setLoggedIn, setGoogleLogIn } from "../../state/userSlice";
+import apiclient from "../../utils/apiclient";
 
 import Decoration from "../decoration";
 import Title from "../title";
 import User from "../user";
-
-import apiclient from "../../utils/apiclient";
 
 import { googleClientID } from "../../App";
 
@@ -81,6 +82,12 @@ function Login() {
 
       <GoogleLogin 
         clientId={googleClientID}
+        render={(props) => 
+          <button onClick={() => props.onClick()} disabled={props.disabled}>
+            <img src={google} alt="" height="60px" width="60px"/>
+          </button>
+        }
+        buttonText="Login"
         onSuccess={async (googleRes) => { 
           setMessage({ text: "", color: "black" });
           const res = await apiclient.googleLogin({ idToken: googleRes.xc.id_token });
@@ -93,7 +100,7 @@ function Login() {
           }
         }}
         onFailure={() => setMessage({ text: "Google Sign-in Failed", color: "red" })}
-        isSignedIn={true}
+        isSignedIn={false}
         />
 
       <h3 className='m-10 h-12 max-h-12 max-w-50' style={{color:message.color}}> {message.text} </h3>
