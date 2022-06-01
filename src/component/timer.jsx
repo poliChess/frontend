@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
 
 const Timer = (props) => {
-  const [time, setTime] = useState(5 * 60 * 1000);
+  const { running, onFinish } = props;
+  const [time, setTime] = useState(5 * 60 * 10);
+  const [finished, setFinished] = useState(false);
   
   useEffect(() => {
     let interval;
-    if (props.running) {
+    if (running && !finished) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 100);
-      }, 100);
+        setTime((prevTime) => prevTime - 300);
+      }, 300);
     } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [props.running]);
+  }, [running]);
+
+  useEffect(() => {
+    if (time <= 0 && !finished) {
+      setTime(0);
+      setFinished(true);
+      onFinish();
+    }
+  }, [time])
 
   return (
     <div>

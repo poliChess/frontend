@@ -117,8 +117,8 @@ function Game({ user, opponent }) {
             <div className="flex mt-20">
 
               {/* COL 1.1 */}
-              <div className="font-['Helvetica'] underline underline-offset-4 self-center text-right text-2xl text-button-1 w-2/5">
-                <Timer running={timer1} />
+              <div className="font-['Helvetica'] underline underline-offset-2 self-center text-right text-2xl text-button-1 w-2/5">
+                <Timer running={timer1} onFinish={() => setResult({ message: 'Time ran out!', color: 'gray'})} />
               </div>
 
               {/* COL 1.2 */}
@@ -134,8 +134,8 @@ function Game({ user, opponent }) {
               </div>
 
               {/* COL 1.3 */}
-              <div className="font-['Helvetica'] underline underline-offset-4 self-center text-left text-2xl w-2/5">
-                <Timer running={timer2} />
+              <div className="font-['Helvetica'] underline underline-offset-2 self-center text-left text-2xl w-2/5">
+                <Timer running={timer2} onFinish={() => setResult({ message: 'Time ran out!', color: 'gray'})}/>
               </div>
             </div>
           

@@ -5,8 +5,8 @@ const Stopwatch = () => {
     useEffect(() => {
       let interval;
         interval = setInterval(() => {
-          setTime((prevTime) => prevTime + 10);
-        }, 10);
+          setTime((prevTime) => prevTime + 100);
+        }, 100);
       return () => clearInterval(interval);
     }, []);
     return (
