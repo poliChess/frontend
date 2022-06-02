@@ -1,16 +1,8 @@
-import queen from '../../pictures/logos/queen.png';
-import google from '../../pictures/logos/google.png';
-import avatar_bishop from '../../pictures/avatars/avatar_bishop.png';
 import { useState } from 'react';
-import win from '../../pictures/misc/win.png'
-import loss from '../../pictures/misc/loss.png'
-import avatar from '../../pictures/avatars/avatar_king.png'
 
 import Title from '../title';
 
-import apiclient from '../../utils/apiclient.js';
-import User from '../user';
-import { useSelector } from "react-redux";
+import apiclient, { getAvatar } from '../../utils/apiclient.js';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -52,233 +44,205 @@ function ProgressCircle2(percentage) {
     />);
 }
 
-/**
- * 
- * @param {int} time seconds elapsed
- * @param {String} enemy name of the enemy
- * @param {String} result Victory / Defeat
- * @returns 
- */
-
-
 function Profile() {
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
-    const user = useSelector(state => state.user.info);
+  const handleEditUsername  = () => navigate('/edit', { state: { id: 1, name: "username"}});
+  const handleEditPassword  = () => navigate('/edit', { state: { id: 2, name: "password"}});
+  const handleEditMail      = () => navigate('/edit', { state: { id: 3, name: "mail"}});
+  const handleEditAvatar    = () => navigate('/edit', { state: { id: 4, name: "avatar"}});
+  const handleDeleteAccount = () => navigate('/edit', { state: { id: 5, name: "delete"}});
 
-    const navigate = useNavigate();
+  useEffect(() => {
+    apiclient.myProfile()
+      .then(res => setUser(res))
+      .catch(err => console.warn(err));
+    // TODO: fetch other user if route is host/profile/:username
+    // apiclient.userProfile({username: user.username})
+    //   .then(res => setUser(res))
+    //   .catch(err => console.warn(err));
+  }, []);
 
-    const handleEditUsername = async () => {
-      navigate('/edit', { state: { id: 1, name: "username"}});
-    }
+  const screen = (
+    <div className="p-8 m-6 mt-20">
 
-    const handleEditPassword = async () => {
-      navigate('/edit', { state: { id: 2, name: "password"}});
-    }
+      <Title/>
 
-    const handleEditMail = async () => {
-      navigate('/edit', { state: { id: 3, name: "mail"}});
-    }
+      <div className="absolute top-4 right-4">
+        <button
+          className="bg-red-600 text-white h-10 w-36 rounded-full 
+            hover:scale-110 focus:scale-110 transition-all"
+            onClick={handleDeleteAccount}
+          >
+          Delete Account
+        </button>
+      </div>
 
-    const handleEditAvatar = async () => {
-      navigate('/edit', { state: { id: 4, name: "avatar"}});
-    }
+      <div className='flex-row'>
 
-    const handleDeleteAccount = async () => {
-      navigate('/edit', { state: { id: 5, name: "delete"}});
-    }
+        <div className='flex'>
+            
+          <div className='self-center'>
+            <img
+              className="m-auto"
+              src={ getAvatar(user.avatar) }
+              height="200px"
+              width="200px"
+              border="1px"
+            />
+          </div>
 
-    const [history, setHistory] = useState([]);
+          <div className='flex items-center m-2 flex-grow'>
+            <div className='flex-row'>
+              <div className='font-mono font-bold text-2xl'>
+                <strong>{ user.username }</strong>
+              </div>
+              <div className='font-mono text-md'>
+                { user.mail }
+              </div>
+              <div className='md:hidden font-mono mt-6'>
+                { user.rating }
+              </div>
+              <div className='md:hidden font-mono'>
+                W/L - { user.wonGames }/{user.playedGames}
+              </div>
+              
+            </div>
+          </div>
 
-    useEffect(() => {
-      
-      apiclient.userProfile({username: user.username})
-        .then(res => setHistory(res.history))
-        .catch(err => console.warn(err));
-      
-    }, []);
+          <div className='hidden md:flex flex-grow self-center justify-end m-2'>
+            <div className='flex'>
 
-    console.log('History: ', history);
-    
+              <div className='flex-row'>
+                
+                <div className='text-center mr-2 mb-16 font-mono font-bold text-green-600'>
+                  { user.wonGames }
+                </div>
 
-    const screen = (
-        <div className="p-8 m-6 mt-20">
-    
-          <Title/>
+                <div className='text-center mr-2 mt-16 font-mono font-bold text-red-600'>
+                  { user.playedGames }
+                </div>
+              </div>
 
-          <div className="absolute top-4 right-4">
+              <div className='flex-row'>
+                
+                <div className='bg-green-600 w-6 h-6 text-center mb-16 font-mono font-bold'>
+                  <strong>W</strong>
+                </div>
+
+                <div className='bg-red-600 w-6 h-6 text-center mt-16 font-mono font-bold'>
+                  <strong>L</strong>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div className='w-44 m-2 hidden md:flex font-mono font-bold'>
+            {ProgressCircle2(25)}
+          </div>
+
+          <div className='hidden md:flex items-center m-2 flex-grow'>
+            <div className='flex'>
+              <div className='flex-row'>
+                
+                <div className='bg-decoration-bg w-6 h-6 text-center font-mono font-bold'>
+                  <strong>P</strong>
+                </div>
+
+              </div>
+
+              <div className='flex-row'>
+              
+                <div className='text-center ml-2 font-mono font-bold'>
+                  20
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <div className='self-center w-44 hidden md:flex font-mono font-bold'>
+            {ProgressCircle(70)}
+          </div>
+        </div>
+
+        <div className='mt-16'>
+          <div className='bg-transparent rounded-full flex flex-grow'>
+            <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full text-xl'>
+              Time
+            </div>
+                
+            <div className='bg-secondary-color text-white w-1/3 text-center text-2xl font-mono font-bold'>
+              History
+            </div>
+
+            <div className='bg-secondary-color text-white w-1/3 text-center rounded-tr-full text-xl'>
+              Enemy
+            </div>   
+
+          </div>
+
+          <Matches golden={user.history} user={user}/>
+
+        </div>
+
+        <div className='text-center mt-5 border-b-4'>
+          Edit
+        </div>
+
+        <div className='flex mt-1'>
+
+          <div className='w-1/4 flex justify-center'>
+
             <button
-              className="bg-red-600 text-white h-10 w-36 rounded-full 
+              className="bg-main-color text-white h-10 w-36 rounded-full 
                 hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleDeleteAccount}
+                onClick={handleEditUsername}
               >
-              Delete Account
+              Username
+            </button>
+              
+          </div>
+            
+          <div className='w-1/4 flex justify-center'>
+            <button
+              className="bg-main-color text-white h-10 w-36 rounded-full 
+                hover:scale-110 focus:scale-110 transition-all"
+                onClick={handleEditPassword}
+              >
+              Password
             </button>
           </div>
-    
-          <div className='flex-row'>
-    
-            <div className='flex'>
-                
-              <div className='self-center'>
-                <img
-                  className="m-auto"
-                  src={avatar}
-                  height="200px"
-                  width="200px"
-                  border="1px"
-                />
-              </div>
-    
-              <div className='flex items-center m-2 flex-grow'>
-                <div className='flex-row'>
-                  <div className='font-mono font-bold text-2xl'>
-                    <strong>{user.username}</strong>
-                  </div>
-                  <div className='font-mono text-md'>
-                    {user.mail}
-                  </div>
-                  <div className='md:hidden font-mono mt-6'>
-                    Rank 70
-                  </div>
-                  <div className='md:hidden font-mono'>
-                    W/L - 5/15
-                  </div>
-                  
-                </div>
-              </div>
 
-              <div className='hidden md:flex flex-grow self-center justify-end m-2'>
-                <div className='flex'>
+          <div className='w-1/4 flex justify-center'>
+            <button
+              className="bg-main-color text-white h-10 w-36 rounded-full 
+                hover:scale-110 focus:scale-110 transition-all"
+                onClick={handleEditMail}
+              >
+              Mail
+            </button>
+          </div>
 
-                  <div className='flex-row'>
-                    
-                    <div className='text-center mr-2 mb-16 font-mono font-bold text-green-600'>
-                      5
-                    </div>
+          <div className='w-1/4 flex justify-center'>
+            <button
+              className="bg-main-color text-white h-10 w-36 rounded-full 
+                hover:scale-110 focus:scale-110 transition-all"
+                onClick={handleEditAvatar}
+              >
+              Avatar
+            </button>
+          </div>
 
-                    <div className='text-center mr-2 mt-16 font-mono font-bold text-red-600'>
-                      15
-                    </div>
-                  </div>
-
-                  <div className='flex-row'>
-                    
-                    <div className='bg-green-600 w-6 h-6 text-center mb-16 font-mono font-bold'>
-                      <strong>W</strong>
-                    </div>
-
-                    <div className='bg-red-600 w-6 h-6 text-center mt-16 font-mono font-bold'>
-                      <strong>L</strong>
-                    </div>
-
-                  </div>
-
-                </div>
-              </div>
-    
-              <div className='w-44 m-2 hidden md:flex font-mono font-bold'>
-                {ProgressCircle2(25)}
-              </div>
-
-              <div className='hidden md:flex items-center m-2 flex-grow'>
-                <div className='flex'>
-                  <div className='flex-row'>
-                    
-                    <div className='bg-decoration-bg w-6 h-6 text-center font-mono font-bold'>
-                      <strong>P</strong>
-                    </div>
-
-                  </div>
-
-                  <div className='flex-row'>
-                  
-                    <div className='text-center ml-2 font-mono font-bold'>
-                      20
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-
-              <div className='self-center w-44 hidden md:flex font-mono font-bold'>
-                {ProgressCircle(70)}
-              </div>
-            </div>
-    
-            <div className='mt-16'>
-              <div className='bg-transparent rounded-full flex flex-grow'>
-                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full text-xl'>
-                  Time
-                </div>
-                    
-                <div className='bg-secondary-color text-white w-1/3 text-center text-2xl font-mono font-bold'>
-                  History
-                </div>
-    
-                <div className='bg-secondary-color text-white w-1/3 text-center rounded-tr-full text-xl'>
-                  Enemy
-                </div>   
-    
-              </div>
-    
-              <Matches golden={history} user={user}/>
-
-            </div>
-
-            <div className='text-center mt-5 border-b-4'>
-              Edit
-            </div>
-
-            <div className='flex mt-1'>
-
-              <div className='w-1/4 flex justify-center'>
-
-                <button
-                  className="bg-main-color text-white h-10 w-36 rounded-full 
-                    hover:scale-110 focus:scale-110 transition-all"
-                    onClick={handleEditUsername}
-                  >
-                  Username
-                </button>
-                  
-              </div>
-                
-              <div className='w-1/4 flex justify-center'>
-                <button
-                  className="bg-main-color text-white h-10 w-36 rounded-full 
-                    hover:scale-110 focus:scale-110 transition-all"
-                    onClick={handleEditPassword}
-                  >
-                  Password
-                </button>
-              </div>
-
-              <div className='w-1/4 flex justify-center'>
-                <button
-                  className="bg-main-color text-white h-10 w-36 rounded-full 
-                    hover:scale-110 focus:scale-110 transition-all"
-                    onClick={handleEditMail}
-                  >
-                  Mail
-                </button>
-              </div>
-
-              <div className='w-1/4 flex justify-center'>
-                <button
-                  className="bg-main-color text-white h-10 w-36 rounded-full 
-                    hover:scale-110 focus:scale-110 transition-all"
-                    onClick={handleEditAvatar}
-                  >
-                  Avatar
-                </button>
-              </div>
-
-            </div>
-          </div> 
         </div>
-    
-        
-      );
+      </div> 
+    </div>
+  
+      
+    );
 
   return screen;
 }

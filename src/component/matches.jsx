@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 
-import pieces from "../utils/pieces";
 import win from "../pictures/misc/win.png";
 import loss from "../pictures/misc/loss.png";
 
@@ -35,6 +34,9 @@ function Match(time, enemy, result, key) {
 }
 
 function Matches({ golden, user }) {
+  if (!golden)
+    return null;
+
   return (
     <div className="bg-decoration-bg h-96 flex-row overflow-y-scroll flex-shrink-0 border-4 border-decoration-bg scrollbar-hide">
       {golden.map((item, index) => {

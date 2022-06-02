@@ -177,6 +177,51 @@ const apiclient = {
     return res.data.user;
   },
 
+  myProfile: async () => {
+    const res = await client.query(
+      `query {
+        me {
+          mail
+          username
+          avatar
+          playedGames
+          wonGames
+          rating
+          lastLogin
+          history {
+            type
+            player1 {
+              username
+            }
+            player2 {
+              username
+            }
+            winner
+            state
+            moves
+            startedAt
+            finishedAt
+          }
+          currentGame {
+            type
+            player1 {
+              username
+            }
+            player2 {
+              username
+            }
+            toMove
+            state
+            moves
+            startedAt
+          }
+        }
+      }`
+    ).toPromise();
+
+    return res.data.me;
+  },
+
   userProfile: async ({ username }) => {
     const res = await client.query(
       `query Query($username: String!) {
@@ -185,8 +230,8 @@ const apiclient = {
           username
           avatar
           playedGames
-          rating
           wonGames
+          rating
           lastLogin
           history {
             type
