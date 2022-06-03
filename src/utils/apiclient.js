@@ -179,7 +179,7 @@ const apiclient = {
 
   myProfile: async () => {
     const res = await client.query(
-      `query {
+      `query Me {
         me {
           mail
           username

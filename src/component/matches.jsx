@@ -45,20 +45,19 @@ function Match(time, enemy, result, key, navigate) {
               { enemy }
             </button>
       }
-      
     </div>
   );
 }
 
-function Matches({ golden, user }) {
+function Matches({ user }) {
   const navigate = useNavigate();
 
-  if (!golden)
+  if (!user.history)
     return null;
 
   return (
     <div className="bg-decoration-bg h-96 flex-row overflow-y-scroll flex-shrink-0 border-4 border-decoration-bg scrollbar-hide">
-      { golden.map((item, index) => {
+      { user.history.map((item, index) => {
         const time = new Date(item.finishedAt).getTime() - new Date(item.startedAt).getTime();
 
         if (item.type === "COMPUTER") {

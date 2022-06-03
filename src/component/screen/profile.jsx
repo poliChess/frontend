@@ -184,10 +184,9 @@ function Profile() {
             <div className='bg-secondary-color text-white w-1/3 text-center rounded-tr-full text-xl'>
               Enemy
             </div>   
-
           </div>
 
-          <Matches golden={user.history} user={user}/>
+          <Matches user={user}/>
 
         </div>
 
