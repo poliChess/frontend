@@ -8,7 +8,6 @@ COPY . .
 EXPOSE 3000
 
 RUN npm install
-RUN npm run build
 RUN npm install serve --global
 
-CMD ["serve", "-s", "build"]
+CMD npm run build && serve -s build
