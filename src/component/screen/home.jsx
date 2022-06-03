@@ -100,6 +100,7 @@ function Welcome() {
               onClick={() => navigate('/local')}>
         Local game
       </button>
+      
     </div>
   );
 

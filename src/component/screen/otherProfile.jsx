@@ -4,9 +4,8 @@ import { useState } from 'react';
 import Title from '../title';
 
 import apiclient, { getAvatar } from '../../utils/apiclient.js';
-import { useNavigate, generatePath } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-
 
 import Matches from '../matches';
 
@@ -46,78 +45,24 @@ function ProgressCircle2(percentage) {
     />);
 }
 
-function Profile() {
+function OtherProfile() {
   const [user, setUser] = useState({});
-  const [otherUser, setOtherUser] = useState('');
   const navigate = useNavigate();
 
-  const handleEditUsername  = () => navigate('/edit', { state: { id: 1, name: "username"}});
-  const handleEditPassword  = () => navigate('/edit', { state: { id: 2, name: "password"}});
-  const handleEditMail      = () => navigate('/edit', { state: { id: 3, name: "mail"}});
-  const handleEditAvatar    = () => navigate('/edit', { state: { id: 4, name: "avatar"}});
-  const handleDeleteAccount = () => navigate('/edit', { state: { id: 5, name: "delete"}});
-
-  const handleSearch = async () => {
-
-    const res = await apiclient.userProfile({username: 'niko'})
-    setUser(res);
-    <BrowserRouter>
-      <Routes>
-        <Route path="/profile/niko" element={<Profile/>}/>
-      </Routes>
-    </BrowserRouter>
-    navigate('/profile/niko')
-    
-  }
+  const { id } = useParams();
 
   useEffect(() => {
-    apiclient.myProfile()
+    apiclient.userProfile({ username: id })
       .then(res => setUser(res))
       .catch(err => console.warn(err));
   }, []);
+
 
   const screen = (
     <div className="p-8 m-6 mt-20">
 
       <Title/>
 
-      <div className="flex flex-row items-center">
-        <input
-        className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
-                   transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
-        id='Username'
-        type='text'
-        placeholder='Username'
-        value={otherUser}
-        onChange={(e) => setOtherUser(e.target.value)}
-          />
-        
-        <button onClick={() => navigate(generatePath('/profile/:id', { id: otherUser }))}>
-          Search
-        </button>
-
-
-      </div>
-
-      <div className="absolute top-4 right-4">
-        <button
-          className="bg-red-600 text-white h-10 w-36 rounded-full 
-            hover:scale-110 focus:scale-110 transition-all"
-            onClick={handleDeleteAccount}
-          >
-          Delete Account
-        </button>
-      </div>
-
-      <div className="absolute top-4 right-48">
-        <button
-          className="bg-main-color text-white h-10 w-36 rounded-full 
-            hover:scale-110 focus:scale-110 transition-all"
-            onClick={handleSearch}
-          >
-          Search
-        </button>
-      </div>
 
       <div className='flex-row'>
 
@@ -145,7 +90,7 @@ function Profile() {
                 { user.rating }
               </div>
               <div className='md:hidden font-mono'>
-                W/L - { user.wonGames }/{ user.playedGames - user.wonGames }
+                W/L - { user.wonGames }/{user.playedGames}
               </div>
               
             </div>
@@ -161,7 +106,7 @@ function Profile() {
                 </div>
 
                 <div className='text-center mr-2 mt-16 font-mono font-bold text-red-600'>
-                  { user.playedGames - user.wonGames }
+                  { user.playedGames }
                 </div>
               </div>
 
@@ -229,55 +174,6 @@ function Profile() {
 
         </div>
 
-        <div className='text-center mt-5 border-b-4'>
-          Edit
-        </div>
-
-        <div className='flex mt-1'>
-
-          <div className='w-1/4 flex justify-center'>
-
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditUsername}
-              >
-              Username
-            </button>
-              
-          </div>
-            
-          <div className='w-1/4 flex justify-center'>
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditPassword}
-              >
-              Password
-            </button>
-          </div>
-
-          <div className='w-1/4 flex justify-center'>
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditMail}
-              >
-              Mail
-            </button>
-          </div>
-
-          <div className='w-1/4 flex justify-center'>
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditAvatar}
-              >
-              Avatar
-            </button>
-          </div>
-
-        </div>
       </div> 
     </div>
   
@@ -287,4 +183,4 @@ function Profile() {
   return screen;
 }
 
-export default Profile;
+export default OtherProfile;
