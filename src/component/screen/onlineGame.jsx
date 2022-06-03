@@ -55,8 +55,6 @@ function OnlineGame() {
       const msg = event.data.split(' ');
 
       if (msg[0] === 'start') {
-        setStarted(true);
-
         const side = msg[1] === 'first' ? 'w' : 'b';
         dispatch(startOnlineGame({ side, sendMove }));
 
@@ -72,6 +70,8 @@ function OnlineGame() {
               setOpponent({ username })
             });
         }
+
+        setStarted(true);
 
       } else if (msg[0] === 'move') {
         const from = msg[1].substr(0, 2).toLowerCase();

@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import horse_bg from "../pictures/backgrounds/horse_bg.png";
 import king_bg from "../pictures/backgrounds/king_bg.png";
-import pawn_bg from "../pictures/backgrounds/pawn_bg";
-import rook_bg from "../pictures/backgrounds/rook_bg"
+import pawn_bg from "../pictures/backgrounds/pawn_bg.png";
+import rook_bg from "../pictures/backgrounds/rook_bg.png"
 import pieces1_bg from "../pictures/backgrounds/pieces1_bg.png";
 import pieces2_bg from "../pictures/backgrounds/pieces2_bg.png";
 
