@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
 import apiclient, { createWebSocket } from "../../utils/apiclient";
-import { startOnlineGame, makeMove, setGameResult } from "../../state/gameSlice";
+import { startOnlineGame, makeMove, setGameResult, clearGameResult } from "../../state/gameSlice";
 import { setInfo } from '../../state/userSlice';
 
 import Game from './game';
@@ -93,6 +93,7 @@ function OnlineGame() {
 
     return async () => {
       ws.close();
+      dispatch(clearGameResult());
       setTimeout(() =>
         apiclient.me().then(
           (res) => dispatch(setInfo({ user: res }))

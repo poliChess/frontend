@@ -13,6 +13,7 @@ const client = createClient({
       },
     } : {};
   },
+  requestPolicy: 'cache-and-network'
 })
 
 const apiclient = {
