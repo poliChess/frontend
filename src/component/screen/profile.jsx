@@ -141,7 +141,7 @@ function Profile() {
           <div className='w-44 m-2 hidden md:flex font-mono font-bold'>
             { 
               user.playedGames > 0 
-                ? WinRateProgressCircle( user.wonGames / user.playedGames )
+                ? WinRateProgressCircle( user.wonGames / user.playedGames * 100 )
                 : PlaceholderProgressCricle()
             }
           </div>
