@@ -284,7 +284,8 @@ function EditPassword() {
 }
 
 const avatars = [
-  'pawn1', 'bishop1', 'knight1', 'king1'
+  'pawn1', 'pawn2', 'pawn3', 'bishop1', 'knight1', 'knight2', 'king1', 'king2', 'rook1',
+  'queen1', 'queen2', 'queen3' 
 ]
 
 function EditAvatar() {
