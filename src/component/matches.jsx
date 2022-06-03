@@ -2,44 +2,57 @@ import win from "../pictures/misc/win.png";
 import loss from "../pictures/misc/loss.png";
 import draw from "../pictures/misc/rook_bg.png";
 
-function Match(time, enemy, result, key) {
+import { useNavigate, generatePath } from 'react-router-dom';
+
+function Match(time, enemy, result, key, navigate) {
   let style = "";
   let pic = null; 
 
   if (result === "Victory") {
-    style = "bg-green-600 flex mt-4 rounded-md";
+    style = "bg-green-600 flex";
     pic = win;
   }
 
   if (result === "Defeat") {
-    style = "bg-red-800 flex mt-4 rounded-md"
+    style = "bg-red-800 flex"
     pic = loss;
   }
 
   if (result === "Draw") {
-    style = "bg-red-800 flex mt-4 rounded-md"
+    style = "bg-slate-500 flex"
     pic = draw;
   }
 
   return (
     <div key={key} className={style}>
-      <div className="w-1/3 text-center self-center text-white font-mono">
+      <div className="w-1/3 text-center self-center text-white text-xl font-mono">
         <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
         <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
       </div>
 
       <div className="w-1/3">
-        <img className="m-auto" src={pic} height="80px" width="80px" />
+        <img className="mx-auto my-2" src={pic} height="80px" width="80px"/>
       </div>
 
-      <div className="w-1/3 text-center self-center text-white font-mono">
-        {enemy}
-      </div>
+      {
+        enemy === 'Computer'
+          ? <div className="w-1/3 text-center self-center text-white text-xl font-mono">
+              { enemy }
+            </div>
+
+          : <button className="w-1/3 text-center self-center text-white text-xl font-mono hover:underline"
+              onClick={() => navigate(generatePath('/profile/:id', { id: enemy }))}>
+              { enemy }
+            </button>
+      }
+      
     </div>
   );
 }
 
 function Matches({ golden, user }) {
+  const navigate = useNavigate();
+
   if (!golden)
     return null;
 
@@ -50,34 +63,34 @@ function Matches({ golden, user }) {
 
         if (item.type === "COMPUTER") {
           if (item.winner === "WHITE")
-            return Match(time, "Computer", "Victory", index);
+            return Match(time, "Computer", "Victory", index, navigate);
 
           if (item.winner === "BLACK")
-            return Match(time, "Computer", "Defeat", index);
+            return Match(time, "Computer", "Defeat", index, navigate);
 
           if (item.winner === "DRAW")
-            return Match(time, "Computer", "Draw", index);
+            return Match(time, "Computer", "Draw", index, navigate);
         }
 
         if (item.type === "NORMAL") {
           if (item.player1.username === user.username && item.winner === "WHITE")
-            return Match(time, item.player2.username, "Victory", index);
+            return Match(time, item.player2.username, "Victory", index, navigate);
 
           if (item.player1.username === user.username && item.winner === "BLACK")
-            return Match(time, item.player2.username, "Defeat", index);
+            return Match(time, item.player2.username, "Defeat", index, navigate);
 
           if (item.player1.username === user.username && item.winner === "DRAW")
-            return Match(time, item.player2.username, "Draw", index);
+            return Match(time, item.player2.username, "Draw", index, navigate);
 
 
           if (item.player2.username === user.username && item.winner === "WHITE")
-            return Match(time, item.player1.username, "Defeat", index);
+            return Match(time, item.player1.username, "Defeat", index, navigate);
 
           if (item.player2.username === user.username && item.winner === "BLACK")
-            return Match(time, item.player1.username, "Victory", index);
+            return Match(time, item.player1.username, "Victory", index, navigate);
 
           if (item.player2.username === user.username && item.winner === "DRAW")
-            return Match(time, item.player1.username, "Draw", index);
+            return Match(time, item.player1.username, "Draw", index, navigate);
         }
       })}
     </div>

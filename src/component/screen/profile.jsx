@@ -1,49 +1,49 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { useState } from 'react';
-
-import Title from '../title';
-
-import apiclient, { getAvatar } from '../../utils/apiclient.js';
+import { useState, useEffect  } from 'react';
 import { useNavigate, generatePath } from 'react-router-dom';
-import { useEffect } from 'react';
-
-
-import Matches from '../matches';
-
-import {
-    CircularProgressbar,
-    CircularProgressbarWithChildren,
-    buildStyles
-  } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-// https://github.com/kevinsqi/react-circular-progressbar <- aici daca 
-// vrei sa vezi cum modifici chestii
-function ProgressCircle(percentage) {
-    return ( 
-        <CircularProgressbar
-        value={percentage}
-        text={`Rank ${percentage}`}
-        strokeWidth={5}
-        styles={buildStyles({
-          textColor: "black",
-          textSize: 14
-        })}
-      />);
+import apiclient, { getAvatar } from '../../utils/apiclient.js';
+import search from '../../pictures/misc/search.png';
+
+import Title from '../title';
+import Matches from '../matches';
+
+function RatingProgressCircle(rating) {
+  return <CircularProgressbar
+    value={rating / 22}
+    text={rating}
+    strokeWidth={8}
+    styles={ buildStyles({
+      textColor: "black",
+      textSize: 14
+    })}
+  />
 }
 
-function ProgressCircle2(percentage) {
-  return ( 
-      <CircularProgressbar
-      value={percentage}
-      text={`${percentage}%`}
-      strokeWidth={5}
-      styles={buildStyles({
-        textColor: "black",
-        pathColor: "green",
-        trailColor: "red"
-      })}
-    />);
+function WinRateProgressCircle(percentage) {
+  return <CircularProgressbar
+    value={percentage}
+    text={`${percentage}%`}
+    strokeWidth={8}
+    styles={buildStyles({
+      textColor: "black",
+      pathColor: "green",
+      trailColor: "red"
+    })}
+  />
+}
+
+function PlaceholderProgressCricle() {
+  return <CircularProgressbar
+    text={'0'}
+    value={0}
+    strokeWidth={8}
+    styles={buildStyles({
+      trailColor: "gray",
+      textColor: "gray"
+    })}
+  />
 }
 
 function Profile() {
@@ -57,65 +57,25 @@ function Profile() {
   const handleEditAvatar    = () => navigate('/edit', { state: { id: 4, name: "avatar"}});
   const handleDeleteAccount = () => navigate('/edit', { state: { id: 5, name: "delete"}});
 
-  const handleSearch = async () => {
-
-    const res = await apiclient.userProfile({username: 'niko'})
-    setUser(res);
-    <BrowserRouter>
-      <Routes>
-        <Route path="/profile/niko" element={<Profile/>}/>
-      </Routes>
-    </BrowserRouter>
-    navigate('/profile/niko')
-    
-  }
-
   useEffect(() => {
     apiclient.myProfile()
       .then(res => setUser(res))
-      .catch(err => console.warn(err));
+      .catch(err => {
+        console.warn(err);
+        navigate('/');
+      });
   }, []);
 
   const screen = (
     <div className="p-8 m-6 mt-20">
-
       <Title/>
-
-      <div className="flex flex-row items-center">
-        <input
-        className='bg-white text-black text-lg h-11 w-70 mb-6 outline outline-main-color outline-2 focus:scale-105
-                   transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
-        id='Username'
-        type='text'
-        placeholder='Username'
-        value={otherUser}
-        onChange={(e) => setOtherUser(e.target.value)}
-          />
-        
-        <button onClick={() => navigate(generatePath('/profile/:id', { id: otherUser }))}>
-          Search
-        </button>
-
-
-      </div>
 
       <div className="absolute top-4 right-4">
         <button
           className="bg-red-600 text-white h-10 w-36 rounded-full 
             hover:scale-110 focus:scale-110 transition-all"
-            onClick={handleDeleteAccount}
-          >
+            onClick={handleDeleteAccount}>
           Delete Account
-        </button>
-      </div>
-
-      <div className="absolute top-4 right-48">
-        <button
-          className="bg-main-color text-white h-10 w-36 rounded-full 
-            hover:scale-110 focus:scale-110 transition-all"
-            onClick={handleSearch}
-          >
-          Search
         </button>
       </div>
 
@@ -127,8 +87,8 @@ function Profile() {
             <img
               className="m-auto"
               src={ getAvatar(user.avatar) }
-              height="200px"
-              width="200px"
+              height="140px"
+              width="140px"
               border="1px"
             />
           </div>
@@ -138,11 +98,8 @@ function Profile() {
               <div className='font-mono font-bold text-2xl'>
                 <strong>{ user.username }</strong>
               </div>
-              <div className='font-mono text-md'>
-                { user.mail }
-              </div>
               <div className='md:hidden font-mono mt-6'>
-                { user.rating }
+                Rating { user.rating }
               </div>
               <div className='md:hidden font-mono'>
                 W/L - { user.wonGames }/{ user.playedGames - user.wonGames }
@@ -181,7 +138,11 @@ function Profile() {
           </div>
 
           <div className='w-44 m-2 hidden md:flex font-mono font-bold'>
-            {ProgressCircle2(25)}
+            { 
+              user.playedGames > 0 
+                ? WinRateProgressCircle( user.wonGames / user.playedGames )
+                : PlaceholderProgressCricle()
+            }
           </div>
 
           <div className='hidden md:flex items-center m-2 flex-grow'>
@@ -197,19 +158,19 @@ function Profile() {
               <div className='flex-row'>
               
                 <div className='text-center ml-2 font-mono font-bold'>
-                  20
+                  { user.playedGames }
                 </div>
                 
               </div>
             </div>
           </div>
 
-          <div className='self-center w-44 hidden md:flex font-mono font-bold'>
-            {ProgressCircle(70)}
+          <div className='flex self-center w-44 font-mono font-bold'>
+            { RatingProgressCircle(user.rating) }
           </div>
         </div>
 
-        <div className='mt-16'>
+        <div className='mt-16 lg:w-2/3 md:w-132 m-auto'>
           <div className='bg-transparent rounded-full flex flex-grow'>
             <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full text-xl'>
               Time
@@ -229,53 +190,53 @@ function Profile() {
 
         </div>
 
-        <div className='text-center mt-5 border-b-4'>
+        <div className='text-center mt-5 lg:w-2/3 md:w-132 m-auto font-bold'>
+          Search Player
+        </div>
+
+        <div className="py-2.5 px-4 flex flex-row m-auto border-4 w-fit border-secondary-color rounded-full justify-center">
+          <input className='bg-white text-black text-lg h-10 w-60 outline outline-main-color outline-2
+                   transition-all focus:outline-secondary-color placeholder-gray-500 rounded-full text-center'
+            id='Username'
+            type='text'
+            placeholder='Username'
+            value={otherUser}
+            onChange={(e) => setOtherUser(e.target.value)}/>
+
+          <button className="ml-6 mr-1 hover:scale-110"
+            onClick={() => navigate(generatePath('/profile/:id', { id: otherUser }))}>
+            <img src={search} alt="search" height="32px" width="32px"/>
+          </button>
+        </div>
+
+        <div className='text-center mt-5 lg:w-2/3 md:w-132 m-auto font-bold'>
           Edit
         </div>
 
-        <div className='flex mt-1'>
+        <div className='flex flex-row p-2.5 lg:w-2/3 md:w-132 m-auto border-4 border-secondary-color rounded-full justify-between'>
+          <button className="bg-main-color text-white h-10 w-1/6 rounded-full 
+              hover:scale-110 focus:scale-110 hover:bg-secondary-color transition-all"
+            onClick={handleEditUsername} >
+            Username
+          </button>
+          
+          <button className="bg-main-color text-white h-10 w-1/6 rounded-full 
+              hover:scale-110 focus:scale-110 hover:bg-secondary-color transition-all"
+            onClick={handleEditPassword} >
+            Password
+          </button>
 
-          <div className='w-1/4 flex justify-center'>
+          <button className="bg-main-color text-white h-10 w-1/6 rounded-full 
+              hover:scale-110 focus:scale-110 hover:bg-secondary-color transition-all"
+            onClick={handleEditMail}>
+            Mail
+          </button>
 
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditUsername}
-              >
-              Username
-            </button>
-              
-          </div>
-            
-          <div className='w-1/4 flex justify-center'>
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditPassword}
-              >
-              Password
-            </button>
-          </div>
-
-          <div className='w-1/4 flex justify-center'>
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditMail}
-              >
-              Mail
-            </button>
-          </div>
-
-          <div className='w-1/4 flex justify-center'>
-            <button
-              className="bg-main-color text-white h-10 w-36 rounded-full 
-                hover:scale-110 focus:scale-110 transition-all"
-                onClick={handleEditAvatar}
-              >
-              Avatar
-            </button>
-          </div>
+          <button className="bg-main-color text-white h-10 w-1/6 rounded-full 
+              hover:scale-110 focus:scale-110 hover:bg-secondary-color transition-all"
+            onClick={handleEditAvatar}>
+            Avatar
+          </button>
 
         </div>
       </div> 

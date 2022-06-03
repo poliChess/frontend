@@ -32,7 +32,7 @@ function EditUsername() {
         if (res2.success) {
           setMessage({ text: 'Changes applied!', color: 'black' })
           dispatch(setInfo({ user: res2.user }));
-          setTimeout(() => navigate('/'), 500);
+          setTimeout(() => navigate('/profile'), 500);
         } else {
           setMessage({ text: res2.message, color: 'red' })
         }
@@ -84,7 +84,7 @@ function EditUsername() {
       </button>
       <button className="bg-red-600 text-white h-8 w-24 mb-6 rounded-full
                          hover:scale-105 focus:scale-110 transition-all"
-              onClick={() => navigate('/')}>
+              onClick={() => navigate('/profile')}>
         Back
       </button>
 
@@ -119,7 +119,7 @@ function EditMail() {
         if (res2.success) {
           setMessage({ text: 'Changes applied!', color: 'black' })
           dispatch(setInfo({ user: res2.user }));
-          setTimeout(() => navigate('/'), 500)
+          setTimeout(() => navigate('/profile'), 500)
         } else {
           setMessage({ text: res2.message, color: 'red' })
         }
@@ -171,7 +171,7 @@ function EditMail() {
       </button>
       <button className="bg-red-600 text-white h-8 w-24 mb-6 rounded-full
                          hover:scale-105 focus:scale-110 transition-all"
-              onClick={() => navigate('/')}>
+              onClick={() => navigate('/profile')}>
         Back
       </button>
 
@@ -210,7 +210,7 @@ function EditPassword() {
 
           if (res2.success) {
             setMessage({ text: 'Changes applied!', color: 'black' });
-            setTimeout(() => navigate('/'), 500);
+            setTimeout(() => navigate('/profile'), 500);
           } else {
             setMessage({ text: res2.message, color: 'red' });
           }
@@ -272,7 +272,7 @@ function EditPassword() {
       </button>
       <button className="bg-red-600 text-white h-8 w-24 mb-6 rounded-full
                          hover:scale-105 focus:scale-110 transition-all"
-              onClick={() => navigate('/')}>
+              onClick={() => navigate('/profile')}>
         Back
       </button>
 
@@ -302,12 +302,12 @@ function EditAvatar() {
       if (res.success) {
         setMessage({ text: 'Avatar Selected!', color: 'black' });
         dispatch(setInfo({ user: res.user }));
-        setTimeout(() => navigate('/'), 500);
+        setTimeout(() => navigate('/profile'), 500);
       } else {
         setMessage({ text: res.message, color: 'red' });
       }
     } else {
-      navigate('/');
+      navigate('/profile');
     }
   }
 
@@ -348,7 +348,7 @@ function EditAvatar() {
       </button>
       <button className="bg-red-600 text-white h-8 w-24 mb-6 rounded-full
                          hover:scale-105 focus:scale-110 transition-all"
-              onClick={() => navigate('/')}>
+              onClick={() => navigate('/profile')}>
         Back
       </button>
 
@@ -424,7 +424,7 @@ function DeleteAccount() {
       </button>
       <button className="bg-red-600 text-white h-8 w-24 mb-6 rounded-full
                          hover:scale-105 focus:scale-110 transition-all"
-              onClick={() => navigate('/')}>
+              onClick={() => navigate('/profile')}>
         Back
       </button>
 

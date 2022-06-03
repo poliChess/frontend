@@ -8,6 +8,7 @@ import Register from "./component/screen/register";
 import LocalGame from "./component/screen/localGame";
 import OnlineGame from "./component/screen/onlineGame";
 import Profile from "./component/screen/profile";
+import OtherProfile from "./component/screen/otherProfile";
 import Edit from "./component/screen/edit";
 
 export const googleClientID = '202173917816-q127ko40g6h9d2rvcsmjmdsj8kupmpro.apps.googleusercontent.com';

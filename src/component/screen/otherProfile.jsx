@@ -1,51 +1,51 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { useState } from 'react';
-
-import Title from '../title';
-
-import apiclient, { getAvatar } from '../../utils/apiclient.js';
+import { useState, useEffect  } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-
-import Matches from '../matches';
-
-import {
-    CircularProgressbar,
-    CircularProgressbarWithChildren,
-    buildStyles
-  } from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-// https://github.com/kevinsqi/react-circular-progressbar <- aici daca 
-// vrei sa vezi cum modifici chestii
-function ProgressCircle(percentage) {
-    return ( 
-        <CircularProgressbar
-        value={percentage}
-        text={`Rank ${percentage}`}
-        strokeWidth={5}
-        styles={buildStyles({
-          textColor: "black",
-          textSize: 14
-        })}
-      />);
+import apiclient, { getAvatar } from '../../utils/apiclient.js';
+
+import Title from '../title';
+import Matches from '../matches';
+
+function RatingProgressCircle(rating) {
+  return <CircularProgressbar
+    value={rating / 22}
+    text={rating}
+    strokeWidth={8}
+    styles={ buildStyles({
+      textColor: "black",
+      textSize: 14
+    })}
+  />
 }
 
-function ProgressCircle2(percentage) {
-  return ( 
-      <CircularProgressbar
-      value={percentage}
-      text={`${percentage}%`}
-      strokeWidth={5}
-      styles={buildStyles({
-        textColor: "black",
-        pathColor: "green",
-        trailColor: "red"
-      })}
-    />);
+function WinRateProgressCircle(percentage) {
+  return <CircularProgressbar
+    value={percentage}
+    text={`${percentage}%`}
+    strokeWidth={8}
+    styles={buildStyles({
+      textColor: "black",
+      pathColor: "green",
+      trailColor: "red"
+    })}
+  />
 }
 
-function OtherProfile() {
+function PlaceholderProgressCricle() {
+  return <CircularProgressbar
+    text={'0'}
+    value={0}
+    strokeWidth={8}
+    styles={buildStyles({
+      trailColor: "gray",
+      textColor: "gray"
+    })}
+  />
+}
+
+function Profile() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
@@ -54,15 +54,23 @@ function OtherProfile() {
   useEffect(() => {
     apiclient.userProfile({ username: id })
       .then(res => setUser(res))
-      .catch(err => console.warn(err));
+      .catch(err => {
+        console.warn(err);
+        navigate('/profile');
+      });
   }, []);
-
 
   const screen = (
     <div className="p-8 m-6 mt-20">
-
       <Title/>
 
+      <div className="absolute top-4 right-4">
+        <button className="bg-secondary-color text-white h-10 w-36 rounded-full 
+            hover:scale-110 focus:scale-110 transition-all"
+            onClick={() => navigate('/profile')}>
+          Back
+        </button>
+      </div>
 
       <div className='flex-row'>
 
@@ -72,8 +80,8 @@ function OtherProfile() {
             <img
               className="m-auto"
               src={ getAvatar(user.avatar) }
-              height="200px"
-              width="200px"
+              height="140px"
+              width="140px"
               border="1px"
             />
           </div>
@@ -83,14 +91,11 @@ function OtherProfile() {
               <div className='font-mono font-bold text-2xl'>
                 <strong>{ user.username }</strong>
               </div>
-              <div className='font-mono text-md'>
-                { user.mail }
-              </div>
               <div className='md:hidden font-mono mt-6'>
-                { user.rating }
+                Rating { user.rating }
               </div>
               <div className='md:hidden font-mono'>
-                W/L - { user.wonGames }/{user.playedGames}
+                W/L - { user.wonGames }/{ user.playedGames - user.wonGames }
               </div>
               
             </div>
@@ -106,7 +111,7 @@ function OtherProfile() {
                 </div>
 
                 <div className='text-center mr-2 mt-16 font-mono font-bold text-red-600'>
-                  { user.playedGames }
+                  { user.playedGames - user.wonGames }
                 </div>
               </div>
 
@@ -126,7 +131,11 @@ function OtherProfile() {
           </div>
 
           <div className='w-44 m-2 hidden md:flex font-mono font-bold'>
-            {ProgressCircle2(25)}
+            { 
+              user.playedGames > 0 
+                ? WinRateProgressCircle( user.wonGames / user.playedGames )
+                : PlaceholderProgressCricle()
+            }
           </div>
 
           <div className='hidden md:flex items-center m-2 flex-grow'>
@@ -142,19 +151,19 @@ function OtherProfile() {
               <div className='flex-row'>
               
                 <div className='text-center ml-2 font-mono font-bold'>
-                  20
+                  { user.playedGames }
                 </div>
                 
               </div>
             </div>
           </div>
 
-          <div className='self-center w-44 hidden md:flex font-mono font-bold'>
-            {ProgressCircle(70)}
+          <div className='flex self-center w-44 font-mono font-bold'>
+            { RatingProgressCircle(user.rating) }
           </div>
         </div>
 
-        <div className='mt-16'>
+        <div className='mt-16 lg:w-2/3 md:w-132 m-auto'>
           <div className='bg-transparent rounded-full flex flex-grow'>
             <div className='bg-secondary-color text-white w-1/3 text-center rounded-tl-full text-xl'>
               Time
@@ -173,14 +182,11 @@ function OtherProfile() {
           <Matches golden={user.history} user={user}/>
 
         </div>
-
       </div> 
     </div>
-  
-      
     );
 
   return screen;
 }
 
-export default OtherProfile;
+export default Profile;
