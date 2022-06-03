@@ -64,7 +64,7 @@ function Profile() {
         console.warn(err);
         navigate('/');
       });
-  }, []);
+  }, [navigate]);
 
   const screen = (
     <div className="p-8 m-6 mt-20">
@@ -87,6 +87,7 @@ function Profile() {
             <img
               className="m-auto"
               src={ getAvatar(user.avatar) }
+              alt="avatar"
               height="140px"
               width="140px"
               border="1px"

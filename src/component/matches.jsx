@@ -31,7 +31,7 @@ function Match(time, enemy, result, key, navigate) {
       </div>
 
       <div className="w-1/3">
-        <img className="mx-auto my-2" src={pic} height="80px" width="80px"/>
+        <img className="mx-auto my-2" src={pic} alt={result} height="80px" width="80px"/>
       </div>
 
       {
@@ -92,6 +92,8 @@ function Matches({ golden, user }) {
           if (item.player2.username === user.username && item.winner === "DRAW")
             return Match(time, item.player1.username, "Draw", index, navigate);
         }
+
+        return null;
       })}
     </div>
   );

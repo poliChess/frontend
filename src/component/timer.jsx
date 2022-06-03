@@ -15,7 +15,7 @@ const Timer = (props) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [running]);
+  }, [running, finished]);
 
   useEffect(() => {
     if (time <= 0 && !finished) {
@@ -23,7 +23,7 @@ const Timer = (props) => {
       setFinished(true);
       onFinish();
     }
-  }, [time])
+  }, [time, finished, onFinish])
 
   return (
     <div>

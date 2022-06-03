@@ -296,7 +296,7 @@ function EditAvatar() {
   const dispatch = useDispatch();
 
   const handleChange = async () => {
-    if (selected != user.avatar) {
+    if (selected !== user.avatar) {
       const res = await apiclient.updateUser({ avatar: selected });
 
       if (res.success) {

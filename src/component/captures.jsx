@@ -14,7 +14,7 @@ function Captures({ captures, color }) {
     { 
       all.map((item) => (captures[opp][item] > 0) 
       ? <div key={(item, item)} className="flex justify-center content-center">
-          <img src={pieces[opp][item]} height="50px" width="50px" />
+          <img src={pieces[opp][item]} alt={item} height="50px" width="50px" />
           <div className="self-center font-['Helvetica'] flex items-center justify-between w-8">
             <span>X</span>
             <strong className="text-xl">{captures[opp][item]}</strong>
