@@ -1,7 +1,7 @@
 import { createClient } from "@urql/core";
 import store from "../state/store";
 
-const host = 'localhost';
+const host = process.env.REACT_APP_API || 'localhost';
 
 const client = createClient({
   url: `http://${host}:3000`,
