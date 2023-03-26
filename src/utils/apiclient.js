@@ -18,8 +18,8 @@ const client = createClient({
 
 const apiclient = {
   login: async ({ username, password }) => {
-    const res = await client.mutation(`
-      mutation($username: String!, $password: String!) {
+    const res = await client.mutation(
+      gql`mutation($username: String!, $password: String!) {
         login(username: $username, password: $password) {
           user {
             mail
@@ -42,8 +42,8 @@ const apiclient = {
   },
 
   googleLogin: async ({ idToken }) => {
-    const res = await client.mutation(`
-       mutation($username: String!, $password: String!, $idToken: String) {
+    const res = await client.mutation(
+      gql`mutation($username: String!, $password: String!, $idToken: String) {
         login(username: $username, password: $password, idToken: $idToken) {
           user {
             mail
@@ -67,7 +67,7 @@ const apiclient = {
 
   register: async ({ mail, username, password }) => {
     const res = await client.mutation(
-      `mutation($mail: String!, $username: String!, $password: String!) {
+      gql`mutation($mail: String!, $username: String!, $password: String!) {
         register(mail: $mail, username: $username, password: $password) {
           success
           message
@@ -81,7 +81,7 @@ const apiclient = {
 
   me: async () => {
     const res = await client.query(
-      `query Me {
+      gql`query Me {
         me {
           mail
           username
@@ -99,7 +99,7 @@ const apiclient = {
 
   enterQueue: async (computer) => {
     const res = await client.mutation(
-      `mutation Mutation($computer: Boolean) {
+      gql`mutation Mutation($computer: Boolean) {
         enterQueue(computer: $computer) {
           success
           message
@@ -113,7 +113,7 @@ const apiclient = {
 
   leaveQueue: async () => {
     const res = await client.mutation(
-      `mutation LeaveQueue {
+      gql`mutation LeaveQueue {
         leaveQueue {
           success
           message
@@ -126,7 +126,7 @@ const apiclient = {
 
   updateUser: async ({ mail, username, password, avatar }) => {
     const res = await client.mutation(
-      `mutation UpdateUser($mail: String, $username: String, $password: String, $avatar: String) {
+      gql`mutation UpdateUser($mail: String, $username: String, $password: String, $avatar: String) {
         updateUser(mail: $mail, username: $username, password: $password, avatar: $avatar) {
           user {
             mail
@@ -149,7 +149,7 @@ const apiclient = {
 
   deleteUser: async () => {
     const res = await client.mutation(
-      `mutation DeleteUser {
+      gql`mutation DeleteUser {
         deleteUser {
           success
           message
@@ -162,7 +162,7 @@ const apiclient = {
 
   findUser: async ({ username }) => {
     const res = await client.query(
-      `query Query($username: String!) {
+      gql`query Query($username: String!) {
         user(username: $username) {
           mail
           username
@@ -180,7 +180,7 @@ const apiclient = {
 
   myProfile: async () => {
     const res = await client.query(
-      `query Me {
+      gql`query Me {
         me {
           mail
           username
@@ -225,7 +225,7 @@ const apiclient = {
 
   userProfile: async ({ username }) => {
     const res = await client.query(
-      `query Query($username: String!) {
+      gql`query Query($username: String!) {
         user(username: $username) {
           mail
           username
